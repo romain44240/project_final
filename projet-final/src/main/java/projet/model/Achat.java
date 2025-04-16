@@ -62,6 +62,14 @@ public class Achat {
 		this.produit = produit;
 	}
 
+	public Commande getCommande() {
+		return commande;
+	}
+
+	public void setCommande(Commande commande) {
+		this.commande = commande;
+	}
+
 	@Override
 	public String toString() {
 		return "Achat [id=" + id + ", quantite=" + quantite + ", produit=" + produit + "]";

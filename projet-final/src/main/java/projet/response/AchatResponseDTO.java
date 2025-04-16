@@ -1,19 +1,17 @@
-package projet.dto;
+package projet.response;
 
 import projet.model.Achat;
 import projet.model.Commande;
 import projet.model.Produit;
 
+public class AchatResponseDTO {
 
-public class AchatDTO {
-	
 	private Integer id;
 	private int quantite;
 	private Produit produit;
 	private Commande commande;
-	
-	public AchatDTO() {
-	}
+
+	public AchatResponseDTO() {}
 
 	public Integer getId() {
 		return id;
@@ -46,15 +44,14 @@ public class AchatDTO {
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
-	
-	public static Achat toRequest() {
-		return null;
-	}
-	
-	public static Achat toResponse() {
-		return null;
-	}
-	
-	
 
+	// Fabrique un DTO depuis une entité Achat
+	public static AchatResponseDTO fromEntity(Achat achat) {
+		AchatResponseDTO dto = new AchatResponseDTO();
+		dto.setId(achat.getId());
+		dto.setQuantite(achat.getQuantite());
+		dto.setProduit(achat.getProduit());
+		dto.setCommande(achat.getCommande());
+		return dto;
+	}
 }
