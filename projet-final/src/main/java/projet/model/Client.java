@@ -2,9 +2,16 @@ package projet.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
+@Entity
 public class Client extends Compte {
 
-	private String email, telephone;
+	@Column(length = 100, nullable=false)
+	private String email;
+	@Column(length = 100, nullable=false)
+	private String telephone;
 	
 	
 	public Client(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee, String email,
