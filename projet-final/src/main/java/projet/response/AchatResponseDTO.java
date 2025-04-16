@@ -1,5 +1,7 @@
 package projet.response;
 
+import org.springframework.beans.BeanUtils;
+
 import projet.model.Achat;
 import projet.model.Commande;
 import projet.model.Produit;
@@ -46,12 +48,11 @@ public class AchatResponseDTO {
 	}
 
 	// Fabrique un DTO depuis une entité Achat
-	public static AchatResponseDTO fromEntity(Achat achat) {
-		AchatResponseDTO dto = new AchatResponseDTO();
-		dto.setId(achat.getId());
-		dto.setQuantite(achat.getQuantite());
-		dto.setProduit(achat.getProduit());
-		dto.setCommande(achat.getCommande());
-		return dto;
+	public static AchatResponseDTO convert(Achat achat) {
+		AchatResponseDTO achatResponseDTO = new AchatResponseDTO();
+		
+		BeanUtils.copyProperties(achat, achatResponseDTO);
+		
+		return achatResponseDTO; 
 	}
 }
