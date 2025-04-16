@@ -39,7 +39,8 @@ public class AchatRequestDTO {
 	}
 
 	// Méthode pour transformer le DTO en entité Achat
-	public Achat convert(AchatRequestDTO achatRequestDTO) {
+	public static Achat convert(AchatRequestDTO achatRequestDTO) {
+		
 		Achat achat = new Achat();
 		
 		BeanUtils.copyProperties(achatRequestDTO, achat);
@@ -47,7 +48,12 @@ public class AchatRequestDTO {
 		Commande commande = new Commande();
 		commande.setId(achatRequestDTO.getIdCommande());
 		achat.setCommande(commande);
-		achatRequestDTO.getIdProduit();
+		
+		Produit produit = new Produit();
+		produit.setId(achatRequestDTO.getIdProduit());
+		
+		achat.setProduit(produit);
+		
 		return achat;
 	}
 }
