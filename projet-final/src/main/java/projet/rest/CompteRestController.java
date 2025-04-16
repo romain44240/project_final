@@ -15,55 +15,56 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import quest.dao.IDAOModule;
-import quest.model.Module;
-import quest.model.Views;
+import projet.dao.IDAOCompte;
+import projet.model.Compte;
+import projet.model.Views;
+
 
 @RestController
-@RequestMapping("/module")
+@RequestMapping("/Compte")
 public class CompteRestController {
 
-	private IDAOModule daoModule;
+	private IDAOCompte daoCompte;
 
-	public CompteRestController(IDAOModule daoModule) {
+	public CompteRestController(IDAOCompte daoCompte) {
 		super();
-		this.daoModule = daoModule;
+		this.daoCompte = daoCompte;
 	}
 
 	@GetMapping("")
-	@JsonView(Views.ViewModule.class)
-	public List<Module> getAll() {
-		return this.daoModule.findAll();
+	@JsonView(Views.ViewCompte.class)
+	public List<Compte> getAll() {
+		return this.daoCompte.findAll();
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewModule.class)
-	public Module getById(@PathVariable Integer id) {
-		return this.daoModule.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	@JsonView(Views.ViewCompte.class)
+	public Compte getById(@PathVariable Integer id) {
+		return this.daoCompte.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
 	@PostMapping("")
-	@JsonView(Views.ViewModule.class)
-	public Module create(@RequestBody Module module) {
-		return this.daoModule.save(module);
+	@JsonView(Views.ViewCompte.class)
+	public Compte create(@RequestBody Compte Compte) {
+		return this.daoCompte.save(Compte);
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(Views.ViewModule.class)
-	public Module update(@RequestBody Module module, @PathVariable Integer id) {
-		if (id != module.getId() || !this.daoModule.existsById(id)) {
+	@JsonView(Views.ViewCompte.class)
+	public Compte update(@RequestBody Compte Compte, @PathVariable Integer id) {
+		if (id != Compte.getId() || !this.daoCompte.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
 		}
 
-		return this.daoModule.save(module);
+		return this.daoCompte.save(Compte);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if (!this.daoModule.existsById(id)) {
+		if (!this.daoCompte.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
 		}
 
-		this.daoModule.deleteById(id);
+		this.daoCompte.deleteById(id);
 	}
 }
