@@ -1,15 +1,12 @@
 package projet.request;
 
-import java.time.LocalDate;
 
 import org.springframework.beans.BeanUtils;
 
-import projet.model.Employe;
 import projet.model.Jeu;
-import projet.model.Compte;
 
 
-public class JeuRequestDTO {
+public class JeuRequest {
 	
 	private Integer id;
 	private String nom;
@@ -23,7 +20,7 @@ public class JeuRequestDTO {
 	private String regle;
 	
 
-	public JeuRequestDTO() {}
+	public JeuRequest() {}
 
 	public Integer getId() {
 		return id;
@@ -97,7 +94,7 @@ public class JeuRequestDTO {
 		this.regle = regle;
 	}
 
-	public Jeu convert(JeuRequestDTO jeuRequestDTO) {
+	public Jeu convert(JeuRequest jeuRequestDTO) {
 		Jeu jeu = new Jeu();
 		
 		BeanUtils.copyProperties(jeuRequestDTO, jeu);

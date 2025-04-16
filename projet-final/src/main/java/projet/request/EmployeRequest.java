@@ -5,10 +5,9 @@ import java.time.LocalDate;
 import org.springframework.beans.BeanUtils;
 
 import projet.model.Employe;
-import projet.model.Compte;
 
 
-public class EmployeRequestDTO {
+public class EmployeRequest {
 	
 	private Integer id;
 	private String login;
@@ -20,7 +19,7 @@ public class EmployeRequestDTO {
 	private String poste;
 	private double sal;
 
-	public EmployeRequestDTO() {}
+	public EmployeRequest() {}
 
 	
 	public Integer getId() {
@@ -87,7 +86,7 @@ public class EmployeRequestDTO {
 		this.sal = sal;
 	}
 	
-	public Employe convert(EmployeRequestDTO employeRequestDTO) {
+	public Employe convert(EmployeRequest employeRequestDTO) {
 		Employe employe = new Employe();
 		
 		BeanUtils.copyProperties(employeRequestDTO, employe);

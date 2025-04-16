@@ -1,11 +1,8 @@
 package projet.request;
 
 import java.time.LocalDateTime;
-
 import org.springframework.beans.BeanUtils;
-
 import projet.model.Reservation;
-import projet.model.Surface;
 
 public class ReservationRequest {
 

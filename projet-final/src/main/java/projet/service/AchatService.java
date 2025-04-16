@@ -1,7 +1,6 @@
 package projet.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import projet.dao.IDAOCommande;
 import projet.model.Achat;
 import projet.model.Produit;
 import projet.model.Commande;
-import projet.request.AchatRequestDTO;
+import projet.request.AchatRequest;
 import projet.response.AchatResponseDTO;
 
 @Service
@@ -35,14 +34,14 @@ public class AchatService {
 			.collect(Collectors.toList());
 	}
 
-	public AchatResponseDTO create(AchatRequestDTO dto) {
+	public AchatResponseDTO create(AchatRequest dto) {
 		Produit produit = daoProduit.findById(dto.getIdProduit())
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + dto.getIdProduit()));
 
 		Commande commande = daoCommande.findById(dto.getIdCommande())
 				.orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + dto.getIdCommande()));
 
-		Achat achat = AchatRequestDTO.convert(dto);
+		Achat achat = AchatRequest.convert(dto);
 
 		achat.setProduit(produit);
 		achat.setCommande(commande);
@@ -65,7 +64,7 @@ public class AchatService {
 		daoAchat.deleteById(id);
 	}
 
-	public AchatResponseDTO update(Integer id, AchatRequestDTO dto) {
+	public AchatResponseDTO update(Integer id, AchatRequest dto) {
 		Achat achatExistant = daoAchat.findById(id)
 				.orElseThrow(() -> new RuntimeException("Achat non trouvé avec id : " + id));
 

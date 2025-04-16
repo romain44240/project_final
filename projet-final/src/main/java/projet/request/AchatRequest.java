@@ -6,13 +6,13 @@ import projet.model.Achat;
 import projet.model.Commande;
 import projet.model.Produit;
 
-public class AchatRequestDTO {
+public class AchatRequest {
 
 	private int quantite;
 	private Integer idProduit;
 	private Integer idCommande;
 
-	public AchatRequestDTO() {}
+	public AchatRequest() {}
 
 	public int getQuantite() {
 		return quantite;
@@ -39,7 +39,7 @@ public class AchatRequestDTO {
 	}
 
 	// Méthode pour transformer le DTO en entité Achat
-	public static Achat convert(AchatRequestDTO achatRequestDTO) {
+	public static Achat convert(AchatRequest achatRequestDTO) {
 		
 		Achat achat = new Achat();
 		

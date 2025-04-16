@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import projet.request.AchatRequestDTO;
+import projet.request.AchatRequest;
 import projet.response.AchatResponseDTO;
 import projet.service.AchatService;
 
@@ -31,12 +31,12 @@ public class AchatRestController {
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public AchatResponseDTO create(@RequestBody AchatRequestDTO dto) {
+	public AchatResponseDTO create(@RequestBody AchatRequest dto) {
 		return achatService.create(dto);
 	}
 
 	@PutMapping("/{id}")
-	public AchatResponseDTO update(@PathVariable Integer id, @RequestBody AchatRequestDTO dto) {
+	public AchatResponseDTO update(@PathVariable Integer id, @RequestBody AchatRequest dto) {
 		return achatService.update(id, dto);
 	}
 

@@ -2,9 +2,6 @@ package projet.request;
 
 import org.springframework.beans.BeanUtils;
 
-import projet.model.Achat;
-import projet.model.Commande;
-import projet.model.Reservation;
 import projet.model.Surface;
 
 public class SurfaceRequest {
