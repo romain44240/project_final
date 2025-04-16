@@ -2,6 +2,11 @@ package projet.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("employé")
 public class Employe extends Compte {
 
 	private String poste;
