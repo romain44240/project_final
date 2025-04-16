@@ -1,21 +1,10 @@
 package projet.response;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.BeanUtils;
 
-import projet.model.Achat;
-import projet.model.Commande;
-import projet.model.Employe;
 import projet.model.Jeu;
-import projet.model.Produit;
 
-public class JeuResponse {
-
-	private Integer id;
-	private String nom;
-	private double prix;
-	private int stock;
+public class JeuResponse extends ProduitResponse {
 	
 	private int nbMin;
 	private int nbMax;
@@ -24,39 +13,6 @@ public class JeuResponse {
 	private String regle;
 
 	public JeuResponse() {}
-
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public double getPrix() {
-		return prix;
-	}
-
-	public void setPrix(double prix) {
-		this.prix = prix;
-	}
-
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
 
 	public int getNbMin() {
 		return nbMin;
@@ -98,11 +54,11 @@ public class JeuResponse {
 		this.regle = regle;
 	}
 
-	public static JeuResponse convert(Jeu jeu) {
-		JeuResponse jeuResponseDTO = new JeuResponse();
+	public static JeuResponse fromEntity(Jeu jeu) {
+		JeuResponse jeuResponse = new JeuResponse();
 		
-		BeanUtils.copyProperties(jeu, jeuResponseDTO);
+		BeanUtils.copyProperties(jeu, jeuResponse);
 		
-		return jeuResponseDTO; 
+		return jeuResponse;
 	}
 }
