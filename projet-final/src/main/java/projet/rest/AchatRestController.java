@@ -44,18 +44,18 @@ public class AchatRestController {
 	
 	@PostMapping("")
 	@JsonView(Views.ViewAchat.class)
-	public Achat create(@RequestBody Achat Achat) {
-		return this.daoAchat.save(Achat);
+	public Achat create(@RequestBody Achat achat) {
+		return this.daoAchat.save(achat);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewAchat.class)
-	public Achat update(@RequestBody Achat Achat, @PathVariable Integer id) {
-		if (id != Achat.getId() || !this.daoAchat.existsById(id)) {
+	public Achat update(@RequestBody Achat achat, @PathVariable Integer id) {
+		if (id != achat.getId() || !this.daoAchat.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
 		}
 
-		return this.daoAchat.save(Achat);
+		return this.daoAchat.save(achat);
 	}
 
 	@DeleteMapping("/{id}")

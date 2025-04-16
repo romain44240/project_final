@@ -15,55 +15,55 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import quest.model.Matiere;
-import quest.model.Views;
-import quest.service.MatiereService;
+import projet.model.Commande;
+import projet.model.Views;
+import projet.service.CommandeService;
 
 @RestController
-@RequestMapping("/matiere")
+@RequestMapping("/Commande")
 public class CommandeRestController {
 
-	private MatiereService matiereService;
+	private CommandeService CommandeService;
 
-	public CommandeRestController(MatiereService matiereService) {
+	public CommandeRestController(CommandeService CommandeService) {
 		super();
-		this.matiereService = matiereService;
+		this.CommandeService = CommandeService;
 	}
 
 	@GetMapping("")
-	@JsonView(Views.ViewMatiere.class)
-	public List<Matiere> getAll() {
-		return this.matiereService.getAll();
+	@JsonView(Views.ViewCommande.class)
+	public List<Commande> getAll() {
+		return this.CommandeService.getAll();
 	}
 	
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewMatiere.class)
-	public Matiere getById(@PathVariable Integer id) {
-		return this.matiereService.getById(id);
+	@JsonView(Views.ViewCommande.class)
+	public Commande getById(@PathVariable Integer id) {
+		return this.CommandeService.getById(id);
 	}
 
 	@PostMapping("")
-	@JsonView(Views.ViewMatiere.class)
-	public Matiere create(@RequestBody Matiere matiere) {
-		return this.matiereService.create(matiere);
+	@JsonView(Views.ViewCommande.class)
+	public Commande create(@RequestBody Commande commande) {
+		return this.CommandeService.create(commande);
 	}
 	
 	@PutMapping("/{id}")
-	@JsonView(Views.ViewMatiere.class)
-	public Matiere update(@RequestBody Matiere matiere, @PathVariable Integer id) {
-		if(id != matiere.getId() || !this.matiereService.existById(id)) {
+	@JsonView(Views.ViewCommande.class)
+	public Commande update(@RequestBody Commande commande, @PathVariable Integer id) {
+		if(id != commande.getId() || !this.CommandeService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
 		}
 		
-		return this.matiereService.update(matiere);
+		return this.CommandeService.update(commande);
 	}
 	
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if(!this.matiereService.existById(id)) {
+		if(!this.CommandeService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
 		}
 		
-		this.matiereService.deleteById(id);
+		this.CommandeService.deleteById(id);
 	}
 }

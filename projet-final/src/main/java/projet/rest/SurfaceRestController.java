@@ -15,55 +15,55 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import projet.dao.IDAOAchat;
-import projet.model.Achat;
+import projet.dao.IDAOSurface;
+import projet.model.Surface;
 import projet.model.Views;
 
 @RestController
-@RequestMapping("/Achat")
+@RequestMapping("/Surface")
 public class SurfaceRestController {
 
-	private IDAOAchat daoAchat;
+	private IDAOSurface daoSurface;
 
-	public SurfaceRestController(IDAOAchat daoAchat) {
+	public SurfaceRestController(IDAOSurface daoSurface) {
 		super();
-		this.daoAchat = daoAchat;
+		this.daoSurface = daoSurface;
 	}
 
 	@GetMapping("")
-	@JsonView(Views.ViewAchat.class)
-	public List<Achat> getAll() {
-		return this.daoAchat.findAll();
+	@JsonView(Views.ViewSurface.class)
+	public List<Surface> getAll() {
+		return this.daoSurface.findAll();
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewAchatDetail.class)
-	public Achat getById(@PathVariable Integer id) {
-		return this.daoAchat.findById(id).get();
+	@JsonView(Views.ViewSurfaceDetail.class)
+	public Surface getById(@PathVariable Integer id) {
+		return this.daoSurface.findById(id).get();
 	}
 	
 	@PostMapping("")
-	@JsonView(Views.ViewAchat.class)
-	public Achat create(@RequestBody Achat Achat) {
-		return this.daoAchat.save(Achat);
+	@JsonView(Views.ViewSurface.class)
+	public Surface create(@RequestBody Surface Surface) {
+		return this.daoSurface.save(Surface);
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(Views.ViewAchat.class)
-	public Achat update(@RequestBody Achat Achat, @PathVariable Integer id) {
-		if (id != Achat.getId() || !this.daoAchat.existsById(id)) {
+	@JsonView(Views.ViewSurface.class)
+	public Surface update(@RequestBody Surface Surface, @PathVariable Integer id) {
+		if (id != Surface.getId() || !this.daoSurface.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
 		}
 
-		return this.daoAchat.save(Achat);
+		return this.daoSurface.save(Surface);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if (!this.daoAchat.existsById(id)) {
+		if (!this.daoSurface.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
 		}
 
-		this.daoAchat.deleteById(id);
+		this.daoSurface.deleteById(id);
 	}
 }

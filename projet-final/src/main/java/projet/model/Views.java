@@ -24,4 +24,13 @@ public interface Views {
 	
 	public static interface ViewReservation extends ViewBasic {
 	}
+	
+	public static interface ViewCommande extends ViewBasic {
+	}
+	
+	public static interface ViewSurface extends ViewBasic {
+	}
+	
+	public static interface ViewSurfaceDetail extends ViewCompte{
+	}
 }
