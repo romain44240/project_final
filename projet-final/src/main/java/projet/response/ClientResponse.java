@@ -1,14 +1,16 @@
-package projet.request;
+package projet.response;
 
 import java.time.LocalDate;
 
 import org.springframework.beans.BeanUtils;
 
-import projet.model.Employe;
+import projet.model.Achat;
+import projet.model.Client;
+import projet.model.Commande;
+import projet.model.Produit;
 
+public class ClientResponse {
 
-public class EmployeRequest {
-	
 	private Integer id;
 	private String login;
 	private String password;
@@ -16,12 +18,11 @@ public class EmployeRequest {
 	private String prenom;
 	private LocalDate dateArrivee;
 	
-	private String poste;
-	private double sal;
-
-	public EmployeRequest() {}
-
+	private String email;
+	private String telephone;
 	
+	public ClientResponse() {}
+
 	public Integer getId() {
 		return id;
 	}
@@ -70,27 +71,27 @@ public class EmployeRequest {
 		this.dateArrivee = dateArrivee;
 	}
 
-	public String getPoste() {
-		return poste;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPoste(String poste) {
-		this.poste = poste;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public double getSal() {
-		return sal;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setSal(double sal) {
-		this.sal = sal;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
-	
-	public Employe convert(EmployeRequest employeRequestDTO) {
-		Employe employe = new Employe();
+
+	public static ClientResponse convert(Client client) {
+		ClientResponse clientResponseDTO = new ClientResponse();
 		
-		BeanUtils.copyProperties(employeRequestDTO, employe);
-
-		return employe;
+		BeanUtils.copyProperties(client, clientResponseDTO);
+		
+		return clientResponseDTO; 
 	}
 }

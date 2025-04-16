@@ -99,16 +99,6 @@ public class JeuRequest {
 		
 		BeanUtils.copyProperties(jeuRequestDTO, jeu);
 		
-		jeuRequestDTO.getId();
-		jeuRequestDTO.getNom();
-		jeuRequestDTO.getPrix();
-		jeuRequestDTO.getStock();
-		jeuRequestDTO.getNbMin();
-		jeuRequestDTO.getNbMax();
-		jeuRequestDTO.getDuree();
-		jeuRequestDTO.getEditeur();
-		jeuRequestDTO.getRegle();
-		
 		return jeu;
 	}
 }

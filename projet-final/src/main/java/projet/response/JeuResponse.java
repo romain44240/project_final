@@ -2,13 +2,15 @@ package projet.response;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.BeanUtils;
+
 import projet.model.Achat;
 import projet.model.Commande;
 import projet.model.Employe;
 import projet.model.Jeu;
 import projet.model.Produit;
 
-public class JeuResponseDTO {
+public class JeuResponse {
 
 	private Integer id;
 	private String nom;
@@ -21,7 +23,7 @@ public class JeuResponseDTO {
 	private String editeur;
 	private String regle;
 
-	public JeuResponseDTO() {}
+	public JeuResponse() {}
 
 	
 	public Integer getId() {
@@ -96,18 +98,11 @@ public class JeuResponseDTO {
 		this.regle = regle;
 	}
 
-	public static JeuResponseDTO fromEntity(Jeu jeu) {
-		JeuResponseDTO dto = new JeuResponseDTO();
+	public static JeuResponse convert(Jeu jeu) {
+		JeuResponse jeuResponseDTO = new JeuResponse();
 		
-		dto.setId(jeu.getId());
-		dto.setNom(jeu.getNom());
-		dto.setPrix(jeu.getPrix());
-		dto.setStock(jeu.getStock());
-		dto.setNbMin(jeu.getNbMin());
-		dto.setNbMax(jeu.getNbMax());
-		dto.setDuree(jeu.getDuree());
-		dto.setEditeur(jeu.getEditeur());
-		dto.setRegle(jeu.getRegle());
-		return dto;
+		BeanUtils.copyProperties(jeu, jeuResponseDTO);
+		
+		return jeuResponseDTO; 
 	}
 }

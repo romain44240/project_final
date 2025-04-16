@@ -6,14 +6,14 @@ import projet.model.Achat;
 import projet.model.Commande;
 import projet.model.Produit;
 
-public class AchatResponseDTO {
+public class AchatResponse {
 
 	private Integer id;
 	private int quantite;
 	private Produit produit;
 	private Commande commande;
 
-	public AchatResponseDTO() {}
+	public AchatResponse() {}
 
 	public Integer getId() {
 		return id;
@@ -48,8 +48,8 @@ public class AchatResponseDTO {
 	}
 
 	// Fabrique un DTO depuis une entité Achat
-	public static AchatResponseDTO convert(Achat achat) {
-		AchatResponseDTO achatResponseDTO = new AchatResponseDTO();
+	public static AchatResponse convert(Achat achat) {
+		AchatResponse achatResponseDTO = new AchatResponse();
 		
 		BeanUtils.copyProperties(achat, achatResponseDTO);
 		

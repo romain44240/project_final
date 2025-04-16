@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import projet.request.AchatRequest;
-import projet.response.AchatResponseDTO;
+import projet.response.AchatResponse;
 import projet.service.AchatService;
 
 @RestController
@@ -20,23 +20,23 @@ public class AchatRestController {
 	}
 
 	@GetMapping("")
-	public List<AchatResponseDTO> getAll() {
+	public List<AchatResponse> getAll() {
 		return achatService.findAll(); 
 	}
 
 	@GetMapping("/{id}")
-	public AchatResponseDTO getById(@PathVariable Integer id) {
+	public AchatResponse getById(@PathVariable Integer id) {
 		return achatService.findById(id);
 	}
 
 	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
-	public AchatResponseDTO create(@RequestBody AchatRequest dto) {
+	public AchatResponse create(@RequestBody AchatRequest dto) {
 		return achatService.create(dto);
 	}
 
 	@PutMapping("/{id}")
-	public AchatResponseDTO update(@PathVariable Integer id, @RequestBody AchatRequest dto) {
+	public AchatResponse update(@PathVariable Integer id, @RequestBody AchatRequest dto) {
 		return achatService.update(id, dto);
 	}
 

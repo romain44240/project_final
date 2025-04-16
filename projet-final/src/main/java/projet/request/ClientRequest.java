@@ -1,13 +1,14 @@
-package projet.response;
+package projet.request;
 
 import java.time.LocalDate;
 
-import projet.model.Achat;
+import org.springframework.beans.BeanUtils;
+
+import projet.model.Client;
 import projet.model.Commande;
-import projet.model.Employe;
 import projet.model.Produit;
 
-public class EmployeResponseDTO {
+public class ClientRequest {
 
 	private Integer id;
 	private String login;
@@ -16,12 +17,12 @@ public class EmployeResponseDTO {
 	private String prenom;
 	private LocalDate dateArrivee;
 	
-	private String poste;
-	private double sal;
-
-	public EmployeResponseDTO() {}
-
+	private String email;
+	private String telephone;
 	
+
+	public ClientRequest() {}
+
 	public Integer getId() {
 		return id;
 	}
@@ -70,32 +71,29 @@ public class EmployeResponseDTO {
 		this.dateArrivee = dateArrivee;
 	}
 
-	public String getPoste() {
-		return poste;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPoste(String poste) {
-		this.poste = poste;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public double getSal() {
-		return sal;
+	public String getTelephone() {
+		return telephone;
 	}
 
-	public void setSal(double sal) {
-		this.sal = sal;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
-	public static EmployeResponseDTO fromEntity(Employe employe) {
-		EmployeResponseDTO dto = new EmployeResponseDTO();
-		dto.setId(employe.getId());
-		dto.setLogin(employe.getLogin());
-		dto.setPassword(employe.getPassword());
-		dto.setNom(employe.getNom());
-		dto.setPrenom(employe.getPrenom());
-		dto.setDateArrivee(employe.getDateArrivee());
-		dto.setPoste(employe.getPoste());
-		dto.setSal(employe.getSal());
-		return dto;
+
+	public static Client convert(ClientRequest clientRequestDTO) {
+		
+		Client client = new Client();
+		
+		BeanUtils.copyProperties(clientRequestDTO, client);
+		
+		return client;
 	}
 }

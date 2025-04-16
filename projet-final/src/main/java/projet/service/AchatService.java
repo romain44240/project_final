@@ -13,7 +13,7 @@ import projet.model.Achat;
 import projet.model.Produit;
 import projet.model.Commande;
 import projet.request.AchatRequest;
-import projet.response.AchatResponseDTO;
+import projet.response.AchatResponse;
 
 @Service
 public class AchatService {
@@ -27,14 +27,14 @@ public class AchatService {
 	@Autowired
 	private IDAOCommande daoCommande;
 	
-	public List<AchatResponseDTO> findAll() {
+	public List<AchatResponse> findAll() {
 		return daoAchat.findAll()
 			.stream()
-			.map(AchatResponseDTO::convert)
+			.map(AchatResponse::convert)
 			.collect(Collectors.toList());
 	}
 
-	public AchatResponseDTO create(AchatRequest dto) {
+	public AchatResponse create(AchatRequest dto) {
 		Produit produit = daoProduit.findById(dto.getIdProduit())
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + dto.getIdProduit()));
 
@@ -48,13 +48,13 @@ public class AchatService {
 
 		Achat saved = daoAchat.save(achat);
 
-		return AchatResponseDTO.convert(saved);
+		return AchatResponse.convert(saved);
 	}
 
-	public AchatResponseDTO findById(Integer id) {
+	public AchatResponse findById(Integer id) {
 		Achat achat = daoAchat.findById(id)
 				.orElseThrow(() -> new RuntimeException("Achat non trouvé avec id : " + id));
-		return AchatResponseDTO.convert(achat);
+		return AchatResponse.convert(achat);
 	}
 
 	public void delete(Integer id) {
@@ -64,7 +64,7 @@ public class AchatService {
 		daoAchat.deleteById(id);
 	}
 
-	public AchatResponseDTO update(Integer id, AchatRequest dto) {
+	public AchatResponse update(Integer id, AchatRequest dto) {
 		Achat achatExistant = daoAchat.findById(id)
 				.orElseThrow(() -> new RuntimeException("Achat non trouvé avec id : " + id));
 
@@ -80,6 +80,6 @@ public class AchatService {
 
 		Achat updated = daoAchat.save(achatExistant);
 
-		return AchatResponseDTO.convert(updated);
+		return AchatResponse.convert(updated);
 	}
 }

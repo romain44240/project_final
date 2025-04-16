@@ -1,14 +1,16 @@
-package projet.request;
+package projet.response;
 
 import java.time.LocalDate;
 
 import org.springframework.beans.BeanUtils;
 
+import projet.model.Achat;
+import projet.model.Commande;
 import projet.model.Employe;
+import projet.model.Produit;
 
+public class EmployeResponse {
 
-public class EmployeRequest {
-	
 	private Integer id;
 	private String login;
 	private String password;
@@ -19,7 +21,7 @@ public class EmployeRequest {
 	private String poste;
 	private double sal;
 
-	public EmployeRequest() {}
+	public EmployeResponse() {}
 
 	
 	public Integer getId() {
@@ -85,12 +87,12 @@ public class EmployeRequest {
 	public void setSal(double sal) {
 		this.sal = sal;
 	}
-	
-	public Employe convert(EmployeRequest employeRequestDTO) {
-		Employe employe = new Employe();
-		
-		BeanUtils.copyProperties(employeRequestDTO, employe);
 
-		return employe;
+	public static EmployeResponse convert(Employe employe) {
+		EmployeResponse employeResponseDTO = new EmployeResponse();
+		
+		BeanUtils.copyProperties(employe, employeResponseDTO);
+		
+		return employeResponseDTO; 
 	}
 }
