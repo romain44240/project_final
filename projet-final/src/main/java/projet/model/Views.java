@@ -9,4 +9,11 @@ public interface Views {
 	
 	public static interface ViewAchatDetail extends ViewAchat{
 	}
+	
+	public static interface ViewProduit extends ViewBasic{
+	}
+	
+	public static interface ViewProduitDetail extends ViewProduit{
+	}
+	
 }
