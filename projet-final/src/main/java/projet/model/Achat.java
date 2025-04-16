@@ -1,5 +1,8 @@
 package projet.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Achat {
 
 	private Integer id;
