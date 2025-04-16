@@ -18,53 +18,54 @@ import com.fasterxml.jackson.annotation.JsonView;
 import projet.dao.IDAOCompte;
 import projet.model.Compte;
 import projet.model.Views;
+import projet.service.CompteService;
 
 
 @RestController
 @RequestMapping("/Compte")
 public class CompteRestController {
 
-	private IDAOCompte daoCompte;
+	private CompteService CompteService;
 
-	public CompteRestController(IDAOCompte daoCompte) {
+	public CompteRestController(CompteService CompteService) {
 		super();
-		this.daoCompte = daoCompte;
+		this.CompteService = CompteService;
 	}
 
 	@GetMapping("")
 	@JsonView(Views.ViewCompte.class)
 	public List<Compte> getAll() {
-		return this.daoCompte.findAll();
+		return this.CompteService.getAll();
 	}
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewCompte.class)
 	public Compte getById(@PathVariable Integer id) {
-		return this.daoCompte.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return this.CompteService.getById(id);
 	}
 
 	@PostMapping("")
 	@JsonView(Views.ViewCompte.class)
 	public Compte create(@RequestBody Compte Compte) {
-		return this.daoCompte.save(Compte);
+		return this.CompteService.create(Compte);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewCompte.class)
 	public Compte update(@RequestBody Compte Compte, @PathVariable Integer id) {
-		if (id != Compte.getId() || !this.daoCompte.existsById(id)) {
+		if (id != Compte.getId() || !this.CompteService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
 		}
 
-		return this.daoCompte.save(Compte);
+		return this.CompteService.update(Compte);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if (!this.daoCompte.existsById(id)) {
+		if (!this.CompteService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
 		}
 
-		this.daoCompte.deleteById(id);
+		this.CompteService.deleteById(id);
 	}
 }
