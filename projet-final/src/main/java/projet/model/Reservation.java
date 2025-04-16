@@ -7,7 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="reservation")
@@ -24,12 +26,21 @@ public class Reservation {
 	private int nbPersonne;
 	
 	
-	@Column(nullable=false)
+	@OneToOne(mappedBy = "reservation")
+	@NotBlank
 	private Client client;
+	
+	@OneToOne(mappedBy = "reservation")
 	private Employe employe;
-	@Column(nullable=false)
+	
+	@OneToOne(mappedBy = "reservation")
+	@NotBlank
 	private Surface surface;
+	
+	@OneToOne(mappedBy = "reservation")
 	private Jeu jeu;
+	
+	@OneToOne(mappedBy = "reservation")
 	private Commande commande;
 	
 	public Reservation() {}

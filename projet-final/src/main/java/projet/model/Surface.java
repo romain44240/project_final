@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +18,8 @@ public class Surface {
 	@Column(nullable=false)
 	private int capacite;
 	private String couleur;
+	@OneToOne
+	private Reservation reservation;
 	
 	public Surface() {}
 	public Surface(Integer id, int capacite) {

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,8 +18,11 @@ public class Commande {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "commande")
 	private List<Achat> achats;
+	
+	@OneToOne
+	private Reservation reservation;
 
 	public Commande() {}
 	public Commande(Integer id,List<Achat> achats) {

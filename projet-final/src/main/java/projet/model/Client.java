@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("client")
@@ -15,6 +15,10 @@ public class Client extends Compte {
 	private String email;
 	@Column(length = 100, nullable=false)
 	private String telephone;
+	
+	@OneToOne
+	private Reservation reservation;
+
 	
 	public Client() {super();}
 	
@@ -52,10 +56,6 @@ public class Client extends Compte {
 				+ password + ", nom=" + nom + ", prenom=" + prenom + ", dateArrivee=" + dateArrivee + "]";
 	}
 
-
-	
-	
-	
 	
 	
 }

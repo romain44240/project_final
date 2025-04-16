@@ -5,11 +5,15 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("employe")
 public class Employe extends Compte {
 
+	
+	@OneToOne
+	private Reservation reservation;
 	
 	private String poste; // null = serveur --> gameMaster => c'est qu'il peut plus servir ?
 	@Column(nullable = false)

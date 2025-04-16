@@ -24,7 +24,7 @@ public abstract class Produit {
 
 	protected double prix;
 	
-	@Column(nullable=false, columnDefinition="default '0'")
+	@Column(nullable=false, columnDefinition="INT(2) DEFAULT 0")
 	protected int stock;
 	
 	public Produit() {}

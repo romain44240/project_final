@@ -2,6 +2,7 @@ package projet.model;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("jeu")
@@ -16,6 +17,9 @@ public class Jeu extends Produit {
 	private String editeur;
 	
 	private String regle;
+	
+	@OneToOne
+	private Reservation reservation;
 	
 	public Jeu() {super();}
 	public Jeu(Integer id, String nom, double prix, int stock, int nbMin, int nbMax, int duree, String editeur,
