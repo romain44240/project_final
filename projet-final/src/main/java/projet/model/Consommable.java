@@ -4,9 +4,9 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("conso")
+@DiscriminatorValue("consommable")
 public class Consommable extends Produit {
-
+	public Consommable() {super();}
 	public Consommable(Integer id, String nom, double prix, int stock) {
 		super(id, nom, prix, stock);
 	}

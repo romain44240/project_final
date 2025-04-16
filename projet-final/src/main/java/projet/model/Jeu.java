@@ -1,8 +1,10 @@
 package projet.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("jeu")
 public class Jeu extends Produit {
 	
 	private int nbMin;
@@ -15,6 +17,7 @@ public class Jeu extends Produit {
 	
 	private String regle;
 	
+	public Jeu() {super();}
 	public Jeu(Integer id, String nom, double prix, int stock, int nbMin, int nbMax, int duree, String editeur,
 			String regle) {
 		super(id, nom, prix, stock);

@@ -1,92 +1,64 @@
 package projet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "achat")
 public class Achat {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private double prix;
+
+	@Column(nullable = false)
 	private int quantite;
-	private Reservation reservation;
+	
+	@OneToOne
+	@NotBlank
 	private Produit produit;
 	
+	public Achat() {}
 	
-	
-	public Achat(Integer id, double prix, int quantite, Reservation reservation, Produit produit) {
+	public Achat(Integer id, int quantite, Produit produit) {
 		this.id = id;
-		this.prix = prix;
 		this.quantite = quantite;
-		this.reservation = reservation;
 		this.produit = produit;
 	}
-
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
-
-	public double getPrix() {
-		return prix;
-	}
-
-
-
 	public int getQuantite() {
 		return quantite;
 	}
-
-
-
-	public Reservation getReservation() {
-		return reservation;
-	}
-
-
 
 	public Produit getProduit() {
 		return produit;
 	}
 
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
-
-	public void setPrix(double prix) {
-		this.prix = prix;
-	}
-
-
 
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
 
-
-
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
-
-
-
 	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Achat [id=" + id + ", prix=" + prix + ", quantite=" + quantite + ", reservation=" + reservation
-				+ ", produit=" + produit + "]";
+		return "Achat [id=" + id + ", quantite=" + quantite + ", produit=" + produit + "]";
 	}
 	
 	

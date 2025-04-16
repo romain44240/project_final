@@ -2,18 +2,21 @@ package projet.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("employé")
+@DiscriminatorValue("employe")
 public class Employe extends Compte {
 
-	private String poste;
+	
+	private String poste; // null = serveur --> gameMaster => c'est qu'il peut plus servir ?
+	@Column(nullable = false)
 	private double sal;
 	
 	
-	
+	public Employe() {super();}
 	public Employe(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee,
 			String poste, double sal) {
 		super(id, login, password, nom, prenom, dateArrivee);

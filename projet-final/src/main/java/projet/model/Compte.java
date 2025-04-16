@@ -3,13 +3,18 @@ package projet.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type_compte", columnDefinition = "ENUM('Client','Employe')")
 @Table(name="compte")
 public abstract class Compte {
 
@@ -29,7 +34,7 @@ public abstract class Compte {
 	@Column(name="date_arrivee", nullable=false)
 	protected LocalDate dateArrivee;
 	
-	
+	public Compte() {}
 	
 	public Compte(Integer id, String login, String password, String nom, String prenom, LocalDate dateArrivee) {
 		this.id = id;

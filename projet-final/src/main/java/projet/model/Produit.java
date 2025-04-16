@@ -1,7 +1,11 @@
 package projet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
@@ -12,11 +16,18 @@ import jakarta.persistence.Table;
 @Table(name = "produit")
 public abstract class Produit {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
+	
 	protected String nom;
+
 	protected double prix;
+	
+	@Column(nullable=false, columnDefinition="default '0'")
 	protected int stock;
 	
+	public Produit() {}
 	public Produit(Integer id, String nom, double prix, int stock) {
 		this.id = id;
 		this.nom = nom;

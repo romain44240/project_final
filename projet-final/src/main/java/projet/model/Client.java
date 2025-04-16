@@ -3,9 +3,12 @@ package projet.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
+@DiscriminatorValue("client")
 public class Client extends Compte {
 
 	@Column(length = 100, nullable=false)
@@ -13,6 +16,7 @@ public class Client extends Compte {
 	@Column(length = 100, nullable=false)
 	private String telephone;
 	
+	public Client() {super();}
 	
 	public Client(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee, String email,
 			String telephone) {
