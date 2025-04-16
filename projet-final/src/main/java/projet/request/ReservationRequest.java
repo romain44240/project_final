@@ -1,18 +1,15 @@
 package projet.request;
 
 import java.time.LocalDateTime;
-import org.springframework.beans.BeanUtils;
-<<<<<<< Updated upstream
-=======
 
-import projet.model.Achat;
+import org.springframework.beans.BeanUtils;
+
 import projet.model.Client;
 import projet.model.Commande;
 import projet.model.Employe;
 import projet.model.Jeu;
-import projet.model.Produit;
->>>>>>> Stashed changes
 import projet.model.Reservation;
+import projet.model.Surface;
 
 public class ReservationRequest {
 
