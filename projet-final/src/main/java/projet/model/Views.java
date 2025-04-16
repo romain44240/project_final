@@ -16,10 +16,12 @@ public interface Views {
 	public static interface ViewProduitDetail extends ViewProduit{
 	}
 	
-	
 	public static interface ViewCompte extends ViewBasic {
 	}
 	
 	public static interface ViewCompteDetail extends ViewCompte{
+	}
+	
+	public static interface ViewReservation extends ViewBasic {
 	}
 }
