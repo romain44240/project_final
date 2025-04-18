@@ -1,5 +1,7 @@
 package projet.response;
 
+import org.springframework.beans.BeanUtils;
+
 import projet.model.Achat;
 import projet.model.Surface;
 
@@ -38,11 +40,9 @@ public class SurfaceResponse {
 
 	// Fabrique un DTO depuis une entité Surface
 	public static SurfaceResponse fromEntity(Surface surface) {
-		SurfaceResponse dto = new SurfaceResponse();
-		dto.setId(surface.getId());
-		dto.setCapacite(surface.getCapacite());
-		dto.setCouleur(surface.getCouleur());
-		return dto;
+		SurfaceResponse response = new SurfaceResponse();
+		BeanUtils.copyProperties(surface, response);
+		return response;
 	}
 
 }

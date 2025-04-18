@@ -21,7 +21,6 @@ import projet.model.Commande;
 import projet.model.Produit;
 import projet.model.Compte;
 import projet.request.ReservationRequest;
-import projet.request.ReservationRequestDTO;
 import projet.response.ReservationResponse;
 
 @Service
@@ -42,47 +41,37 @@ public class ReservationService {
 	@Autowired
 	private IDAOCommande daoCommande;
 
-	// Lister toutes les réservations
+	
 	public List<ReservationResponse> findAll() {
 		return daoReservation.findAll().stream()
-				.map(ReservationResponse::fromEntity)
+				.map(ReservationResponse::convert)
 				.collect(Collectors.toList());
 	}
 
-	// Rechercher une réservation par ID
+	
 	public ReservationResponse findById(Integer id) {
 		Reservation reservation = daoReservation.findById(id)
 				.orElseThrow(() -> new RuntimeException("Réservation non trouvée avec id : " + id));
-		return ReservationResponse.fromEntity(reservation);
+		return ReservationResponse.convert(reservation);
 	}
 
-	// Créer une nouvelle réservation
+	
 	public ReservationResponse create(ReservationRequest dto) {
 		Reservation reservation = ReservationRequest.toEntity(dto);
 
-		// Client (hérite de Compte)
-		Compte compteClient = daoCompte.findById(dto.getIdClient());
-				.orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + dto.getIdClient()));
-		if (!(compteClient instanceof Client)) {
-			throw new RuntimeException("Le compte avec l'id " + dto.getIdClient() + " n'est pas un client.");
-		}
-		reservation.setClient((Client) compteClient);
+		//Client
+		reservation.setClient(getClientById(dto.getIdClient()));
 
-		// Employé (hérite de Compte)
-		Compte compteEmploye = daoCompte.findById(dto.getIdEmploye())
-				.orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + dto.getIdEmploye()));
-		if (!(compteEmploye instanceof Employe)) {
-			throw new RuntimeException("Le compte avec l'id " + dto.getIdEmploye() + " n'est pas un employé.");
-		}
-		reservation.setEmploye((Employe) compteEmploye);
+		//Employé
+		reservation.setEmploye(getEmployeById(dto.getIdEmploye()));
 
-		// Surface
+		//Surface
 		reservation.setSurface(
 			daoSurface.findById(dto.getIdSurface())
 				.orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + dto.getIdSurface()))
 		);
 
-		// Jeu (hérite de Produit)
+		//Jeu 
 		Produit produit = daoProduit.findById(dto.getIdJeu())
 				.orElseThrow(() -> new RuntimeException("Jeu non trouvé avec id : " + dto.getIdJeu()));
 		if (!(produit instanceof Jeu)) {
@@ -90,7 +79,7 @@ public class ReservationService {
 		}
 		reservation.setJeu((Jeu) produit);
 
-		// Commande (optionnelle)
+		//Commande 
 		if (dto.getIdCommande() != null) {
 			reservation.setCommande(
 				daoCommande.findById(dto.getIdCommande())
@@ -99,10 +88,10 @@ public class ReservationService {
 		}
 
 		Reservation saved = daoReservation.save(reservation);
-		return ReservationResponse.fromEntity(saved);
+		return ReservationResponse.convert(saved);
 	}
 
-	// Supprimer une réservation
+	
 	public void delete(Integer id) {
 		if (!daoReservation.existsById(id)) {
 			throw new RuntimeException("Réservation non trouvée avec id : " + id);
@@ -110,8 +99,8 @@ public class ReservationService {
 		daoReservation.deleteById(id);
 	}
 
-	// Mettre à jour une réservation
-	public ReservationResponse update(Integer id, ReservationRequestDTO dto) {
+	
+	public ReservationResponse update(Integer id, ReservationRequest dto) {
 		Reservation reservation = daoReservation.findById(id)
 				.orElseThrow(() -> new RuntimeException("Réservation non trouvée avec id : " + id));
 
@@ -119,29 +108,19 @@ public class ReservationService {
 		reservation.setDuree(dto.getDuree());
 		reservation.setNbPersonne(dto.getNbPersonne());
 
-		// Client (hérite de Compte)
-		Compte compteClient = daoCompte.findById(dto.getIdClient())
-				.orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + dto.getIdClient()));
-		if (!(compteClient instanceof Client)) {
-			throw new RuntimeException("Le compte avec l'id " + dto.getIdClient() + " n'est pas un client.");
-		}
-		reservation.setClient((Client) compteClient);
+		//Client
+		reservation.setClient(getClientById(dto.getIdClient()));
 
-		// Employé (hérite de Compte)
-		Compte compteEmploye = daoCompte.findById(dto.getIdEmploye())
-				.orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + dto.getIdEmploye()));
-		if (!(compteEmploye instanceof Employe)) {
-			throw new RuntimeException("Le compte avec l'id " + dto.getIdEmploye() + " n'est pas un employé.");
-		}
-		reservation.setEmploye((Employe) compteEmploye);
+		//Employé
+		reservation.setEmploye(getEmployeById(dto.getIdEmploye()));
 
-		// Surface
+		//Surface
 		reservation.setSurface(
 			daoSurface.findById(dto.getIdSurface())
 				.orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + dto.getIdSurface()))
 		);
 
-		// Jeu (hérite de Produit)
+		//Jeu 
 		Produit produit = daoProduit.findById(dto.getIdJeu())
 				.orElseThrow(() -> new RuntimeException("Jeu non trouvé avec id : " + dto.getIdJeu()));
 		if (!(produit instanceof Jeu)) {
@@ -149,7 +128,7 @@ public class ReservationService {
 		}
 		reservation.setJeu((Jeu) produit);
 
-		// Commande (optionnelle)
+		//Commande
 		if (dto.getIdCommande() != null) {
 			reservation.setCommande(
 				daoCommande.findById(dto.getIdCommande())
@@ -160,6 +139,27 @@ public class ReservationService {
 		}
 
 		Reservation updated = daoReservation.save(reservation);
-		return ReservationResponse.fromEntity(updated);
+		return ReservationResponse.convert(updated);
+	}
+
+
+	
+
+	private Client getClientById(Integer id) {
+		Compte compte = daoCompte.findById(id)
+				.orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
+		if (!(compte instanceof Client)) {
+			throw new RuntimeException("Le compte avec l'id " + id + " n'est pas un client.");
+		}
+		return (Client) compte;
+	}
+
+	private Employe getEmployeById(Integer id) {
+		Compte compte = daoCompte.findById(id)
+				.orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
+		if (!(compte instanceof Employe)) {
+			throw new RuntimeException("Le compte avec l'id " + id + " n'est pas un employé.");
+		}
+		return (Employe) compte;
 	}
 }

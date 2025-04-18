@@ -57,8 +57,6 @@ public class ReservationResponse {
 	public void setNbPersonne(int nbPersonne) {
 		this.nbPersonne = nbPersonne;
 	}
-	
-	
 
 	public Client getClient() {
 		return client;
@@ -100,11 +98,18 @@ public class ReservationResponse {
 		this.commande = commande;
 	}
 
-	// Fabrique un DTO depuis une entité Reservation
+	// Convertir une entité Reservation en DTO ReservationResponse
 	public static ReservationResponse convert(Reservation reservation) {
-		ReservationResponse reservationResponse = new ReservationResponse();
-		BeanUtils.copyProperties(reservation, reservationResponse);
-		return reservationResponse;
+		ReservationResponse dto = new ReservationResponse();
+		BeanUtils.copyProperties(reservation, dto);
+
+		dto.setClient(reservation.getClient());
+		dto.setEmploye(reservation.getEmploye());
+		dto.setSurface(reservation.getSurface());
+		dto.setJeu(reservation.getJeu());
+		dto.setCommande(reservation.getCommande());
+
+		return dto;
 	}
 
 }

@@ -98,34 +98,12 @@ public class ReservationRequest {
 		this.idCommande = idCommande;
 	}
 
-	// Méthode pour transformer le DTO en entité Surface
-	public static Reservation convert(ReservationRequest reservationRequest) {
-
+	// Méthode pour mapper les champs simples vers une entité Reservation
+	public static Reservation toEntity(ReservationRequest dto) {
 		Reservation reservation = new Reservation();
+		BeanUtils.copyProperties(dto, reservation);
 
-		BeanUtils.copyProperties(reservationRequest, reservation);
-
-		Client client = new Client();
-		client.setId(reservationRequest.getIdClient());
-		reservation.setClient(client);
-		
-		Employe employe = new Employe();
-		employe.setId(reservationRequest.getIdEmploye());
-		reservation.setEmploye(employe);
-		
-		Surface surface = new Surface();
-		surface.setId(reservationRequest.getIdSurface());
-		reservation.setSurface(surface);
-		
-		Jeu jeu = new Jeu();
-		jeu.setId(reservationRequest.getIdJeu());
-		reservation.setJeu(jeu);
-		
-		Commande commande = new Commande();
-		commande.setId(reservationRequest.getIdCommande());
-		reservation.setCommande(commande);
-
+		// Les entités liées seront injectées dans le service
 		return reservation;
 	}
-
 }
