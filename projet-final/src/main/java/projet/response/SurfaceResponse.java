@@ -37,7 +37,7 @@ public class SurfaceResponse {
 	}
 
 	// Fabrique un DTO depuis une entité Surface
-	public static SurfaceResponse fromEntity(Surface surface) {
+	public static SurfaceResponse convert(Surface surface) {
 		SurfaceResponse response = new SurfaceResponse();
 		BeanUtils.copyProperties(surface, response);
 		return response;

@@ -16,6 +16,7 @@ import projet.request.ClientRequest;
 import projet.request.EmployeRequest;
 import projet.response.ClientResponse;
 import projet.response.EmployeResponse;
+import projet.response.ReservationResponse;
 
 @Service
 public class CompteService {
@@ -62,6 +63,22 @@ public class CompteService {
     public boolean deleteClient(Integer id) {
         daoCompte.deleteById(id);
         return true;
+    }
+    
+    
+    public List<ReservationResponse> getReservationsByClientId(Integer id){
+    	Compte compte = (Client) daoCompte.findById(id).get();
+    	
+    	if(!(compte instanceof Client)) {
+    		throw new RuntimeException("Le compte avec l'id " + id + "n'est pas un client.");
+    	}
+    	
+    	Client client = (Client) compte;
+    
+    	return client.getReservation().stream()
+                .map(ReservationResponse::convert)
+                .collect(Collectors.toList());
+    	
     }
 
     //EMPLOYE

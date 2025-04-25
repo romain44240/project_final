@@ -57,6 +57,14 @@ public class Surface {
 		this.couleur = couleur;
 	}
 
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
 	@Override
 	public String toString() {
 		return "Surface [id=" + id + ", capacite=" + capacite + ", couleur=" + couleur + "]";

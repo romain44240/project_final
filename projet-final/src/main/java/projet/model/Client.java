@@ -1,10 +1,12 @@
 package projet.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -16,8 +18,8 @@ public class Client extends Compte {
 	@Column(length = 100, nullable=false)
 	private String telephone;
 	
-	@OneToOne
-	private Reservation reservation;
+	@OneToMany
+	private List<Reservation> reservation;
 
 	
 	public Client() {super();}
@@ -48,7 +50,16 @@ public class Client extends Compte {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+	
+	
 
+	public List<Reservation> getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(List<Reservation> reservation) {
+		this.reservation = reservation;
+	}
 
 	@Override
 	public String toString() {

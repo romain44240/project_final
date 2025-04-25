@@ -29,6 +29,22 @@ public class ProduitService {
 						 .collect(Collectors.toList());
 	}
 	
+	public List<ProduitResponse> getAllJeux(){
+		return daoProduit.findAll()
+				         .stream()
+				         .filter(p -> p instanceof Jeu)
+				         .map(ProduitResponse::convert)
+				         .collect(Collectors.toList());
+	}
+	
+	public List<ProduitResponse> getAllConsommables(){
+		return daoProduit.findAll()
+		         .stream()
+		         .filter(p -> p instanceof Consommable)
+		         .map(ProduitResponse::convert)
+		         .collect(Collectors.toList());
+	}
+	
 	public ProduitResponse getById(Integer id) {
 		Produit produit = daoProduit.findById(id)
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + id));

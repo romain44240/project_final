@@ -59,9 +59,12 @@ public class ReservationService {
 		//Client
 		reservation.setClient(getClientById(dto.getIdClient()));
 
-		//Employé
-		reservation.setEmploye(getEmployeById(dto.getIdEmploye()));
-
+		//Employé : vérifier s'il y a un ID d'employé
+	    if (dto.getIdEmploye() != null) {
+	        reservation.setEmploye(getEmployeById(dto.getIdEmploye()));
+	    } else {
+	        reservation.setEmploye(null);  //pas d'employé associé si ID employé est null
+	    }
 		//Surface
 		reservation.setSurface(
 			daoSurface.findById(dto.getIdSurface())
