@@ -92,5 +92,4 @@ public class CompteService implements UserDetailsService{
 			.roles(role.replace("ROLE_", ""))
 			.build();
 	}
-
 }
