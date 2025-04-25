@@ -1,13 +1,8 @@
 package projet.response;
 
 import java.time.LocalDate;
-
 import org.springframework.beans.BeanUtils;
-
-import projet.model.Achat;
-import projet.model.Commande;
 import projet.model.Employe;
-import projet.model.Produit;
 
 public class EmployeResponse {
 

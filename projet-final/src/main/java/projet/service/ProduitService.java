@@ -18,14 +18,14 @@ public class ProduitService {
 	@Autowired
 	private IDAOProduit daoProduit;
 	
-	public List<ProduitResponse> findAll() {
+	public List<ProduitResponse> getAll() {
 		return daoProduit.findAll()
 						 .stream()
 						 .map(ProduitResponse::convert)
 						 .collect(Collectors.toList());
 	}
 	
-	public ProduitResponse findById(Integer id) {
+	public ProduitResponse getById(Integer id) {
 		Produit produit = daoProduit.findById(id)
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + id));
 		return ProduitResponse.convert(produit);

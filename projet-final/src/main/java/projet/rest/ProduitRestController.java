@@ -1,8 +1,6 @@
 package projet.rest;
 
 import java.util.List;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,66 +9,56 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.fasterxml.jackson.annotation.JsonView;
-
-import projet.dao.IDAOProduit;
-import projet.model.Produit;
 import projet.model.Views;
+import projet.request.ProduitRequest;
+import projet.response.ProduitResponse;
+import projet.service.ProduitService;
 
 
 @RestController
-@RequestMapping("/ordinateur")
+@RequestMapping("/api/ordinateur")
 public class ProduitRestController {
 
-	private IDAOProduit daoProduit;
+	private ProduitService produitService;
 
-	public ProduitRestController(IDAOProduit daoProduit) {
+	public ProduitRestController(ProduitService produitService) {
 		super();
-		this.daoProduit = daoProduit;
+		this.produitService = produitService;
 	}
 
 	@GetMapping("")
 	@JsonView(Views.ViewProduit.class)
-	public List<Produit> getAll() {
-		return this.daoProduit.findAll();
+	public List<ProduitResponse> getAll() {
+		return this.produitService.getAll();
 	}
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewProduit.class)
-	public Produit getById(@PathVariable Integer id) {
-		return this.daoProduit.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	public ProduitResponse getById(@PathVariable Integer id) {
+		return this.produitService.getById(id);
 	}
 	
 	@GetMapping("/{id}/detail")
 	@JsonView(Views.ViewProduitDetail.class)
-	public Produit getDetailById(@PathVariable Integer id) {
-		return this.daoProduit.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	public ProduitResponse getDetailById(@PathVariable Integer id) {
+		return this.produitService.getById(id);
 	}
 
 	@PostMapping("")
 	@JsonView(Views.ViewProduitDetail.class)
-	public Produit create(@RequestBody Produit produit) {
-		return this.daoProduit.save(produit);
+	public ProduitResponse create(@RequestBody ProduitRequest dto) {
+		return this.produitService.create(dto);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewProduit.class)
-	public Produit update(@RequestBody Produit produit, @PathVariable Integer id) {
-		if (id != produit.getId() || !this.daoProduit.existsById(id)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
-		}
-
-		return this.daoProduit.save(produit);
+	public ProduitResponse update(@PathVariable Integer id, @RequestBody ProduitRequest dto) {
+		return this.produitService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if (!this.daoProduit.existsById(id)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
-		}
-
-		this.daoProduit.deleteById(id);
+		this.produitService.delete(id);
 	}
 }

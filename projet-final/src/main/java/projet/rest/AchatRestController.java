@@ -10,7 +10,7 @@ import projet.response.AchatResponse;
 import projet.service.AchatService;
 
 @RestController
-@RequestMapping("/achat")
+@RequestMapping("/api/achat")
 public class AchatRestController {
 
 	private final AchatService achatService;
@@ -21,12 +21,12 @@ public class AchatRestController {
 
 	@GetMapping("")
 	public List<AchatResponse> getAll() {
-		return achatService.findAll(); 
+		return achatService.getAll(); 
 	}
 
 	@GetMapping("/{id}")
 	public AchatResponse getById(@PathVariable Integer id) {
-		return achatService.findById(id);
+		return achatService.getById(id);
 	}
 
 	@PostMapping("")

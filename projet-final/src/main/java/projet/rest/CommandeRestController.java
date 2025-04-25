@@ -20,7 +20,7 @@ import projet.model.Views;
 import projet.service.CommandeService;
 
 @RestController
-@RequestMapping("/Commande")
+@RequestMapping("/api/commande")
 public class CommandeRestController {
 
 	private CommandeService CommandeService;

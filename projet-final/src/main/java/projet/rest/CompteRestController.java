@@ -15,14 +15,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import projet.dao.IDAOCompte;
 import projet.model.Compte;
 import projet.model.Views;
 import projet.service.CompteService;
 
 
 @RestController
-@RequestMapping("/Compte")
+@RequestMapping("/api/compte")
 public class CompteRestController {
 
 	private CompteService CompteService;

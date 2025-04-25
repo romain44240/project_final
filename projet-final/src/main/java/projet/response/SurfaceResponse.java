@@ -1,8 +1,6 @@
 package projet.response;
 
 import org.springframework.beans.BeanUtils;
-
-import projet.model.Achat;
 import projet.model.Surface;
 
 public class SurfaceResponse {

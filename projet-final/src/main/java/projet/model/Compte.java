@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type_compte", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "type_compte", columnDefinition = "ENUM('employe','client')")
 @Table(name="compte")
 public abstract class Compte {
 
@@ -23,7 +22,7 @@ public abstract class Compte {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	
-	@Column(length = 100, nullable=false)
+	@Column(length = 25, nullable=false, unique = true)
 	protected String login;
 	@Column(length = 100, nullable=false)
 	protected String password;
@@ -125,10 +124,5 @@ public abstract class Compte {
 		return "Compte [id=" + id + ", login=" + login + ", password=" + password + ", nom=" + nom + ", prenom="
 				+ prenom + ", dateArrivee=" + dateArrivee + "]";
 	}
-	
-	
-	
-	
-	
 	
 }

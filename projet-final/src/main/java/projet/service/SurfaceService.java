@@ -18,14 +18,14 @@ public class SurfaceService {
     private IDAOSurface daoSurface;
 
     
-    public List<SurfaceResponse> findAll() {
+    public List<SurfaceResponse> getAll() {
         return daoSurface.findAll().stream()
                 .map(SurfaceResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
     
-    public SurfaceResponse findById(Integer id) {
+    public SurfaceResponse getById(Integer id) {
         Surface surface = daoSurface.findById(id)
                 .orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + id));
         return SurfaceResponse.fromEntity(surface);

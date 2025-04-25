@@ -1,8 +1,6 @@
 package projet.rest;
 
 import java.util.List;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,59 +9,49 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.fasterxml.jackson.annotation.JsonView;
-
-import projet.dao.IDAOSurface;
-import projet.model.Surface;
 import projet.model.Views;
+import projet.request.SurfaceRequest;
+import projet.response.SurfaceResponse;
+import projet.service.SurfaceService;
 
 @RestController
-@RequestMapping("/Surface")
+@RequestMapping("/api/surface")
 public class SurfaceRestController {
 
-	private IDAOSurface daoSurface;
+	private SurfaceService surfaceService;
 
-	public SurfaceRestController(IDAOSurface daoSurface) {
+	public SurfaceRestController(SurfaceService surfaceService) {
 		super();
-		this.daoSurface = daoSurface;
+		this.surfaceService = surfaceService;
 	}
 
 	@GetMapping("")
 	@JsonView(Views.ViewSurface.class)
-	public List<Surface> getAll() {
-		return this.daoSurface.findAll();
+	public List<SurfaceResponse> getAll() {
+		return this.surfaceService.getAll();
 	}
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewSurfaceDetail.class)
-	public Surface getById(@PathVariable Integer id) {
-		return this.daoSurface.findById(id).get();
+	public SurfaceResponse getById(@PathVariable Integer id) {
+		return this.surfaceService.getById(id);
 	}
 	
 	@PostMapping("")
 	@JsonView(Views.ViewSurface.class)
-	public Surface create(@RequestBody Surface Surface) {
-		return this.daoSurface.save(Surface);
+	public SurfaceResponse create(@RequestBody SurfaceRequest dto) {
+		return this.surfaceService.create(dto);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewSurface.class)
-	public Surface update(@RequestBody Surface Surface, @PathVariable Integer id) {
-		if (id != Surface.getId() || !this.daoSurface.existsById(id)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
-		}
-
-		return this.daoSurface.save(Surface);
+	public SurfaceResponse update(@RequestBody SurfaceRequest dto, @PathVariable Integer id) {
+		return this.surfaceService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if (!this.daoSurface.existsById(id)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
-		}
-
-		this.daoSurface.deleteById(id);
+		this.surfaceService.delete(id);
 	}
 }

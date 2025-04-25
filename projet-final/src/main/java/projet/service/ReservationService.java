@@ -15,9 +15,7 @@ import projet.dao.IDAOCommande;
 import projet.model.Reservation;
 import projet.model.Client;
 import projet.model.Employe;
-import projet.model.Surface;
 import projet.model.Jeu;
-import projet.model.Commande;
 import projet.model.Produit;
 import projet.model.Compte;
 import projet.request.ReservationRequest;
@@ -42,14 +40,14 @@ public class ReservationService {
 	private IDAOCommande daoCommande;
 
 	
-	public List<ReservationResponse> findAll() {
+	public List<ReservationResponse> getAll() {
 		return daoReservation.findAll().stream()
 				.map(ReservationResponse::convert)
 				.collect(Collectors.toList());
 	}
 
 	
-	public ReservationResponse findById(Integer id) {
+	public ReservationResponse getById(Integer id) {
 		Reservation reservation = daoReservation.findById(id)
 				.orElseThrow(() -> new RuntimeException("Réservation non trouvée avec id : " + id));
 		return ReservationResponse.convert(reservation);

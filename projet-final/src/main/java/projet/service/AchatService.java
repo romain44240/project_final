@@ -27,7 +27,7 @@ public class AchatService {
 	@Autowired
 	private IDAOCommande daoCommande;
 	
-	public List<AchatResponse> findAll() {
+	public List<AchatResponse> getAll() {
 		return daoAchat.findAll()
 			.stream()
 			.map(AchatResponse::convert)
@@ -51,7 +51,7 @@ public class AchatService {
 		return AchatResponse.convert(saved);
 	}
 
-	public AchatResponse findById(Integer id) {
+	public AchatResponse getById(Integer id) {
 		Achat achat = daoAchat.findById(id)
 				.orElseThrow(() -> new RuntimeException("Achat non trouvé avec id : " + id));
 		return AchatResponse.convert(achat);
