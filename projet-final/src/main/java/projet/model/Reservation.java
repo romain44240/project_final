@@ -44,9 +44,21 @@ public class Reservation {
 	private Commande commande;
 	
 	public Reservation() {}
+
 	public Reservation(Integer id, LocalDateTime dateReservation, int duree, int nbPersonne, Client client,
 			Employe employe, Surface surface, Jeu jeu) {
 		this.id = id;
+		this.dateReservation = dateReservation;
+		this.duree = duree;
+		this.nbPersonne = nbPersonne;
+		this.client = client;
+		this.employe = employe;
+		this.surface = surface;
+		this.jeu = jeu;
+	}
+
+	public Reservation(LocalDateTime dateReservation, int duree, int nbPersonne, Client client,
+			Employe employe, Surface surface, Jeu jeu) {
 		this.dateReservation = dateReservation;
 		this.duree = duree;
 		this.nbPersonne = nbPersonne;
@@ -128,26 +140,10 @@ public class Reservation {
 		this.commande = commande;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", dateReservation=" + dateReservation + ", duree=" + duree + ", nbPersonne="
 				+ nbPersonne + ", client=" + client + ", employe=" + employe + ", surface=" + surface + ", jeu=" + jeu
 				+ "]";
 	}
-
-
-
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-
 }

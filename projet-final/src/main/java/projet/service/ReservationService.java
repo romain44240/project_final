@@ -6,18 +6,17 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import projet.dao.IDAOReservation;
-import projet.dao.IDAOCompte;
-import projet.dao.IDAOSurface;
-import projet.dao.IDAOProduit;
 import projet.dao.IDAOCommande;
-
-import projet.model.Reservation;
+import projet.dao.IDAOCompte;
+import projet.dao.IDAOProduit;
+import projet.dao.IDAOReservation;
+import projet.dao.IDAOSurface;
 import projet.model.Client;
+import projet.model.Compte;
 import projet.model.Employe;
 import projet.model.Jeu;
 import projet.model.Produit;
-import projet.model.Compte;
+import projet.model.Reservation;
 import projet.request.ReservationRequest;
 import projet.response.ReservationResponse;
 
@@ -55,7 +54,7 @@ public class ReservationService {
 
 	
 	public ReservationResponse create(ReservationRequest dto) {
-		Reservation reservation = ReservationRequest.toEntity(dto);
+		Reservation reservation = ReservationRequest.convert(dto);
 
 		//Client
 		reservation.setClient(getClientById(dto.getIdClient()));

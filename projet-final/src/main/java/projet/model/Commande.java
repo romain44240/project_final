@@ -25,9 +25,13 @@ public class Commande {
 	private Reservation reservation;
 
 	public Commande() {}
-	public Commande(Integer id,List<Achat> achats) {
-		super();
+	
+	public Commande(Integer id, List<Achat> achats) {
 		this.id = id;
+		this.achats = achats;
+	}
+	
+	public Commande(List<Achat> achats) {
 		this.achats = achats;
 	}
 	

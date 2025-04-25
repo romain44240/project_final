@@ -22,8 +22,13 @@ public class Surface {
 	private Reservation reservation;
 	
 	public Surface() {}
+
 	public Surface(Integer id, int capacite) {
 		this.id = id;
+		this.capacite = capacite;
+	}
+
+	public Surface(int capacite) {
 		this.capacite = capacite;
 	}
 

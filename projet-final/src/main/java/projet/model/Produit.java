@@ -22,14 +22,21 @@ public abstract class Produit {
 	
 	protected String nom;
 
-	protected double prix;
+	protected double prix; // En euros
 	
-	@Column(nullable=false, columnDefinition="INT(2) DEFAULT 0")
+	@Column(nullable=false, columnDefinition="INT(4) DEFAULT 0")
 	protected int stock;
 	
 	public Produit() {}
+	
 	public Produit(Integer id, String nom, double prix, int stock) {
 		this.id = id;
+		this.nom = nom;
+		this.prix = prix;
+		this.stock = stock;
+	}
+	
+	public Produit(String nom, double prix, int stock) {
 		this.nom = nom;
 		this.prix = prix;
 		this.stock = stock;

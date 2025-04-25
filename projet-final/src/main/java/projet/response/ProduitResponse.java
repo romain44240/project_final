@@ -46,10 +46,10 @@ public abstract class ProduitResponse {
 	}
 	
 	public static ProduitResponse convert(Produit produit) {
-		if (produit instanceof Consommable) {
-			return ConsommableResponse.convert(produit);
-		} else if (produit instanceof Jeu) {
-			return JeuResponse.convert(produit);
+		if (produit instanceof Consommable consommable) {
+			return ConsommableResponse.convert(consommable);
+		} else if (produit instanceof Jeu jeu) {
+			return JeuResponse.convert(jeu);
 		} else {
 			throw new IllegalArgumentException("Type de produit inconnu");
 		}

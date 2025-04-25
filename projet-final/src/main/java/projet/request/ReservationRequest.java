@@ -93,7 +93,7 @@ public class ReservationRequest {
 	}
 
 	// Méthode pour mapper les champs simples vers une entité Reservation
-	public static Reservation toEntity(ReservationRequest dto) {
+	public static Reservation convert(ReservationRequest dto) {
 		Reservation reservation = new Reservation();
 		BeanUtils.copyProperties(dto, reservation);
 
