@@ -86,7 +86,7 @@ public class EmployeRequest {
 		this.sal = sal;
 	}
 	
-	public Employe convert(EmployeRequest employeRequestDTO) {
+	public static Employe convert(EmployeRequest employeRequestDTO) {
 		Employe employe = new Employe();
 		
 		BeanUtils.copyProperties(employeRequestDTO, employe);

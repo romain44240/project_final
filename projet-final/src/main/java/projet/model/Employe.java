@@ -11,62 +11,40 @@ import jakarta.persistence.OneToOne;
 @DiscriminatorValue("employe")
 public class Employe extends Compte {
 
-	
 	@OneToOne
 	private Reservation reservation;
 	
 	private String poste; // null = serveur --> gameMaster => c'est qu'il peut plus servir ?
 	@Column(nullable = false)
-	private double sal;
-	
+	private double salaire;
 	
 	public Employe() {super();}
 	public Employe(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee,
-			String poste, double sal) {
+			String poste, double salaire) {
 		super(id, login, password, nom, prenom, dateArrivee);
 		this.poste = poste;
-		this.sal = sal;
+		this.salaire = salaire;
 	}
-
-
 
 	public String getPoste() {
 		return poste;
 	}
 
-
-
-	public double getSal() {
-		return sal;
+	public double getSalaire() {
+		return salaire;
 	}
-
-
 
 	public void setPoste(String poste) {
 		this.poste = poste;
 	}
 
-
-
-	public void setSal(double sal) {
-		this.sal = sal;
+	public void setSalaire(double salaire) {
+		this.salaire = salaire;
 	}
-
-
 
 	@Override
 	public String toString() {
-		return "Employe [poste=" + poste + ", sal=" + sal + ", id=" + id + ", login=" + login + ", password=" + password
+		return "Employe [poste=" + poste + ", salaire=" + salaire + ", id=" + id + ", login=" + login + ", password=" + password
 				+ ", nom=" + nom + ", prenom=" + prenom + ", dateArrivee=" + dateArrivee + "]";
 	}
-
-
-
-	
-	
-	
-	
-	
-	
-
 }

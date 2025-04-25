@@ -1,5 +1,7 @@
 package projet.model;
 
+import java.util.List;
+
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -8,28 +10,43 @@ import jakarta.persistence.OneToOne;
 @DiscriminatorValue("jeu")
 public class Jeu extends Produit {
 	
-	private int nbMin;
+	private int nbMin; // Nombres minimum de joueurs
 	
-	private int nbMax;
+	private int nbMax; // Nombres maximum de joueurs
 	
-	private int duree;
+	private int duree; // En minutes
 	
 	private String editeur;
 	
-	private String regle;
+	private String regle; // Lien internet vers les règles
+	
+	List<Categorie> categories;
 	
 	@OneToOne
 	private Reservation reservation;
 	
 	public Jeu() {super();}
+	
 	public Jeu(Integer id, String nom, double prix, int stock, int nbMin, int nbMax, int duree, String editeur,
-			String regle) {
+			String regle, List<Categorie> categories) {
 		super(id, nom, prix, stock);
 		this.nbMin = nbMin;
 		this.nbMax = nbMax;
 		this.duree = duree;
 		this.editeur = editeur;
 		this.regle = regle;
+		this.categories = categories;
+	}
+	
+	public Jeu(String nom, double prix, int stock, int nbMin, int nbMax, int duree, String editeur,
+			String regle, List<Categorie> categories) {
+		super(nom, prix, stock);
+		this.nbMin = nbMin;
+		this.nbMax = nbMax;
+		this.duree = duree;
+		this.editeur = editeur;
+		this.regle = regle;
+		this.categories = categories;
 	}
 
 	public int getNbMin() {
@@ -70,6 +87,14 @@ public class Jeu extends Produit {
 
 	public void setRegle(String regle) {
 		this.regle = regle;
+	}
+
+	public List<Categorie> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
 	}
 
 	@Override

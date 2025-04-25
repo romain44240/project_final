@@ -1,7 +1,10 @@
 package projet.response;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
+import projet.model.Categorie;
 import projet.model.Jeu;
 
 public class JeuResponse extends ProduitResponse {
@@ -11,6 +14,7 @@ public class JeuResponse extends ProduitResponse {
 	private int duree;
 	private String editeur;
 	private String regle;
+	private List<Categorie> categories;
 
 	public JeuResponse() {}
 
@@ -54,7 +58,15 @@ public class JeuResponse extends ProduitResponse {
 		this.regle = regle;
 	}
 
-	public static JeuResponse fromEntity(Jeu jeu) {
+	public List<Categorie> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
+	}
+
+	public static JeuResponse convert(Jeu jeu) {
 		JeuResponse jeuResponse = new JeuResponse();
 		
 		BeanUtils.copyProperties(jeu, jeuResponse);

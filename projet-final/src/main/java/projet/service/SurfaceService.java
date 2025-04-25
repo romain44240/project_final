@@ -33,7 +33,7 @@ public class SurfaceService {
 
     
     public SurfaceResponse create(SurfaceRequest dto) {
-        Surface surface = SurfaceRequest.toEntity(dto);
+        Surface surface = SurfaceRequest.convert(dto);
         Surface saved = daoSurface.save(surface);
         return SurfaceResponse.fromEntity(saved);
     }

@@ -37,7 +37,7 @@ public class SurfaceRequest {
 	}
 
 	// Méthode pour transformer le DTO en entité Surface
-	public static Surface toEntity(SurfaceRequest dto) {
+	public static Surface convert(SurfaceRequest dto) {
 		Surface surface = new Surface();
 		BeanUtils.copyProperties(dto, surface);
 		return surface;

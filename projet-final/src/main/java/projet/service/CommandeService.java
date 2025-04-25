@@ -1,56 +1,65 @@
 package projet.service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projet.dao.IDAOCommande;
 import projet.model.Commande;
+import projet.request.CommandeRequest;
+import projet.response.CommandeResponse;
 
 @Service
 public class CommandeService {
 
 	@Autowired
 	IDAOCommande daoCommande;
-	
-	public boolean existById(Integer id) {
+
+	public List<CommandeResponse> getAll()
+	{
+		return daoCommande.findAll()
+						  .stream()
+						  .map(CommandeResponse::convert)
+						  .collect(Collectors.toList());
+	}
+
+	public CommandeResponse getById(Integer id)
+	{
+		Commande commande = daoCommande.findById(id)
+				 .orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + id));
+		return CommandeResponse.convert(commande);
+	}
+
+	public boolean existsById(Integer id) {
 		return daoCommande.existsById(id);
 	}
 
-	public Commande getById(Integer id)
+	public CommandeResponse create(CommandeRequest commandeRequest) 
 	{
-		Optional<Commande> opt = daoCommande.findById(id);
-		if(opt.isEmpty()) {return null;}
-		else {return opt.get();}
+		Commande commande = CommandeRequest.convert(commandeRequest);
+		commande = daoCommande.save(commande);
+		return CommandeResponse.convert(commande);
 	}
 
-	public List<Commande> getAll()
+	public CommandeResponse update(Integer id, CommandeRequest commandeRequest) 
 	{
-		return daoCommande.findAll();
-	}
-
-	public Commande create(Commande commande) 
-	{
+		Commande commande = daoCommande.findById(id)
+				 .orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + id));
+		
+		BeanUtils.copyProperties(commandeRequest, commande);
 		commande=daoCommande.save(commande);
-		return commande;
+		
+		return CommandeResponse.convert(commande);
 	}
 
-	public Commande update(Commande commande) 
+	public void delete(Integer id)
 	{
-		commande=daoCommande.save(commande);
-		return commande;
-	}
-
-	public boolean deleteById(Integer id) 
-	{
+		if (!daoCommande.existsById(id)) {
+			throw new RuntimeException("Commande non trouvée avec id : " + id);
+		}
 		daoCommande.deleteById(id);
-		return true;
-	}
-
-	public boolean delete(Commande commande) throws Exception 
-	{
-		return deleteById(commande.getId());
 	}
 }

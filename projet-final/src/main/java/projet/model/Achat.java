@@ -37,6 +37,11 @@ public class Achat {
 		this.quantite = quantite;
 		this.produit = produit;
 	}
+	
+	public Achat(int quantite, Produit produit) {
+		this.quantite = quantite;
+		this.produit = produit;
+	}
 
 	public Integer getId() {
 		return id;
