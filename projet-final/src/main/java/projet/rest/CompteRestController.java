@@ -19,52 +19,51 @@ import projet.model.Compte;
 import projet.model.Views;
 import projet.service.CompteService;
 
-
 @RestController
 @RequestMapping("/api/compte")
 public class CompteRestController {
 
-	private CompteService CompteService;
+	private CompteService compteService;
 
-	public CompteRestController(CompteService CompteService) {
+	public CompteRestController(CompteService compteService) {
 		super();
-		this.CompteService = CompteService;
+		this.compteService = compteService;
 	}
 
 	@GetMapping("")
 	@JsonView(Views.ViewCompte.class)
 	public List<Compte> getAll() {
-		return this.CompteService.getAll();
+		return this.compteService.getAll();
 	}
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewCompte.class)
 	public Compte getById(@PathVariable Integer id) {
-		return this.CompteService.getById(id);
+		return this.compteService.getById(id);
 	}
 
 	@PostMapping("")
 	@JsonView(Views.ViewCompte.class)
 	public Compte create(@RequestBody Compte Compte) {
-		return this.CompteService.create(Compte);
+		return this.compteService.create(Compte);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewCompte.class)
 	public Compte update(@RequestBody Compte Compte, @PathVariable Integer id) {
-		if (id != Compte.getId() || !this.CompteService.existById(id)) {
+		if (id != Compte.getId() || !this.compteService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
 		}
 
-		return this.CompteService.update(Compte);
+		return this.compteService.update(Compte);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Integer id) {
-		if (!this.CompteService.existById(id)) {
+		if (!this.compteService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
 		}
 
-		this.CompteService.deleteById(id);
+		this.compteService.deleteById(id);
 	}
 }
