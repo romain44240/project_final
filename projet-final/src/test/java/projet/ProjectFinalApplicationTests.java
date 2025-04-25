@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import projet.model.Achat;
 import projet.model.Categorie;
 import projet.model.Reservation;
-import projet.model.Surface;
 import projet.request.ClientRequest;
 import projet.request.CommandeRequest;
 import projet.request.ConsommableRequest;
@@ -78,7 +77,7 @@ class ProjectFinalApplicationTests {
 		jeu.setDuree(30);
 		jeu.setEditeur("Magilano");
 		jeu.setRegle("Lien internet");
-		List<Categorie> categories = new ArrayList();
+		List<Categorie> categories = new ArrayList<Categorie>();
 		categories.add(Categorie.carte);
 		jeu.setCategories(categories);
 		jeu.setProduitType(ProduitType.JEU);
@@ -172,7 +171,7 @@ class ProjectFinalApplicationTests {
 	@Test
 	void creationCommande() {
 		//
-		List<Achat> achats = new ArrayList();
+		List<Achat> achats = new ArrayList<Achat>();
 		achats.add(new Achat(1, JeuRequest.convert(skyjo())));
 		achats.add(new Achat(5, ConsommableRequest.convert(coca())));
 		Reservation reservation = new Reservation(
@@ -195,16 +194,7 @@ class ProjectFinalApplicationTests {
 		assertEquals(commandeRequest.getAchats(), commandeResponse.getAchats());
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	@Test
     void contextLoads() {
