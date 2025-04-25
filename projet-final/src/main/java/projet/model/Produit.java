@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type_produit", columnDefinition = "ENUM('Jeu', 'Consommable')")
+@DiscriminatorColumn(name = "type_produit", columnDefinition = "ENUM('jeu', 'consommable')")
 @Table(name = "produit")
 public abstract class Produit {
 	
