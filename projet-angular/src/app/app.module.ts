@@ -1,0 +1,34 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { ConnexionComponent } from './connexion/connexion.component';
+
+@NgModule({
+  declarations: [ // Déclaration dans notre module de tout ce qui est utilisé dans notre module principal
+    AppComponent, 
+    HomeComponent, 
+    ConnexionComponent
+  ],
+  
+  imports: [ // Tous les modules dont on a besoin dans notre module à nous
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+
+  providers: [ // Tous les services injectables
+    //provideHttpClient(withFetch(), withInterceptors([jwtHeaderInterceptor])) //Remplace l'import de HttpClientModule
+
+  ],
+
+  bootstrap: [ // Le composant principal de notre module, si besoin
+    AppComponent
+  ]
+})
+export class AppModule { }
