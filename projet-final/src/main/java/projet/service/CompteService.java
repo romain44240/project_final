@@ -1,6 +1,7 @@
 package projet.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import projet.dao.IDAOCompte;
 import projet.model.Client;
+import projet.model.Compte;
 import projet.model.Employe;
 import projet.request.ClientRequest;
 import projet.request.EmployeRequest;
@@ -20,6 +22,14 @@ public class CompteService {
 
     @Autowired
     private IDAOCompte daoCompte;
+
+    // COMPTE
+    public Compte getByLogin(String login)
+	{
+		Optional<Compte> opt = daoCompte.findByLogin(login);
+		if(opt.isEmpty()) {return null;}
+		else {return opt.get();}
+	}
 
     //CLIENT
     public ClientResponse createClient(ClientRequest clientRequest) {
@@ -36,14 +46,14 @@ public class CompteService {
         return ClientResponse.convert(client);
     }
 
-    public List<ClientResponse> findAllClients() {
+    public List<ClientResponse> getAllClients() {
         return daoCompte.findAll().stream()
                 .filter(client -> client instanceof Client) 
                 .map(compte -> ClientResponse.convert((Client) compte))
                 .collect(Collectors.toList());
     }
 
-    public ClientResponse findClientById(Integer id) {
+    public ClientResponse getClientById(Integer id) {
         Client client = (Client) daoCompte.findById(id)
                 .orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
         return ClientResponse.convert(client);
@@ -69,14 +79,14 @@ public class CompteService {
         return EmployeResponse.convert(employe);
     }
 
-    public List<EmployeResponse> findAllEmployes() {
+    public List<EmployeResponse> getAllEmployes() {
         return daoCompte.findAll().stream()
                 .filter(employe -> employe instanceof Employe) 
                 .map(compte -> EmployeResponse.convert((Employe) compte))
                 .collect(Collectors.toList());
     }
 
-    public EmployeResponse findEmployeById(Integer id) {
+    public EmployeResponse getEmployeById(Integer id) {
         Employe employe = (Employe) daoCompte.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
         return EmployeResponse.convert(employe);

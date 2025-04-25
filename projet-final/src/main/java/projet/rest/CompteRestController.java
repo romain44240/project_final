@@ -2,7 +2,7 @@ package projet.rest;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.fasterxml.jackson.annotation.JsonView;
-
-import projet.model.Compte;
 import projet.model.Views;
+import projet.request.ClientRequest;
+import projet.request.EmployeRequest;
+import projet.response.ClientResponse;
+import projet.response.EmployeResponse;
 import projet.service.CompteService;
 
 @RestController
@@ -30,40 +30,64 @@ public class CompteRestController {
 		this.compteService = compteService;
 	}
 
-	@GetMapping("")
+	// CLIENT 
+	@GetMapping("/clients")
 	@JsonView(Views.ViewCompte.class)
-	public List<Compte> getAll() {
-		return this.compteService.getAll();
+	public List<ClientResponse> getAllClients() {
+		return this.compteService.getAllClients();
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/client/{id}")
 	@JsonView(Views.ViewCompte.class)
-	public Compte getById(@PathVariable Integer id) {
-		return this.compteService.getById(id);
+	public ClientResponse getClientById(@PathVariable Integer id) {
+		return this.compteService.getClientById(id);
 	}
 
-	@PostMapping("")
+	@PostMapping("/client")
 	@JsonView(Views.ViewCompte.class)
-	public Compte create(@RequestBody Compte Compte) {
-		return this.compteService.create(Compte);
+	public ClientResponse createClient(@RequestBody ClientRequest dto) {
+		return this.compteService.createClient(dto);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/client/{id}")
 	@JsonView(Views.ViewCompte.class)
-	public Compte update(@RequestBody Compte Compte, @PathVariable Integer id) {
-		if (id != Compte.getId() || !this.compteService.existById(id)) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incohérence de l'appel");
-		}
-
-		return this.compteService.update(Compte);
+	public ClientResponse updateClient(@RequestBody ClientRequest dto, @PathVariable Integer id) {
+		return this.compteService.updateClient(id,dto);
 	}
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Integer id) {
-		if (!this.compteService.existById(id)) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");
-		}
-
-		this.compteService.deleteById(id);
+	@DeleteMapping("/client/{id}")
+	public void deleteClient(@PathVariable Integer id) {
+		this.compteService.deleteClient(id);
 	}
+
+	// EMPLOYE	
+	@GetMapping("/employes")
+	@JsonView(Views.ViewCompte.class)
+	public List<EmployeResponse> getAllEmployes() {
+		return this.compteService.getAllEmployes();
+	}
+
+	@GetMapping("/employe/{id}")
+	@JsonView(Views.ViewCompte.class)
+	public EmployeResponse getEmployeById(@PathVariable Integer id) {
+		return this.compteService.getEmployeById(id);
+	}
+
+	@PostMapping("/employe")
+	@JsonView(Views.ViewCompte.class)
+	public EmployeResponse createEmploye(@RequestBody EmployeRequest dto) {
+		return this.compteService.createEmploye(dto);
+	}
+
+	@PutMapping("/employe/{id}")
+	@JsonView(Views.ViewCompte.class)
+	public EmployeResponse update(@RequestBody EmployeRequest dto, @PathVariable Integer id) {
+		return this.compteService.updateEmploye(id,dto);
+	}
+
+	@DeleteMapping("/employe/{id}")
+	public void deleteEmploye(@PathVariable Integer id) {
+		this.compteService.deleteEmploye(id);
+	}
+
 }
