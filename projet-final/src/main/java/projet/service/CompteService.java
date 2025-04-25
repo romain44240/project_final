@@ -1,95 +1,89 @@
 package projet.service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import projet.dao.IDAOCompte;
-import projet.model.Compte;
+import projet.model.Client;
+import projet.model.Employe;
+import projet.request.ClientRequest;
+import projet.request.EmployeRequest;
+import projet.response.ClientResponse;
+import projet.response.EmployeResponse;
 
 @Service
-public class CompteService implements UserDetailsService{
+public class CompteService {
 
-	@Autowired
-	IDAOCompte daoCompte;
-	
-	public boolean existById(Integer id) {
-		return daoCompte.existsById(id);
-	}
+    @Autowired
+    private IDAOCompte daoCompte;
 
-	public Compte getByLogin(String login)
-	{
-		Optional<Compte> opt = daoCompte.findByLogin(login);
-		if(opt.isEmpty()) {return null;}
-		else {return opt.get();}
-	}
-	
-	public Compte getById(Integer id)
-	{
-		Optional<Compte> opt = daoCompte.findById(id);
-		if(opt.isEmpty()) {return null;}
-		else {return opt.get();}
-	}
+    //CLIENT
+    public ClientResponse createClient(ClientRequest clientRequest) {
+        Client client = ClientRequest.convert(clientRequest);
+        client = daoCompte.save(client); 
+        return ClientResponse.convert(client);
+    }
 
-	public List<Compte> getAll()
-	{
-		return daoCompte.findAll();
-	}
+    public ClientResponse updateClient(Integer id, ClientRequest clientRequest) {
+        Client client = (Client) daoCompte.findById(id)
+                .orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
+        BeanUtils.copyProperties(clientRequest, client);
+        client = daoCompte.save(client);
+        return ClientResponse.convert(client);
+    }
 
-	public Compte create(Compte compte) 
-	{
-		compte.setPassword(this.encode(compte.getPassword()));
-		compte=daoCompte.save(compte);
-		return compte;
-	}
+    public List<ClientResponse> findAllClients() {
+        return daoCompte.findAll().stream()
+                .filter(client -> client instanceof Client) 
+                .map(compte -> ClientResponse.convert((Client) compte))
+                .collect(Collectors.toList());
+    }
 
-	public Compte update(Compte compte) 
-	{
-		compte.setPassword(this.encode(compte.getPassword()));
-		compte=daoCompte.save(compte);
-		return compte;
-	}
+    public ClientResponse findClientById(Integer id) {
+        Client client = (Client) daoCompte.findById(id)
+                .orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
+        return ClientResponse.convert(client);
+    }
 
-	public boolean deleteById(Integer id) 
-	{
-		daoCompte.deleteById(id);
-		return true;
-	}
+    public boolean deleteClient(Integer id) {
+        daoCompte.deleteById(id);
+        return true;
+    }
 
-	public boolean delete(Compte compte) throws Exception 
-	{
-		return deleteById(compte.getId());
-	}
+    //EMPLOYE
+    public EmployeResponse createEmploye(EmployeRequest employeRequest) {
+        Employe employe = EmployeRequest.convert(employeRequest);
+        employe = daoCompte.save(employe); 
+        return EmployeResponse.convert(employe);
+    }
 
-	private String encode(String password){
-		return password = new BCryptPasswordEncoder().encode(password);
-	}
+    public EmployeResponse updateEmploye(Integer id, EmployeRequest employeRequest) {
+        Employe employe = (Employe) daoCompte.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
+        BeanUtils.copyProperties(employeRequest, employe);
+        employe = daoCompte.save(employe);
+        return EmployeResponse.convert(employe);
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Compte compte = getByLogin(username);
+    public List<EmployeResponse> findAllEmployes() {
+        return daoCompte.findAll().stream()
+                .filter(employe -> employe instanceof Employe) 
+                .map(compte -> EmployeResponse.convert((Employe) compte))
+                .collect(Collectors.toList());
+    }
 
-		if (compte == null) {
-			throw new UsernameNotFoundException("Aucun compte avec le login : " + username);
-		}
-		String role;
-		if (compte instanceof projet.model.Employe) {
-			role = "ROLE_EMPLOYE";
-		} else if (compte instanceof projet.model.Client) {
-			role = "ROLE_CLIENT";
-		} else {
-			role = "ROLE_USER"; 
-		}
+    public EmployeResponse findEmployeById(Integer id) {
+        Employe employe = (Employe) daoCompte.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
+        return EmployeResponse.convert(employe);
+    }
 
-		return org.springframework.security.core.userdetails.User
-			.withUsername(compte.getLogin())
-			.password(compte.getPassword())
-			.roles(role.replace("ROLE_", ""))
-			.build();
-	}
+    public boolean deleteEmploye(Integer id) {
+        daoCompte.deleteById(id);
+        return true;
+    }
 }

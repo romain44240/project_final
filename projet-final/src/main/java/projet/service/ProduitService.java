@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projet.dao.IDAOProduit;
+import projet.model.Consommable;
+import projet.model.Jeu;
 import projet.model.Produit;
+import projet.request.ConsommableRequest;
+import projet.request.JeuRequest;
 import projet.request.ProduitRequest;
 import projet.response.ProduitResponse;
 
@@ -39,6 +43,33 @@ public class ProduitService {
 		return ProduitResponse.convert(produit);
 	}
 	
+	public ProduitResponse createJeu(JeuRequest jeuRequest) {
+		Jeu jeu = new Jeu();
+		jeu.setNom(jeuRequest.getNom());
+		jeu.setPrix(jeuRequest.getPrix());
+		jeu.setStock(jeuRequest.getStock());
+		jeu.setNbMin(jeuRequest.getNbMin());
+		jeu.setNbMax(jeuRequest.getNbMax());
+		jeu.setDuree(jeuRequest.getDuree());
+		jeu.setEditeur(jeuRequest.getEditeur());
+		jeu.setRegle(jeuRequest.getRegle());
+		
+		Produit saved = daoProduit.save(jeu);
+	    return ProduitResponse.convert(saved);
+	}
+	
+	public ProduitResponse createConsommable(ConsommableRequest consommableRequest) {
+		Consommable consommable = new Consommable();
+		consommable.setNom(consommableRequest.getNom());
+		consommable.setPrix(consommableRequest.getPrix());
+		consommable.setStock(consommableRequest.getStock());
+		
+		Produit saved = daoProduit.save(consommable);
+		return ProduitResponse.convert(saved);
+		
+	}
+
+
 	public ProduitResponse update(Integer id, ProduitRequest produitRequest) {
 		Produit produit = daoProduit.findById(id)
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + id));
