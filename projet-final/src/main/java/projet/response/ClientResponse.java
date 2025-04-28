@@ -3,18 +3,29 @@ package projet.response;
 import java.time.LocalDate;
 
 import org.springframework.beans.BeanUtils;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
 import projet.model.Client;
+import projet.model.Views;
 
 public class ClientResponse {
 
+	@JsonView(Views.ViewCompte.class)
 	private Integer id;
+	@JsonView(Views.ViewCompte.class)
 	private String login;
+	@JsonView(Views.ViewCompte.class)
 	private String password;
+	@JsonView(Views.ViewCompte.class)
 	private String nom;
+	@JsonView(Views.ViewCompte.class)
 	private String prenom;
+	@JsonView(Views.ViewCompte.class)
 	private String email;
+	@JsonView(Views.ViewCompte.class)
 	private LocalDate dateArrivee;
-	
+	@JsonView(Views.ViewCompte.class)
 	private String telephone;
 	
 	public ClientResponse() {}
