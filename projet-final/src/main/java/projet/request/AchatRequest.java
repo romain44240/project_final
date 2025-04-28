@@ -3,16 +3,16 @@ package projet.request;
 import org.springframework.beans.BeanUtils;
 
 import projet.model.Achat;
-import projet.model.Commande;
 import projet.model.Consommable;
 import projet.model.Jeu;
 import projet.model.Produit;
+import projet.model.Reservation;
 
 public class AchatRequest {
 
 	private int quantite;
 	private Integer idProduit;
-	private Integer idCommande;
+	private Integer idReservation;
 	private ProduitType produitType;
 
 	public AchatRequest() {}
@@ -33,12 +33,12 @@ public class AchatRequest {
 		this.idProduit = idProduit;
 	}
 
-	public Integer getIdCommande() {
-		return idCommande;
+	public Integer getIdReservation() {
+		return idReservation;
 	}
 
-	public void setIdCommande(Integer idCommande) {
-		this.idCommande = idCommande;
+	public void setIdReservation(Integer idReservation) {
+		this.idReservation = idReservation;
 	}
 
 	public ProduitType getProduitType() {
@@ -56,10 +56,6 @@ public class AchatRequest {
 		
 		BeanUtils.copyProperties(achatRequestDTO, achat);
 		
-		Commande commande = new Commande();
-		commande.setId(achatRequestDTO.getIdCommande());
-		achat.setCommande(commande);
-		
 		Produit produit = null;
 		if (achatRequestDTO.getProduitType() == ProduitType.CONSOMMABLE) {
 			produit = new Consommable();
@@ -69,6 +65,10 @@ public class AchatRequest {
 		
 		produit.setId(achatRequestDTO.getIdProduit());
 		achat.setProduit(produit);
+
+		Reservation reservation = new Reservation();
+		reservation.setId(achatRequestDTO.getIdReservation());
+		achat.setReservation(reservation);
 		
 		return achat;
 	}

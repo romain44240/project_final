@@ -2,7 +2,7 @@ package projet.rest;
 
 import java.util.List;
 
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,32 +30,37 @@ public class CompteRestController {
 		this.compteService = compteService;
 	}
 
-	// CLIENT 
+	// CLIENT
 	@GetMapping("/clients")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public List<ClientResponse> getAllClients() {
 		return this.compteService.getAllClients();
 	}
 
 	@GetMapping("/client/{id}")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public ClientResponse getClientById(@PathVariable Integer id) {
 		return this.compteService.getClientById(id);
 	}
 
 	@PostMapping("/client")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public ClientResponse createClient(@RequestBody ClientRequest dto) {
 		return this.compteService.createClient(dto);
 	}
 
 	@PutMapping("/client/{id}")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public ClientResponse updateClient(@RequestBody ClientRequest dto, @PathVariable Integer id) {
 		return this.compteService.updateClient(id,dto);
 	}
 
 	@DeleteMapping("/client/{id}")
+	@PreAuthorize("hasRole('employe')")
 	public void deleteClient(@PathVariable Integer id) {
 		this.compteService.deleteClient(id);
 	}
@@ -63,29 +68,34 @@ public class CompteRestController {
 	// EMPLOYE	
 	@GetMapping("/employes")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public List<EmployeResponse> getAllEmployes() {
 		return this.compteService.getAllEmployes();
 	}
 
 	@GetMapping("/employe/{id}")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public EmployeResponse getEmployeById(@PathVariable Integer id) {
 		return this.compteService.getEmployeById(id);
 	}
 
 	@PostMapping("/employe")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public EmployeResponse createEmploye(@RequestBody EmployeRequest dto) {
 		return this.compteService.createEmploye(dto);
 	}
 
 	@PutMapping("/employe/{id}")
 	@JsonView(Views.ViewCompte.class)
+	@PreAuthorize("hasRole('employe')")
 	public EmployeResponse update(@RequestBody EmployeRequest dto, @PathVariable Integer id) {
 		return this.compteService.updateEmploye(id,dto);
 	}
 
 	@DeleteMapping("/employe/{id}")
+	@PreAuthorize("hasRole('employe')")
 	public void deleteEmploye(@PathVariable Integer id) {
 		this.compteService.deleteEmploye(id);
 	}

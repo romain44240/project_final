@@ -1,6 +1,7 @@
 package projet.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,9 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="reservation")
@@ -29,26 +30,25 @@ public class Reservation {
 	
 	
 	@ManyToOne
-	@NotBlank
+	@JoinColumn(name = "client_id")
 	private Client client;
 	
-	@OneToOne(mappedBy = "reservation")
+	@OneToOne
 	private Employe employe;
 	
-	@OneToOne(mappedBy = "reservation")
-	@NotBlank
+	@OneToOne
 	private Surface surface;
 	
-	@OneToOne(mappedBy = "reservation")
+	@OneToOne
 	private Jeu jeu;
-	
-	@OneToOne(mappedBy = "reservation")
-	private Commande commande;
+
+	@OneToMany(mappedBy = "reservation")
+	private List<Achat> achats;
 	
 	public Reservation() {}
 
 	public Reservation(Integer id, LocalDateTime dateReservation, int duree, int nbPersonne, Client client,
-			Employe employe, Surface surface, Jeu jeu) {
+			Employe employe, Surface surface, Jeu jeu, List<Achat> achats) {
 		this.id = id;
 		this.dateReservation = dateReservation;
 		this.duree = duree;
@@ -57,10 +57,11 @@ public class Reservation {
 		this.employe = employe;
 		this.surface = surface;
 		this.jeu = jeu;
+		this.achats = achats;
 	}
 
 	public Reservation(LocalDateTime dateReservation, int duree, int nbPersonne, Client client,
-			Employe employe, Surface surface, Jeu jeu) {
+			Employe employe, Surface surface, Jeu jeu, List<Achat> achats) {
 		this.dateReservation = dateReservation;
 		this.duree = duree;
 		this.nbPersonne = nbPersonne;
@@ -68,6 +69,7 @@ public class Reservation {
 		this.employe = employe;
 		this.surface = surface;
 		this.jeu = jeu;
+		this.achats = achats;
 	}
 
 	public Integer getId() {
@@ -102,6 +104,10 @@ public class Reservation {
 		return jeu;
 	}
 
+	public List<Achat> getAchats() {
+		return achats;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -134,18 +140,14 @@ public class Reservation {
 		this.jeu = jeu;
 	}
 
-	public Commande getCommande() {
-		return commande;
-	}
-
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setAchats(List<Achat> achats) {
+		this.achats = achats;
 	}
 
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", dateReservation=" + dateReservation + ", duree=" + duree + ", nbPersonne="
 				+ nbPersonne + ", client=" + client + ", employe=" + employe + ", surface=" + surface + ", jeu=" + jeu
-				+ "]";
+				+ ", achats=" + achats + "]";
 	}
 }

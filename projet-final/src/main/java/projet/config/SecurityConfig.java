@@ -30,7 +30,6 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/api/connexion").permitAll();
 			auth.requestMatchers("/api/achat").permitAll();
-			auth.requestMatchers("/api/commande/**").permitAll();
 			auth.requestMatchers("/api/compte/**").permitAll();
 			auth.requestMatchers("/api/produit/**").permitAll();
 			auth.requestMatchers("/api/reservation/**").permitAll();

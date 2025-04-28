@@ -14,10 +14,11 @@ public class EmployeRequest {
 	private String password;
 	private String nom;
 	private String prenom;
+	private String email;
 	private LocalDate dateArrivee;
 	
 	private String poste;
-	private double sal;
+	private double salaire;
 
 	public EmployeRequest() {}
 
@@ -62,6 +63,14 @@ public class EmployeRequest {
 		this.prenom = prenom;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public LocalDate getDateArrivee() {
 		return dateArrivee;
 	}
@@ -78,12 +87,12 @@ public class EmployeRequest {
 		this.poste = poste;
 	}
 
-	public double getSal() {
-		return sal;
+	public double getSalaire() {
+		return salaire;
 	}
 
-	public void setSal(double sal) {
-		this.sal = sal;
+	public void setSalaire(double salaire) {
+		this.salaire = salaire;
 	}
 	
 	public static Employe convert(EmployeRequest employeRequestDTO) {

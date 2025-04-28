@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 import projet.dao.IDAOAchat;
 import projet.dao.IDAOProduit;
-import projet.dao.IDAOCommande;
 import projet.model.Achat;
 import projet.model.Produit;
-import projet.model.Commande;
 import projet.request.AchatRequest;
 import projet.response.AchatResponse;
 
@@ -23,9 +21,6 @@ public class AchatService {
 
 	@Autowired
 	private IDAOProduit daoProduit;
-
-	@Autowired
-	private IDAOCommande daoCommande;
 	
 	public List<AchatResponse> getAll() {
 		return daoAchat.findAll()
@@ -38,13 +33,9 @@ public class AchatService {
 		Produit produit = daoProduit.findById(dto.getIdProduit())
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + dto.getIdProduit()));
 
-		Commande commande = daoCommande.findById(dto.getIdCommande())
-				.orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + dto.getIdCommande()));
-
 		Achat achat = AchatRequest.convert(dto);
 
 		achat.setProduit(produit);
-		achat.setCommande(commande);
 
 		Achat saved = daoAchat.save(achat);
 
@@ -71,12 +62,8 @@ public class AchatService {
 		Produit produit = daoProduit.findById(dto.getIdProduit())
 				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + dto.getIdProduit()));
 
-		Commande commande = daoCommande.findById(dto.getIdCommande())
-				.orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + dto.getIdCommande()));
-
 		achatExistant.setQuantite(dto.getQuantite());
 		achatExistant.setProduit(produit);
-		achatExistant.setCommande(commande);
 
 		Achat updated = daoAchat.save(achatExistant);
 

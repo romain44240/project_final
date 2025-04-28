@@ -2,7 +2,6 @@ package projet.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -11,17 +10,17 @@ import jakarta.persistence.OneToOne;
 @DiscriminatorValue("employe")
 public class Employe extends Compte {
 
-	@OneToOne
+	@OneToOne(mappedBy = "employe")
 	private Reservation reservation;
 	
 	private String poste; // null = serveur --> gameMaster => c'est qu'il peut plus servir ?
-	@Column(nullable = false)
+	
 	private double salaire;
 	
 	public Employe() {super();}
-	public Employe(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee,
+	public Employe(int id, String login, String password, String nom, String prenom, String email, LocalDate dateArrivee,
 			String poste, double salaire) {
-		super(id, login, password, nom, prenom, dateArrivee);
+		super(id, login, password, nom, prenom, email, dateArrivee);
 		this.poste = poste;
 		this.salaire = salaire;
 	}

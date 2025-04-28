@@ -5,11 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "achat")
@@ -23,24 +20,24 @@ public class Achat {
 	private int quantite;
 	
 	@OneToOne
-	@NotBlank
 	private Produit produit;
-	
-	@ManyToOne
-	@JoinColumn(name = "commande_id")
-	private Commande commande;
+
+	@OneToOne
+	private Reservation reservation;
 	
 	public Achat() {}
 	
-	public Achat(Integer id, int quantite, Produit produit) {
+	public Achat(Integer id, int quantite, Produit produit, Reservation reservation) {
 		this.id = id;
 		this.quantite = quantite;
 		this.produit = produit;
+		this.reservation = reservation;
 	}
 	
-	public Achat(int quantite, Produit produit) {
+	public Achat(int quantite, Produit produit, Reservation reservation) {
 		this.quantite = quantite;
 		this.produit = produit;
+		this.reservation = reservation;
 	}
 
 	public Integer getId() {
@@ -55,6 +52,10 @@ public class Achat {
 		return produit;
 	}
 
+	public Reservation getReservation() {
+		return reservation;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -67,20 +68,12 @@ public class Achat {
 		this.produit = produit;
 	}
 
-	public Commande getCommande() {
-		return commande;
-	}
-
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 
 	@Override
 	public String toString() {
 		return "Achat [id=" + id + ", quantite=" + quantite + ", produit=" + produit + "]";
 	}
-	
-	
-	
-	
 }

@@ -1,12 +1,21 @@
 package projet.response;
 
 import org.springframework.beans.BeanUtils;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
 import projet.model.Surface;
+import projet.model.Views;
 
 public class SurfaceResponse {
 
+	@JsonView(Views.ViewSurfaceDetail.class)
 	private Integer id;
+
+	@JsonView(Views.ViewSurface.class)
 	private int capacite;
+
+	@JsonView(Views.ViewSurface.class)
 	private String couleur;
 
 	public SurfaceResponse() {

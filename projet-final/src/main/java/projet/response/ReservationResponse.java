@@ -1,27 +1,40 @@
 package projet.response;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import projet.model.Achat;
 import projet.model.Client;
-import projet.model.Commande;
 import projet.model.Employe;
 import projet.model.Jeu;
 import projet.model.Reservation;
 import projet.model.Surface;
+import projet.model.Views;
 
 public class ReservationResponse {
 
+	@JsonView(Views.ViewReservation.class)
 	private Integer id;
+	@JsonView(Views.ViewReservation.class)
 	private LocalDateTime dateReservation;
+	@JsonView(Views.ViewReservation.class)
 	private int duree;
+	@JsonView(Views.ViewReservation.class)
 	private int nbPersonne;
+	@JsonView(Views.ViewReservation.class)
 	private Client client;
+	@JsonView(Views.ViewReservation.class)
 	private Employe employe;
+	@JsonView(Views.ViewReservation.class)
 	private Surface surface;
+	@JsonView(Views.ViewReservation.class)
 	private Jeu jeu;
-	private Commande commande;
+	@JsonView(Views.ViewReservation.class)
+	private List<Achat> achats;
 
 	public ReservationResponse() {
 	}
@@ -90,12 +103,12 @@ public class ReservationResponse {
 		this.jeu = jeu;
 	}
 
-	public Commande getCommande() {
-		return commande;
+	public List<Achat> getAchats() {
+		return achats;
 	}
 
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setAchats(List<Achat> achats) {
+		this.achats = achats;
 	}
 
 	// Convertir une entité Reservation en DTO ReservationResponse
@@ -107,7 +120,7 @@ public class ReservationResponse {
 		dto.setEmploye(reservation.getEmploye());
 		dto.setSurface(reservation.getSurface());
 		dto.setJeu(reservation.getJeu());
-		dto.setCommande(reservation.getCommande());
+		dto.setAchats(reservation.getAchats());
 
 		return dto;
 	}
