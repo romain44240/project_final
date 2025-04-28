@@ -88,8 +88,8 @@ public class DBData {
         clientRequest.setPassword("client1");
         clientRequest.setNom("Veneu");
         clientRequest.setPrenom("Romain");
-        clientRequest.setDateArrivee(LocalDate.now());
         clientRequest.setEmail("romain.veneu56@gmail.com");
+        clientRequest.setDateArrivee(LocalDate.now());
         clientRequest.setTelephone("0601020304");
         ClientResponse clientResponse = compteService.createClient(clientRequest);
         System.out.println("Client créé : " + clientResponse.getPrenom() + " " + clientResponse.getNom());
@@ -100,6 +100,7 @@ public class DBData {
         employeRequest.setPassword("employe1");
         employeRequest.setNom("Lin");
         employeRequest.setPrenom("Julien");
+        employeRequest.setEmail("jl@gmail.com");
         employeRequest.setDateArrivee(LocalDate.now());
         employeRequest.setPoste("Responsable des stocks");
         employeRequest.setSalaire(1500);

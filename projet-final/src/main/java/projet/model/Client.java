@@ -13,44 +13,26 @@ import jakarta.persistence.OneToMany;
 public class Client extends Compte {
 
 	@Column(length = 100)
-	private String email;
-	@Column(length = 100)
 	private String telephone;
 	
 	@OneToMany
 	private List<Reservation> reservation;
-
 	
 	public Client() {super();}
 	
 	public Client(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee, String email,
 			String telephone) {
-		super(id, login, password, nom, prenom, dateArrivee);
-		this.email = email;
+		super(id, login, password, nom, prenom, email, dateArrivee);
 		this.telephone = telephone;
 	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
 
 	public String getTelephone() {
 		return telephone;
 	}
 
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	
-	
 
 	public List<Reservation> getReservation() {
 		return reservation;
@@ -62,10 +44,7 @@ public class Client extends Compte {
 
 	@Override
 	public String toString() {
-		return "Client [email=" + email + ", telephone=" + telephone + ", id=" + id + ", login=" + login + ", password="
+		return "Client [telephone=" + telephone + ", id=" + id + ", login=" + login + ", password="
 				+ password + ", nom=" + nom + ", prenom=" + prenom + ", dateArrivee=" + dateArrivee + "]";
 	}
-
-	
-	
 }

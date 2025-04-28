@@ -1,6 +1,7 @@
 package projet.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,14 +58,21 @@ public class ReservationService {
 		Reservation reservation = ReservationRequest.convert(dto);
 
 		//Client
-		reservation.setClient(getClientById(dto.getIdClient()));
+		Optional<Compte> client = daoCompte.findById(dto.getIdClient());
+		if (client.isEmpty()) {
+			throw new RuntimeException("Client avec l'id: " + dto.getIdClient() + " non trouvé");
+		}
+		reservation.setClient((Client) client.get());
 
 		//Employé : vérifier s'il y a un ID d'employé
 	    if (dto.getIdEmploye() != null) {
-	        reservation.setEmploye(getEmployeById(dto.getIdEmploye()));
-	    } else {
-	        reservation.setEmploye(null);  //pas d'employé associé si ID employé est null
+			Optional<Compte> employe = daoCompte.findById(dto.getIdEmploye());
+			if (employe.isEmpty()) {
+				throw new RuntimeException("Employe avec l'id: " + dto.getIdEmploye() + " non trouvé");
+			}
+	        reservation.setEmploye((Employe) employe.get());
 	    }
+
 		//Surface
 		reservation.setSurface(
 			daoSurface.findById(dto.getIdSurface())
@@ -109,10 +117,18 @@ public class ReservationService {
 		reservation.setNbPersonne(dto.getNbPersonne());
 
 		//Client
-		reservation.setClient(getClientById(dto.getIdClient()));
+		Optional<Compte> client = daoCompte.findById(dto.getIdClient());
+		if (client.isEmpty()) {
+			throw new RuntimeException("Client avec l'id: " + dto.getIdClient() + " non trouvé");
+		}
+		reservation.setClient((Client) client.get());
 
 		//Employé
-		reservation.setEmploye(getEmployeById(dto.getIdEmploye()));
+		Optional<Compte> employe = daoCompte.findById(dto.getIdEmploye());
+		if (employe.isEmpty()) {
+			throw new RuntimeException("Employe avec l'id: " + dto.getIdEmploye() + " non trouvé");
+		}
+		reservation.setEmploye((Employe) employe.get());
 
 		//Surface
 		reservation.setSurface(
@@ -140,26 +156,5 @@ public class ReservationService {
 
 		Reservation updated = daoReservation.save(reservation);
 		return ReservationResponse.convert(updated);
-	}
-
-
-	
-
-	private Client getClientById(Integer id) {
-		Compte compte = daoCompte.findById(id)
-				.orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
-		if (!(compte instanceof Client)) {
-			throw new RuntimeException("Le compte avec l'id " + id + " n'est pas un client.");
-		}
-		return (Client) compte;
-	}
-
-	private Employe getEmployeById(Integer id) {
-		Compte compte = daoCompte.findById(id)
-				.orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
-		if (!(compte instanceof Employe)) {
-			throw new RuntimeException("Le compte avec l'id " + id + " n'est pas un employé.");
-		}
-		return (Employe) compte;
 	}
 }

@@ -12,9 +12,9 @@ public class ClientResponse {
 	private String password;
 	private String nom;
 	private String prenom;
+	private String email;
 	private LocalDate dateArrivee;
 	
-	private String email;
 	private String telephone;
 	
 	public ClientResponse() {}

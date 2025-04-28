@@ -18,9 +18,9 @@ public class Employe extends Compte {
 	private double salaire;
 	
 	public Employe() {super();}
-	public Employe(int id, String login, String password, String nom, String prenom, LocalDate dateArrivee,
+	public Employe(int id, String login, String password, String nom, String prenom, String email, LocalDate dateArrivee,
 			String poste, double salaire) {
-		super(id, login, password, nom, prenom, dateArrivee);
+		super(id, login, password, nom, prenom, email, dateArrivee);
 		this.poste = poste;
 		this.salaire = salaire;
 	}

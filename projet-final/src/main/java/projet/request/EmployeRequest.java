@@ -14,6 +14,7 @@ public class EmployeRequest {
 	private String password;
 	private String nom;
 	private String prenom;
+	private String email;
 	private LocalDate dateArrivee;
 	
 	private String poste;
@@ -60,6 +61,14 @@ public class EmployeRequest {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public LocalDate getDateArrivee() {
