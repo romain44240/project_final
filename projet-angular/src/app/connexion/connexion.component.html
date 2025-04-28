@@ -1,31 +1,40 @@
-<form (ngSubmit)="authenticate()" [formGroup]="authForm">
-  <div>
-      <label>Nom d'utilisateur</label>
-      <input type="text" formControlName="login" />
+<div class="container d-flex justify-content-center align-items-center h-100">
+    <div>
+        <div class="text-center mb-4">
+            <img src="assets/img/logo.png" alt="Logo de la Tour de jeu" class="img-fluid mb-4" id="logo">
+            <h3>Connexion à La Tour de Jeu</h3>
+        </div>
+        <form (ngSubmit)="authenticate()" [formGroup]="authForm">
+            <div class="text-center mb-3">
+                <input class="rounded w-75" type="text" formControlName="login" placeholder="Nom d'utilisateur" />
 
-      <!-- <div *ngIf="authForm.get('login')?.hasError('required')">
-          Le nom d'utilisateur est obligatoire
-      </div> -->
+                <div *ngIf="submitted && loginCtrl?.hasError('required')">
+                    Le nom d'utilisateur est obligatoire
+                </div>
+            </div>
 
-      <div *ngIf="loginCtrl?.hasError('required')">
-          Le nom d'utilisateur est obligatoire
-      </div>
-  </div>
+            <div class="text-center mb-3">
+                <input class="rounded w-75" type="password" formControlName="password" placeholder="Mot de passe" />
 
-  <div>
-      <label>Mot de passe</label>
-      <input type="password" formControlName="password" />
+                <div *ngIf="submitted && authForm.get('password')?.hasError('required')">
+                    Le mot de passe est obligatoire
+                </div>
 
-      <div *ngIf="authForm.get('password')?.hasError('required')">
-          Le mot de passe est obligatoire
-      </div>
+                <div *ngIf="submitted && authForm.get('password')?.hasError('minlength')">
+                    Le mot de passe doit faire au moins 6 caractères
+                </div>
+            </div>
 
-      <div *ngIf="passwordCtrl?.hasError('minlength')">
-          Le mot de passe doit faire au moins 6 caractères
-      </div>
-  </div>
+            <div class="text-center mb-3">
+                <input type="submit" class="btn btn-primary rounded w-75" value="Se connecter" />
+            </div>
+        </form>
+        <div class="text-center">
+            <small>Pas encore inscrit ? <a href="/inscription">Créer un compte</a></small>
+        </div>
+        <div class="text-center mb-4">
+            <img src="assets/img/bonhomme.png" alt="Bonhomme jaune" class="img-fluid mb-4" id="bonhomme">
+        </div>
+    </div>
 
-  <div>
-      <input type="submit" [disabled]="authForm.invalid" class="btn btn-success" value="Se connecter" />
-  </div>
-</form>
+</div>
