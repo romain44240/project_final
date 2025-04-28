@@ -7,17 +7,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import projet.request.AchatRequest;
 import projet.request.ClientRequest;
 import projet.request.ConsommableRequest;
 import projet.request.EmployeRequest;
 import projet.request.JeuRequest;
 import projet.request.ReservationRequest;
 import projet.request.SurfaceRequest;
+import projet.request.AchatRequest.ProduitType;
+import projet.response.AchatResponse;
 import projet.response.ClientResponse;
 import projet.response.EmployeResponse;
 import projet.response.ProduitResponse;
 import projet.response.ReservationResponse;
 import projet.response.SurfaceResponse;
+import projet.service.AchatService;
 import projet.service.CompteService;
 import projet.service.ProduitService;
 import projet.service.ReservationService;
@@ -37,6 +41,9 @@ public class DBData {
 
     @Autowired
     ReservationService reservationService;
+
+    @Autowired
+    AchatService achatService;
 
     @Test
     void insertDataIntoDB() {
@@ -142,5 +149,14 @@ public class DBData {
         
         ReservationResponse reservationResponse = reservationService.create(reservationRequest);
         System.out.println("Réservation créée : " + reservationResponse.getId() + " pour le client " + clientResponse.getNom());
+
+        // ACHAT
+        AchatRequest achatRequest = new AchatRequest();
+        achatRequest.setQuantite(5);
+        achatRequest.setIdProduit(consommableResponse1.getId());
+        achatRequest.setProduitType(ProduitType.CONSOMMABLE);
+        achatRequest.setIdReservation(reservationResponse.getId());
+
+        AchatResponse achatResponse = achatService.create(achatRequest);
     }
 }

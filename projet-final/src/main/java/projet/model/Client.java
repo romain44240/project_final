@@ -15,8 +15,8 @@ public class Client extends Compte {
 	@Column(length = 100)
 	private String telephone;
 	
-	@OneToMany
-	private List<Reservation> reservation;
+	@OneToMany(mappedBy = "client")
+	private List<Reservation> reservations;
 	
 	public Client() {super();}
 	
@@ -34,12 +34,12 @@ public class Client extends Compte {
 		this.telephone = telephone;
 	}
 
-	public List<Reservation> getReservation() {
-		return reservation;
+	public List<Reservation> getReservations() {
+		return reservations;
 	}
 
-	public void setReservation(List<Reservation> reservation) {
-		this.reservation = reservation;
+	public void setReservation(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	@Override

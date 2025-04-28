@@ -83,7 +83,7 @@ public class CompteService {
     	
     	Client client = (Client) compte;
     
-    	return client.getReservation().stream()
+    	return client.getReservations().stream()
                 .map(ReservationResponse::convert)
                 .collect(Collectors.toList());
     	

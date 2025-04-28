@@ -3,7 +3,6 @@ package projet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,20 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import projet.model.Achat;
 import projet.model.Categorie;
-import projet.model.Reservation;
 import projet.request.ClientRequest;
-import projet.request.CommandeRequest;
 import projet.request.ConsommableRequest;
 import projet.request.EmployeRequest;
 import projet.request.JeuRequest;
 import projet.request.ProduitRequest.ProduitType;
 import projet.request.SurfaceRequest;
-import projet.response.CommandeResponse;
 import projet.response.ConsommableResponse;
 import projet.response.JeuResponse;
-import projet.service.CommandeService;
 import projet.service.ProduitService;
 
 @SpringBootTest
@@ -36,9 +30,6 @@ class UnitTests {
 
 	@Autowired
 	ProduitService produitService;
-
-	@Autowired
-	CommandeService commandeService;
 
 	// ------------------------------ FIN SERVICES ------------------------------ //
 
@@ -146,32 +137,6 @@ class UnitTests {
 		assertEquals(consommableRequest.getNom(), consommableResponse.getNom());
 		assertEquals(consommableRequest.getPrix(), consommableResponse.getPrix());
 		assertEquals(consommableRequest.getStock(), consommableResponse.getStock());
-	}
-	
-	@Test
-	void creationCommande() {
-		//
-		List<Achat> achats = new ArrayList<Achat>();
-		achats.add(new Achat(1, JeuRequest.convert(skyjo())));
-		achats.add(new Achat(5, ConsommableRequest.convert(coca())));
-		Reservation reservation = new Reservation(
-			LocalDateTime.parse("2025-05-01T14:00:00"),
-			120,
-			4,
-			ClientRequest.convert(client1()),
-			EmployeRequest.convert(employe1()),
-			SurfaceRequest.convert(surface1()),
-			null);
-		
-		CommandeRequest commandeRequest = new CommandeRequest();
-		commandeRequest.setAchats(achats);
-		commandeRequest.setReservation(reservation);
-
-		//
-		CommandeResponse commandeResponse = commandeService.create(commandeRequest);
-		
-		//
-		assertEquals(commandeRequest.getAchats(), commandeResponse.getAchats());
 	}
 
 	// ------------------------------ FIN TESTS UNITAIRES ------------------------------ //

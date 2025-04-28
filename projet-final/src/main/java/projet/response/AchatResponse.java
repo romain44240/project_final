@@ -3,15 +3,15 @@ package projet.response;
 import org.springframework.beans.BeanUtils;
 
 import projet.model.Achat;
-import projet.model.Commande;
 import projet.model.Produit;
+import projet.model.Reservation;
 
 public class AchatResponse {
 
 	private Integer id;
 	private int quantite;
 	private Produit produit;
-	private Commande commande;
+	private Reservation reservation;
 
 	public AchatResponse() {}
 
@@ -39,12 +39,12 @@ public class AchatResponse {
 		this.produit = produit;
 	}
 
-	public Commande getCommande() {
-		return commande;
+	public Reservation getReservation() {
+		return reservation;
 	}
 
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
 	}
 
 	// Fabrique un DTO depuis une entité Achat

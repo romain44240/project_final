@@ -22,7 +22,7 @@ public class Jeu extends Produit {
 	
 	List<Categorie> categories;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "jeu")
 	private Reservation reservation;
 	
 	public Jeu() {super();}

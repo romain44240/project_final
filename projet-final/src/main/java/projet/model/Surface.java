@@ -18,7 +18,7 @@ public class Surface {
 	@Column(nullable=false)
 	private int capacite;
 	private String couleur;
-	@OneToOne
+	@OneToOne(mappedBy = "surface")
 	private Reservation reservation;
 	
 	public Surface() {}

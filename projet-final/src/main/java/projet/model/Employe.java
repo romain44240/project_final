@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne;
 @DiscriminatorValue("employe")
 public class Employe extends Compte {
 
-	@OneToOne
+	@OneToOne(mappedBy = "employe")
 	private Reservation reservation;
 	
 	private String poste; // null = serveur --> gameMaster => c'est qu'il peut plus servir ?

@@ -1,11 +1,12 @@
 package projet.response;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
+import projet.model.Achat;
 import projet.model.Client;
-import projet.model.Commande;
 import projet.model.Employe;
 import projet.model.Jeu;
 import projet.model.Reservation;
@@ -21,7 +22,7 @@ public class ReservationResponse {
 	private Employe employe;
 	private Surface surface;
 	private Jeu jeu;
-	private Commande commande;
+	private List<Achat> achats;
 
 	public ReservationResponse() {
 	}
@@ -90,12 +91,12 @@ public class ReservationResponse {
 		this.jeu = jeu;
 	}
 
-	public Commande getCommande() {
-		return commande;
+	public List<Achat> getAchats() {
+		return achats;
 	}
 
-	public void setCommande(Commande commande) {
-		this.commande = commande;
+	public void setAchats(List<Achat> achats) {
+		this.achats = achats;
 	}
 
 	// Convertir une entité Reservation en DTO ReservationResponse
@@ -107,7 +108,7 @@ public class ReservationResponse {
 		dto.setEmploye(reservation.getEmploye());
 		dto.setSurface(reservation.getSurface());
 		dto.setJeu(reservation.getJeu());
-		dto.setCommande(reservation.getCommande());
+		dto.setAchats(reservation.getAchats());
 
 		return dto;
 	}

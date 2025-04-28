@@ -1,5 +1,6 @@
 package projet.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -7,11 +8,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import projet.dao.IDAOCommande;
+import projet.dao.IDAOAchat;
 import projet.dao.IDAOCompte;
 import projet.dao.IDAOProduit;
 import projet.dao.IDAOReservation;
 import projet.dao.IDAOSurface;
+import projet.model.Achat;
 import projet.model.Client;
 import projet.model.Compte;
 import projet.model.Employe;
@@ -35,9 +37,6 @@ public class ReservationService {
 
 	@Autowired
 	private IDAOProduit daoProduit;
-
-	@Autowired
-	private IDAOCommande daoCommande;
 
 	
 	public List<ReservationResponse> getAll() {
@@ -87,13 +86,7 @@ public class ReservationService {
 		}
 		reservation.setJeu((Jeu) produit);
 
-		//Commande 
-		if (dto.getIdCommande() != null) {
-			reservation.setCommande(
-				daoCommande.findById(dto.getIdCommande())
-					.orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + dto.getIdCommande()))
-			);
-		}
+		reservation.setAchats(new ArrayList<Achat>());
 
 		Reservation saved = daoReservation.save(reservation);
 		return ReservationResponse.convert(saved);
@@ -143,16 +136,6 @@ public class ReservationService {
 			throw new RuntimeException("Le produit avec l'id " + dto.getIdJeu() + " n'est pas un jeu.");
 		}
 		reservation.setJeu((Jeu) produit);
-
-		//Commande
-		if (dto.getIdCommande() != null) {
-			reservation.setCommande(
-				daoCommande.findById(dto.getIdCommande())
-					.orElseThrow(() -> new RuntimeException("Commande non trouvée avec id : " + dto.getIdCommande()))
-			);
-		} else {
-			reservation.setCommande(null);
-		}
 
 		Reservation updated = daoReservation.save(reservation);
 		return ReservationResponse.convert(updated);
