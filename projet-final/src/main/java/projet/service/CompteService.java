@@ -32,8 +32,8 @@ public class CompteService {
 		else {return opt.get();}
 	}
     
-    public Compte getByEmailAndPassword(String email, String login) {
-    	Optional<Compte> opt = daoCompte.findByEmailAndPassword(email, login);
+    public Compte getByLoginAndPassword(String login, String password) {
+    	Optional<Compte> opt = daoCompte.findByLoginAndPassword(login, password);
     	if(opt.isEmpty()) {
     		return null;
     	}
