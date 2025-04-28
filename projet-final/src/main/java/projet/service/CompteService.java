@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import projet.dao.IDAOCompte;
@@ -19,7 +23,7 @@ import projet.response.EmployeResponse;
 import projet.response.ReservationResponse;
 
 @Service
-public class CompteService {
+public class CompteService implements UserDetailsService {
 
     @Autowired
     private IDAOCompte daoCompte;
@@ -43,7 +47,8 @@ public class CompteService {
     //CLIENT
     public ClientResponse createClient(ClientRequest clientRequest) {
         Client client = ClientRequest.convert(clientRequest);
-        client = daoCompte.save(client); 
+        client.setPassword(encode(clientRequest.getPassword()));
+        client = daoCompte.save(client);
         return ClientResponse.convert(client);
     }
 
@@ -92,7 +97,8 @@ public class CompteService {
     //EMPLOYE
     public EmployeResponse createEmploye(EmployeRequest employeRequest) {
         Employe employe = EmployeRequest.convert(employeRequest);
-        employe = daoCompte.save(employe); 
+        employe.setPassword(encode(employeRequest.getPassword()));
+        employe = daoCompte.save(employe);
         return EmployeResponse.convert(employe);
     }
 
@@ -120,5 +126,38 @@ public class CompteService {
     public boolean deleteEmploye(Integer id) {
         daoCompte.deleteById(id);
         return true;
+    }
+
+    public void delete(Compte compte)
+    {
+        daoCompte.deleteById(compte.getId());
+    }
+
+    private String encode(String password) {
+        return password = new BCryptPasswordEncoder().encode(password);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        Compte compte = getByLogin(login);
+
+        if (compte == null) {
+            throw new UsernameNotFoundException("Aucun compte avec le login : " + login);
+        }
+
+        String role;
+        if (compte instanceof Employe) {
+            role = "ROLE_EMPLOYE";
+        } else if (compte instanceof Client) {
+            role = "ROLE_CLIENT";
+        } else {
+            role = "ROLE_USER";
+        }
+
+        return org.springframework.security.core.userdetails.User
+                .withUsername(compte.getLogin())
+                .password(compte.getPassword())
+                .roles(role.replace("ROLE_", ""))
+                .build();
     }
 }

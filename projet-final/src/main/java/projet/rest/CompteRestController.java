@@ -30,7 +30,7 @@ public class CompteRestController {
 		this.compteService = compteService;
 	}
 
-	// CLIENT 
+	// CLIENT
 	@GetMapping("/clients")
 	@JsonView(Views.ViewCompte.class)
 	public List<ClientResponse> getAllClients() {
