@@ -31,6 +31,14 @@ public class CompteService {
 		if(opt.isEmpty()) {return null;}
 		else {return opt.get();}
 	}
+    
+    public Compte getByEmailAndPassword(String email, String login) {
+    	Optional<Compte> opt = daoCompte.findByEmailAndPassword(email, login);
+    	if(opt.isEmpty()) {
+    		return null;
+    	}
+    	return opt.get();
+    }
 
     //CLIENT
     public ClientResponse createClient(ClientRequest clientRequest) {
