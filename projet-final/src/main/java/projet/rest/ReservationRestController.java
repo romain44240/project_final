@@ -24,6 +24,7 @@ import projet.model.Employe;
 import projet.model.Views;
 import projet.request.ReservationRequest;
 import projet.response.ReservationResponse;
+import projet.service.CompteService;
 import projet.service.ReservationService;
 
 @RestController
@@ -31,10 +32,12 @@ import projet.service.ReservationService;
 public class ReservationRestController {
 
 	private ReservationService reservationService;
+	private CompteService compteService;
 
-	public ReservationRestController(ReservationService reservationService) {
+	public ReservationRestController(ReservationService reservationService, CompteService compteService) {
 		super();
 		this.reservationService = reservationService;
+		this.compteService = compteService;
 	}
 
 	@GetMapping("")
@@ -64,23 +67,26 @@ public class ReservationRestController {
 	@PreAuthorize("isAuthenticated()")
 	public ReservationResponse update(@RequestBody ReservationRequest dto, @PathVariable Integer id) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Compte compte = (Compte) authentication.getPrincipal();
-		if(compte instanceof Employe) {
+		// authentication.getPrincipal() renvoie le login (String) car CompteService.loadUserByUsername() retourne un User
+		Compte compte = compteService.getByLogin((String) authentication.getPrincipal()); // login unique
+		
+		if(compte instanceof Employe || (compte instanceof Client && compte.getId() == dto.getIdClient())) {
 			return this.reservationService.update(id, dto);
-		} else if(compte instanceof Client) {
-			if(compte.getId() == dto.getIdClient()) {
-				return this.reservationService.update(id, dto);
-			} 
-			else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Accès interdit !");
+		} else {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'avez pas les droits pour faire cela");
 		}
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur 404" );
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("isAuthenticated()")
 	public void delete(@PathVariable Integer id) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Compte compte = (Compte) authentication.getPrincipal();
+		Compte compte = compteService.getByLogin((String) authentication.getPrincipal());
 		
-		this.reservationService.delete(id);
+		if(compte instanceof Employe || (compte instanceof Client && compte.getId() == reservationService.getById(id).getClient().getId())) {
+			this.reservationService.delete(id);
+		} else {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'avez pas les droits pour faire cela");
+		}
 	}
 }

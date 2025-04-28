@@ -15,10 +15,8 @@ public class ReservationRequest {
 	private Integer idEmploye;
 	private Integer idSurface;
 	private Integer idJeu;
-	private Integer idCommande;
 
-	public ReservationRequest() {
-	}
+	public ReservationRequest() {}
 
 	public Integer getId() {
 		return id;
@@ -82,14 +80,6 @@ public class ReservationRequest {
 
 	public void setIdJeu(Integer idJeu) {
 		this.idJeu = idJeu;
-	}
-
-	public Integer getIdCommande() {
-		return idCommande;
-	}
-
-	public void setIdCommande(Integer idCommande) {
-		this.idCommande = idCommande;
 	}
 
 	// Méthode pour mapper les champs simples vers une entité Reservation
