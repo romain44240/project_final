@@ -17,7 +17,7 @@ public class EmployeRequest {
 	private LocalDate dateArrivee;
 	
 	private String poste;
-	private double sal;
+	private double salaire;
 
 	public EmployeRequest() {}
 
@@ -78,12 +78,12 @@ public class EmployeRequest {
 		this.poste = poste;
 	}
 
-	public double getSal() {
-		return sal;
+	public double getSalaire() {
+		return salaire;
 	}
 
-	public void setSal(double sal) {
-		this.sal = sal;
+	public void setSalaire(double salaire) {
+		this.salaire = salaire;
 	}
 	
 	public static Employe convert(EmployeRequest employeRequestDTO) {

@@ -7,15 +7,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 @DiscriminatorValue("client")
 public class Client extends Compte {
 
-	@Column(length = 100, nullable=false)
+	@Column(length = 100)
 	private String email;
-	@Column(length = 100, nullable=false)
+	@Column(length = 100)
 	private String telephone;
 	
 	@OneToMany
