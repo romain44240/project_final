@@ -7,11 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="reservation")
@@ -29,14 +27,12 @@ public class Reservation {
 	
 	
 	@ManyToOne
-	@NotBlank
 	private Client client;
 	
 	@OneToOne(mappedBy = "reservation")
 	private Employe employe;
 	
 	@OneToOne(mappedBy = "reservation")
-	@NotBlank
 	private Surface surface;
 	
 	@OneToOne(mappedBy = "reservation")

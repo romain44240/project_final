@@ -1,203 +1,45 @@
 package projet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import projet.model.Achat;
-import projet.model.Categorie;
-import projet.model.Reservation;
 import projet.request.ClientRequest;
-import projet.request.CommandeRequest;
 import projet.request.ConsommableRequest;
 import projet.request.EmployeRequest;
 import projet.request.JeuRequest;
-import projet.request.ProduitRequest.ProduitType;
 import projet.request.ReservationRequest;
 import projet.request.SurfaceRequest;
 import projet.response.ClientResponse;
-import projet.response.CommandeResponse;
-import projet.response.ConsommableResponse;
 import projet.response.EmployeResponse;
-import projet.response.JeuResponse;
 import projet.response.ProduitResponse;
 import projet.response.ReservationResponse;
 import projet.response.SurfaceResponse;
-import projet.service.AchatService;
-import projet.service.CommandeService;
 import projet.service.CompteService;
 import projet.service.ProduitService;
 import projet.service.ReservationService;
 import projet.service.SurfaceService;
 
 @SpringBootTest
-@Transactional
-class ProjectFinalApplicationTests {
-	
-	// ------- SERVICES ------- //
+public class DBData {
 
-	 @Autowired
-	    private ProduitService produitService;
+    @Autowired
+    ProduitService produitService;
 
-	    @Autowired
-	    private CommandeService commandeService;
+    @Autowired
+    CompteService compteService;
 
-	    @Autowired
-	    private AchatService achatService;
+    @Autowired
+    SurfaceService surfaceService;
 
-	    @Autowired
-	    private CompteService compteService;
+    @Autowired
+    ReservationService reservationService;
 
-	    @Autowired
-	    private ReservationService reservationService;
-
-	    @Autowired
-	    private SurfaceService surfaceService;
-
-	// ------- FIN SERVICES ------- //
-
-	// ------- OBJETS TEST ------- //
-
-	// JEU
-	JeuRequest skyjo() {
-		JeuRequest jeu = new JeuRequest();
-		jeu.setNom("Skyjo");
-		jeu.setPrix(15.95);
-		jeu.setStock(1);
-		jeu.setNbMin(2);
-		jeu.setNbMax(8);
-		jeu.setDuree(30);
-		jeu.setEditeur("Magilano");
-		jeu.setRegle("Lien internet");
-		List<Categorie> categories = new ArrayList<Categorie>();
-		categories.add(Categorie.carte);
-		jeu.setCategories(categories);
-		jeu.setProduitType(ProduitType.JEU);
-		
-		return jeu;
-	}
-	
-	// CONSOMMABLE
-	ConsommableRequest coca() {
-		ConsommableRequest consommable = new ConsommableRequest();
-		consommable.setNom("Coca");
-		consommable.setPrix(2.5);
-		consommable.setStock(5);
-		consommable.setProduitType(ProduitType.CONSOMMABLE);
-
-		return consommable;
-	}
-
-	// CLIENT
-	ClientRequest client1() {
-		ClientRequest client = new ClientRequest();
-		client.setLogin("client1Login");
-		client.setPassword("client1Password");
-		client.setNom("client1Nom");
-		client.setPrenom("client1Prenom");
-		client.setDateArrivee(LocalDate.parse("2025-04-25"));
-		client.setEmail("client1@email.com");
-		client.setTelephone("0101010101");
-		
-		return client;
-	}
-
-	// EMPLOYE
-	EmployeRequest employe1() {
-		EmployeRequest employe = new EmployeRequest();
-		employe.setLogin("employe1Login");
-		employe.setPassword("employe1Password");
-		employe.setNom("employe1Nom");
-		employe.setPrenom("employe1Prenom");
-		employe.setDateArrivee(LocalDate.parse("2025-01-01"));
-		employe.setPoste("serveur");
-		employe.setSal(2000);
-
-		return employe;
-	}
-
-	// SURFACE
-	SurfaceRequest surface1() {
-		SurfaceRequest surface = new SurfaceRequest();
-		surface.setCapacite(8);
-
-		return surface;
-	}
-
-	// ------- FIN OBJETS TEST ------- //
-	
-	@Test
-	void creationJeu() {
-		//
-		JeuRequest jeuRequest = skyjo();
-		
-		//
-		JeuResponse jeuResponse = (JeuResponse) produitService.create(jeuRequest);
-		
-		//
-		assertEquals(jeuResponse.getNom(), jeuRequest.getNom());
-		assertEquals(jeuResponse.getPrix(), jeuRequest.getPrix());
-		assertEquals(jeuResponse.getStock(), jeuRequest.getStock());
-		assertEquals(jeuResponse.getNbMin(), jeuRequest.getNbMin());
-		assertEquals(jeuResponse.getNbMax(), jeuRequest.getNbMax());
-		assertEquals(jeuResponse.getDuree(), jeuRequest.getDuree());
-		assertEquals(jeuResponse.getEditeur(), jeuRequest.getEditeur());
-		assertEquals(jeuResponse.getRegle(), jeuRequest.getRegle());
-		assertEquals(jeuResponse.getCategories(), jeuRequest.getCategories());
-	}
-	
-	@Test
-	void creationConsommable() {
-		//
-		ConsommableRequest consommableRequest = coca();
-		
-		//
-		ConsommableResponse consommableResponse = (ConsommableResponse) produitService.create(consommableRequest);
-		
-		//
-		assertEquals(consommableRequest.getNom(), consommableResponse.getNom());
-		assertEquals(consommableRequest.getPrix(), consommableResponse.getPrix());
-		assertEquals(consommableRequest.getStock(), consommableResponse.getStock());
-	}
-	
-	@Test
-	void creationCommande() {
-		//
-		List<Achat> achats = new ArrayList<Achat>();
-		achats.add(new Achat(1, JeuRequest.convert(skyjo())));
-		achats.add(new Achat(5, ConsommableRequest.convert(coca())));
-		Reservation reservation = new Reservation(
-			LocalDateTime.parse("2025-05-01T14:00:00"),
-			120,
-			4,
-			ClientRequest.convert(client1()),
-			EmployeRequest.convert(employe1()),
-			SurfaceRequest.convert(surface1()),
-			null);
-		
-		CommandeRequest commandeRequest = new CommandeRequest();
-		commandeRequest.setAchats(achats);
-		commandeRequest.setReservation(reservation);
-
-		//
-		CommandeResponse commandeResponse = commandeService.create(commandeRequest);
-		
-		//
-		assertEquals(commandeRequest.getAchats(), commandeResponse.getAchats());
-	}
-	
-
-	
-	@Test
-    void contextLoads() {
+    @Test
+    void insertDataIntoDB() {
         
         // Jeux
         JeuRequest jeuRequest1 = new JeuRequest();
@@ -223,7 +65,6 @@ class ProjectFinalApplicationTests {
         jeuRequest2.setRegle("Faites faillite ou devenez riche !");
 
         ProduitResponse jeuResponse2 = produitService.createJeu(jeuRequest2);
-  
         
         // Consommables
         ConsommableRequest consommableRequest1 = new ConsommableRequest();
@@ -244,25 +85,24 @@ class ProjectFinalApplicationTests {
         // --- CLIENT ---
         ClientRequest clientRequest = new ClientRequest();
         clientRequest.setLogin("romainV");
+        clientRequest.setPassword("client1");
         clientRequest.setNom("Veneu");
         clientRequest.setPrenom("Romain");
-        clientRequest.setEmail("romain.veneu56@gmail.com");
-        clientRequest.setPassword("client1");
         clientRequest.setDateArrivee(LocalDate.now());
-
+        clientRequest.setEmail("romain.veneu56@gmail.com");
+        clientRequest.setTelephone("0601020304");
         ClientResponse clientResponse = compteService.createClient(clientRequest);
         System.out.println("Client créé : " + clientResponse.getPrenom() + " " + clientResponse.getNom());
-
 
         // --- EMPLOYÉ ---
         EmployeRequest employeRequest = new EmployeRequest();
         employeRequest.setLogin("JulienL");
+        employeRequest.setPassword("employe1");
         employeRequest.setNom("Lin");
         employeRequest.setPrenom("Julien");
-        employeRequest.setPassword("employe1");
+        employeRequest.setDateArrivee(LocalDate.now());
         employeRequest.setPoste("Responsable des stocks");
-        employeRequest.setSal(1500);
-
+        employeRequest.setSalaire(1500);
         EmployeResponse employeResponse = compteService.createEmploye(employeRequest);
         System.out.println("Employé créé : " + employeResponse.getPrenom() + " " + employeResponse.getNom());
 
