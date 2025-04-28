@@ -39,7 +39,7 @@ public class ReservationRestController {
 
 	@GetMapping("")
 	@JsonView(Views.ViewReservation.class)
-	//@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('employe')")
 	public List<ReservationResponse> getAll() {
 		return this.reservationService.getAll();
 	}
@@ -63,7 +63,7 @@ public class ReservationRestController {
 	@JsonView(Views.ViewReservation.class)
 	@PreAuthorize("isAuthenticated()")
 	public ReservationResponse update(@RequestBody ReservationRequest dto, @PathVariable Integer id) {
-		/* Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Compte compte = (Compte) authentication.getPrincipal();
 		if(compte instanceof Employe) {
 			return this.reservationService.update(id, dto);
@@ -74,8 +74,6 @@ public class ReservationRestController {
 			else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Accès interdit !");
 		}
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Erreur 404" );
-		*/
-		return this.reservationService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
