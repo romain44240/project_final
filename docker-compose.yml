@@ -35,6 +35,10 @@ services:
       - "4200:80"
     depends_on:
       - backend
+    # healthcheck:
+    #   test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+    #   timeout: 20s
+    #   retries: 10
 
 volumes:
   mysql_data:
