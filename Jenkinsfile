@@ -2,14 +2,17 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_FRONT = 'docker/angular'
-        DOCKER_IMAGE_BACK = 'docker/spring'
+        DOCKER_IMAGE_FRONT = 'docker/front'
+        DOCKER_IMAGE_BACK = 'docker/back'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: 'github' , url: 'git@github.com/romain44240/project_final.git', branch: 'main'
+                git credentialsId: 'github' ,
+                    url: 'git@github.com:romain44240/project_final.git',
+                    branch: 'main'
+                    
                 stash name: 'code', includes: '**/*'
             }
         }
@@ -34,7 +37,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.9-amazoncorretto-21'
-                    args '--network host'
+                    args '--network host -u root'
                 }
             }
             steps {
@@ -55,10 +58,10 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push $DOCKER_IMAGE_FRONT'
-                    sh 'docker push $DOCKER_IMAGE_BACK'
+                    sh 'docker push $DOCKER_USER/$DOCKER_IMAGE_FRONT' 
+                    sh 'docker push $DOCKER_USER/$DOCKER_IMAGE_BACK'
                 }
             }
-        }
+        }        
     }
 }
