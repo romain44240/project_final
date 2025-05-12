@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_FRONT = 'docker/front'
-        DOCKER_IMAGE_BACK = 'docker/back'
+        DOCKER_IMAGE_FRONT = 'front'
+        DOCKER_IMAGE_BACK = 'back'
     }
 
     stages {
@@ -47,21 +47,16 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
-            steps {
-                sh 'docker build -t $DOCKER_IMAGE_FRONT ./projet-angular'
-                sh 'docker build -t $DOCKER_IMAGE_BACK ./projet-final'
-            }
-        }
-
-        stage('Docker Push') {
+        stage('Build Docker Images And Push') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push $DOCKER_USER/$DOCKER_IMAGE_FRONT' 
+                    sh 'docker build -t $DOCKER_USER/$DOCKER_IMAGE_FRONT ./projet-angular'
+                    sh 'docker build -t $DOCKER_USER/$DOCKER_IMAGE_BACK ./projet-final'
+                    sh 'docker push $DOCKER_USER/$DOCKER_IMAGE_FRONT'
                     sh 'docker push $DOCKER_USER/$DOCKER_IMAGE_BACK'
                 }
             }
-        }        
+        }
     }
 }
