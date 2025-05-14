@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import projet.request.ConnexionRequest;
 import projet.response.ConnexionResponse;
+import projet.service.CompteService;
 import projet.config.jwt.JwtUtil;
+import projet.model.Client;
+import projet.model.Compte;
+import projet.model.Employe;
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +23,9 @@ public class CommonRestController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private CompteService compteService;
 
 	public CommonRestController() {
 		super();
@@ -44,6 +51,13 @@ public class CommonRestController {
 		
 		connexionResponse.setSuccess(true);
 		connexionResponse.setToken(token);
+
+		Compte compte = compteService.getByLoginAndPassword(connexionRequest.getLogin(), connexionRequest.getPassword());
+		if (compte instanceof Employe) {
+			connexionResponse.setRole("EMPLOYE");
+		} else if (compte instanceof Client) {
+			connexionResponse.setRole("CLIENT");
+		}
 
 		return connexionResponse;
 	}
