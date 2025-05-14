@@ -36,27 +36,27 @@ public class SurfaceRestController {
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewSurfaceDetail.class)
-	@PreAuthorize("hasRole('employé')")
+	@PreAuthorize("hasRole('employe')")
 	public SurfaceResponse getById(@PathVariable Integer id) {
 		return this.surfaceService.getById(id);
 	}
 	
 	@PostMapping("")
 	@JsonView(Views.ViewSurface.class)
-	@PreAuthorize("hasRole('employé')")
+	@PreAuthorize("hasRole('employe')")
 	public SurfaceResponse create(@RequestBody SurfaceRequest dto) {
 		return this.surfaceService.create(dto);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewSurface.class)
-	@PreAuthorize("hasRole('employé')")
+	@PreAuthorize("hasRole('employe')")
 	public SurfaceResponse update(@RequestBody SurfaceRequest dto, @PathVariable Integer id) {
 		return this.surfaceService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('employé')")
+	@PreAuthorize("hasRole('employe')")
 	public void delete(@PathVariable Integer id) {
 		this.surfaceService.delete(id);
 	}
