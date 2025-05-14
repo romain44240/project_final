@@ -139,8 +139,8 @@ public class DBData {
         
         // --- RESERVATION ---
         ReservationRequest reservationRequest = new ReservationRequest();
-        reservationRequest.setDateReservation(LocalDateTime.now());
-        reservationRequest.setDuree(2);
+        reservationRequest.setDebut(LocalDateTime.now());
+        reservationRequest.setFin(LocalDateTime.now().plusHours(2));
         reservationRequest.setNbPersonne(4);
         reservationRequest.setIdClient(clientResponse.getId());; 
         reservationRequest.setIdEmploye(employeResponse.getId());;  

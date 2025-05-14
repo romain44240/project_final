@@ -8,8 +8,8 @@ import projet.model.Reservation;
 public class ReservationRequest {
 
 	private Integer id;
-	private LocalDateTime dateReservation;
-	private int duree;
+	private LocalDateTime debut;
+	private LocalDateTime fin;
 	private int nbPersonne;
 	private Integer idClient;
 	private Integer idEmploye;
@@ -26,20 +26,20 @@ public class ReservationRequest {
 		this.id = id;
 	}
 
-	public LocalDateTime getDateReservation() {
-		return dateReservation;
+	public LocalDateTime getDebut() {
+		return debut;
 	}
 
-	public void setDateReservation(LocalDateTime dateReservation) {
-		this.dateReservation = dateReservation;
+	public void setDebut(LocalDateTime debut) {
+		this.debut = debut;
 	}
 
-	public int getDuree() {
-		return duree;
+	public LocalDateTime getFin() {
+		return fin;
 	}
 
-	public void setDuree(int duree) {
-		this.duree = duree;
+	public void setFin(LocalDateTime fin) {
+		this.fin = fin;
 	}
 
 	public int getNbPersonne() {

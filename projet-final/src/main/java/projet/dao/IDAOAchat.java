@@ -12,5 +12,5 @@ import projet.model.Achat;
 public interface IDAOAchat extends JpaRepository<Achat,Integer>{
 
     @Query("SELECT a FROM Achat a WHERE a.reservation.client.id = :id")
-    public List<Achat> getAchatsByClientId(@Param("id") Integer id);
+    List<Achat> getAchatsByClientId(@Param("id") Integer id);
 }

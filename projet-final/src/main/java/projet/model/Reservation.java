@@ -22,9 +22,9 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(nullable=false)
-	private LocalDateTime dateReservation;
+	private LocalDateTime debut;
 	@Column(nullable=false)
-	private int duree;
+	private LocalDateTime fin;
 	@Column(nullable=false)
 	private int nbPersonne;
 	
@@ -47,11 +47,11 @@ public class Reservation {
 	
 	public Reservation() {}
 
-	public Reservation(Integer id, LocalDateTime dateReservation, int duree, int nbPersonne, Client client,
+	public Reservation(Integer id, LocalDateTime debut, LocalDateTime fin, int nbPersonne, Client client,
 			Employe employe, Surface surface, Jeu jeu, List<Achat> achats) {
 		this.id = id;
-		this.dateReservation = dateReservation;
-		this.duree = duree;
+		this.debut = debut;
+		this.fin = fin;
 		this.nbPersonne = nbPersonne;
 		this.client = client;
 		this.employe = employe;
@@ -60,10 +60,10 @@ public class Reservation {
 		this.achats = achats;
 	}
 
-	public Reservation(LocalDateTime dateReservation, int duree, int nbPersonne, Client client,
+	public Reservation(LocalDateTime debut, LocalDateTime fin, int nbPersonne, Client client,
 			Employe employe, Surface surface, Jeu jeu, List<Achat> achats) {
-		this.dateReservation = dateReservation;
-		this.duree = duree;
+		this.debut = debut;
+		this.fin = fin;
 		this.nbPersonne = nbPersonne;
 		this.client = client;
 		this.employe = employe;
@@ -76,12 +76,12 @@ public class Reservation {
 		return id;
 	}
 
-	public LocalDateTime getDateReservation() {
-		return dateReservation;
+	public LocalDateTime getDebut() {
+		return debut;
 	}
 
-	public int getDuree() {
-		return duree;
+	public LocalDateTime getFin() {
+		return fin;
 	}
 
 	public int getNbPersonne() {
@@ -112,12 +112,12 @@ public class Reservation {
 		this.id = id;
 	}
 
-	public void setDateReservation(LocalDateTime dateReservation) {
-		this.dateReservation = dateReservation;
+	public void setDebut(LocalDateTime debut) {
+		this.debut = debut;
 	}
 
-	public void setDuree(int duree) {
-		this.duree = duree;
+	public void setFin(LocalDateTime fin) {
+		this.fin = fin;
 	}
 
 	public void setNbPersonne(int nbPersonne) {
@@ -146,7 +146,7 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [id=" + id + ", dateReservation=" + dateReservation + ", duree=" + duree + ", nbPersonne="
+		return "Reservation [id=" + id + ", debut=" + debut + ", fin=" + fin + ", nbPersonne="
 				+ nbPersonne + ", client=" + client + ", employe=" + employe + ", surface=" + surface + ", jeu=" + jeu
 				+ ", achats=" + achats + "]";
 	}

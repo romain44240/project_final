@@ -104,8 +104,8 @@ public class ReservationService {
 		Reservation reservation = daoReservation.findById(id)
 				.orElseThrow(() -> new RuntimeException("Réservation non trouvée avec id : " + id));
 
-		reservation.setDateReservation(dto.getDateReservation());
-		reservation.setDuree(dto.getDuree());
+		reservation.setDebut(dto.getDebut());
+		reservation.setFin(dto.getFin());
 		reservation.setNbPersonne(dto.getNbPersonne());
 
 		//Client

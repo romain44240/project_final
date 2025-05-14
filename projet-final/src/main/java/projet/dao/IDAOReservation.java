@@ -12,8 +12,5 @@ import projet.model.Reservation;
 public interface IDAOReservation extends JpaRepository<Reservation,Integer>{
 
     @Query("SELECT r FROM Reservation r WHERE r.client.id = :id")
-    public List<Reservation> getReservationsByClientId(@Param("id") Integer id);
+    List<Reservation> getReservationsByClientId(@Param("id") Integer id);
 }
-	
-
-
