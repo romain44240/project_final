@@ -12,12 +12,13 @@ import { CompteComponent } from './compte/compte.component';
 import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { SurfaceComponent } from './surface/surface.component';
+import { CarteComponent } from './carte/carte.component';
 
 @NgModule({
   declarations: [ // Déclaration dans notre module de tout ce qui est utilisé dans notre module principal
     AppComponent, 
     HomeComponent, 
-    ConnexionComponent, InscriptionComponent, CompteComponent, BibliothequeComponent, ReservationComponent, SurfaceComponent
+    ConnexionComponent, InscriptionComponent, CompteComponent, BibliothequeComponent, ReservationComponent, SurfaceComponent, CarteComponent
   ],
   
   imports: [ // Tous les modules dont on a besoin dans notre module à nous

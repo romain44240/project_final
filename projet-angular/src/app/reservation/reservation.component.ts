@@ -17,7 +17,10 @@ export class ReservationComponent implements OnInit{
 
   public capaciteMax = 8;
 
-  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute) { }
+  constructor(private service: AuthService, 
+    private router: Router, 
+    private formBuilder: FormBuilder, 
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
@@ -26,7 +29,8 @@ export class ReservationComponent implements OnInit{
       heure: [''],
       duree: [''],
       table: [''],
-      capacite: ['']
+      capacite: [''],
+      gamemaster: [false]
     });
 
     this.route.queryParams.subscribe(params => {
@@ -46,4 +50,16 @@ export class ReservationComponent implements OnInit{
       })
     })
   }
+
+  public onSubmit(): void {
+  this.submitted = true;
+
+  if (this.authForm.invalid) {
+    return;
+  }
+
+  // Traitement (ex. envoi API ou navigation)
+  console.log('Formulaire soumis :', this.authForm.value);
+}
+
 }
