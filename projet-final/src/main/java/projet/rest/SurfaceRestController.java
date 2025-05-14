@@ -1,6 +1,8 @@
 package projet.rest;
 
 import java.util.List;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,23 +36,27 @@ public class SurfaceRestController {
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewSurfaceDetail.class)
+	@PreAuthorize("hasRole('employé')")
 	public SurfaceResponse getById(@PathVariable Integer id) {
 		return this.surfaceService.getById(id);
 	}
 	
 	@PostMapping("")
 	@JsonView(Views.ViewSurface.class)
+	@PreAuthorize("hasRole('employé')")
 	public SurfaceResponse create(@RequestBody SurfaceRequest dto) {
 		return this.surfaceService.create(dto);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewSurface.class)
+	@PreAuthorize("hasRole('employé')")
 	public SurfaceResponse update(@RequestBody SurfaceRequest dto, @PathVariable Integer id) {
 		return this.surfaceService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('employé')")
 	public void delete(@PathVariable Integer id) {
 		this.surfaceService.delete(id);
 	}
