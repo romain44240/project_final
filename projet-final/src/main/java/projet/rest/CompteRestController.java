@@ -16,6 +16,7 @@ import projet.model.Views;
 import projet.request.ClientRequest;
 import projet.request.EmployeRequest;
 import projet.response.ClientResponse;
+import projet.response.CompteInfoResponse;
 import projet.response.EmployeResponse;
 import projet.service.CompteService;
 
@@ -43,6 +44,12 @@ public class CompteRestController {
 	@PreAuthorize("hasRole('employe')")
 	public ClientResponse getClientById(@PathVariable Integer id) {
 		return this.compteService.getClientById(id);
+	}
+
+	@GetMapping("/client/{id}/info")
+	// TODO PreAuthorize soit employe, soit id client en question
+	public CompteInfoResponse getCompteInfo(@PathVariable Integer id) {
+		return this.compteService.getCompteInfo(id);
 	}
 
 	@PostMapping("/client")
