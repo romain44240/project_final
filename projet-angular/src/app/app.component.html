@@ -1,10 +1,10 @@
 <div class="header d-flex align-items-center gap-3 px-3">
-    <button class="btn btn-light text-dark ms-2" (click)="toggleSidebar()">
-      ☰
-    </button>
-    <div class="position-absolute start-50 translate-middle-x fw-bold">La Tour de Jeu - bar à jeux de société</div>
+  <button class="btn btn-light text-dark ms-2" (click)="toggleSidebar()">
+    ☰
+  </button>
+  <div class="position-absolute start-50 translate-middle-x fw-bold">La Tour de Jeu - bar à jeux de société</div>
 </div>
-  
+
 <div class="page-wrapper d-flex">
   <div [ngClass]="{'sidebar': true, 'd-none': !sidebarOpen}">
     <a href="/">Accueil</a>
@@ -12,10 +12,13 @@
     <a href="/carte">Carte des produits</a>
     <a href="/surface">Réserver</a>
     <a href="/compte">Mon compte</a>
-    <a href="/connexion">Se connecter</a>
+    <a routerLink="/connexion" *ngIf="!authService.isLoggedIn()" class="sidebar-link">Se connecter</a>
+
+    <button *ngIf="authService.isLoggedIn()" (click)="logout()" class="sidebar-link">Se déconnecter</button>
+
   </div>
 
   <div class="main-content">
-    <router-outlet/>
+    <router-outlet />
   </div>
 </div>

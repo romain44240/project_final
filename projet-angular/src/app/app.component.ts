@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,18 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'projet-angular';
+
+  constructor(public authService: AuthService, private router: Router) { }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/connexion']);
+  }
+
+
   ngOnInit(): void {
     console.log("Initialisation !");
-}
+  }
   sidebarOpen = true;
   isMobile = false;
 
@@ -20,10 +30,11 @@ export class AppComponent implements OnInit {
   }
 
   @HostListener('window:resize', []) onResize() {
-  this.isMobile = window.innerWidth < 768;
-  if (this.isMobile) this.sidebarOpen = false;
-  else this.sidebarOpen = true;
-}
+    this.isMobile = window.innerWidth < 768;
+    if (this.isMobile) this.sidebarOpen = false;
+    else this.sidebarOpen = true;
+  }
+
 }
 
 

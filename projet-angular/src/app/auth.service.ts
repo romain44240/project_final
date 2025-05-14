@@ -14,7 +14,7 @@ export class AuthService {
 
   private API_URL: string = `${environment.API_URL}/connexion`;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.token = sessionStorage.getItem('token') as string;
   }
 
@@ -24,13 +24,18 @@ export class AuthService {
       password: authRequest.password
     }).subscribe(resp => {
       this.token = resp.token;
-      sessionStorage.setItem('token',this.token);
+      sessionStorage.setItem('token', this.token);
     });
   }
-  
+
   public isLoggedIn(): boolean {
-    console.log(sessionStorage.getItem('token'));
     return sessionStorage.getItem('token') != null;
   }
+
+  public logout(): void {
+    this.token = '';
+    sessionStorage.removeItem('token');
+  }
+
 
 }
