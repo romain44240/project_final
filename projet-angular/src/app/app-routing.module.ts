@@ -6,6 +6,7 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { CompteComponent } from './compte/compte.component';
 import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { SurfaceComponent } from './surface/surface.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'inscription', component: InscriptionComponent},
   {path: 'compte', component: CompteComponent},
   {path: 'bibliotheque', component: BibliothequeComponent},
+  {path: 'surface', component: SurfaceComponent},
   {path: 'reservation', component: ReservationComponent}
 
 ];

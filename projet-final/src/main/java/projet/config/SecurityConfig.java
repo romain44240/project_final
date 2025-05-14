@@ -47,7 +47,7 @@ public class SecurityConfig {
 				CorsConfiguration config = new CorsConfiguration();
 
 				// On autorise tout le monde
-				config.setAllowedOrigins(List.of("*"));
+				config.setAllowedOrigins(List.of("http://localhost:4200"));
 
 				// On autorise toutes les commandes HTTP (GET, POST, PUT, ...)
 				config.setAllowedMethods(List.of("*"));

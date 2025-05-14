@@ -11,10 +11,11 @@ import { environment } from './environment';
 export class AuthService {
 
   public token: string = "";
+
   private API_URL: string = `${environment.API_URL}/connexion`;
 
   constructor(private http: HttpClient) { 
-    this.token = localStorage.getItem('token') as string;
+    this.token = sessionStorage.getItem('token') as string;
   }
 
   public authenticate(authRequest: AuthRequest) {
@@ -23,7 +24,13 @@ export class AuthService {
       password: authRequest.password
     }).subscribe(resp => {
       this.token = resp.token;
-      localStorage.setItem('token',this.token);
+      sessionStorage.setItem('token',this.token);
     });
   }
+  
+  public isLoggedIn(): boolean {
+    console.log(sessionStorage.getItem('token'));
+    return sessionStorage.getItem('token') != null;
+  }
+
 }

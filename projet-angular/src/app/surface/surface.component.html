@@ -1,0 +1,30 @@
+<div class="h-100 text-center">
+    <div class="colorblue">
+        <form>
+            <strong>Veuillez sélectionner la date, l'heure et la durée souhaitées :</strong>
+            <input type="date" id="date" name="date" [(ngModel)]="selectedDate" (change)="onDateChange()"
+                [min]="currentDate" class="colorblue">
+            <input type="time" id="time" name="time" [disabled]="!selectedDate" [(ngModel)]="selectedTime" step="900"
+                min="11:00" max="23:59" (keydown)="onTimeChange($event)" (input)="onTimeInput($event)" class="colorblue">
+            <input type="number" id="duree" name="duree" [disabled]="!selectedTime" [(ngModel)]="selectedDuree" step="15"
+                min="15" max="480" class="colorblue" (blur)="validateDuree()" placeholder="Durée (en minutes)">
+
+            <input type="submit" class="btn btn-primary rounded" value="Valider" />
+        </form>
+    </div>
+
+    <div class="parent h-75 text-center m-3">
+        <div class="div1 table big yellow" (click)="goToReservation(1)" role="button">Table 1</div>
+        <div class="div2 table big yellow" (click)="goToReservation(2)" role="button">Table 2</div>
+        <div class="div3 table big yellow" (click)="goToReservation(3)" role="button">Table 3</div>
+        <div class="div4 table big yellow" (click)="goToReservation(4)" role="button">Table 4</div>
+        <div class="div5 table small orange" (click)="goToReservation(5)" role="button">Table 5</div>
+        <div class="div7 table small orange" (click)="goToReservation(7)" role="button">Table 7</div>
+        <div class="div6 table small orange" (click)="goToReservation(6)" role="button">Table 6</div>
+        <div class="div8 table small orange" (click)="goToReservation(8)" role="button">Table 8</div>
+        <div class="div9 table small red" (click)="goToReservation(9)" role="button">Table 9</div>
+        <div class="div10 table small red" (click)="goToReservation(10)" role="button">Table 10</div>
+        <div class="div11 table small red" (click)="goToReservation(11)" role="button">Table 11</div>
+        <div class="div12 table small red" (click)="goToReservation(12)" role="button">Table 12</div>
+    </div>
+</div>
