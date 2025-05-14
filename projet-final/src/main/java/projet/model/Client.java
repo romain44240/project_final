@@ -3,6 +3,8 @@ package projet.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -16,6 +18,7 @@ public class Client extends Compte {
 	private String telephone;
 	
 	@OneToMany(mappedBy = "client")
+	@JsonIgnore
 	private List<Reservation> reservations;
 	
 	public Client() {super();}

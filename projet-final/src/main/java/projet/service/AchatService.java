@@ -21,6 +21,7 @@ public class AchatService {
 
 	@Autowired
 	private IDAOProduit daoProduit;
+
 	
 	public List<AchatResponse> getAll() {
 		return daoAchat.findAll()

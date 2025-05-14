@@ -2,6 +2,8 @@ package projet.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -23,6 +25,7 @@ public class Jeu extends Produit {
 	List<Categorie> categories;
 	
 	@OneToOne(mappedBy = "jeu")
+	@JsonIgnore
 	private Reservation reservation;
 	
 	public Jeu() {super();}

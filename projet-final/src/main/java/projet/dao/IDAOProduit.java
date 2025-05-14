@@ -8,4 +8,3 @@ import projet.model.Produit;
 public interface IDAOProduit extends JpaRepository<Produit,Integer>{
 
 }
-	

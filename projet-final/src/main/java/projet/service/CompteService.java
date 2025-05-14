@@ -1,5 +1,7 @@
 package projet.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,13 +14,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import projet.dao.IDAOAchat;
 import projet.dao.IDAOCompte;
+import projet.dao.IDAOReservation;
+import projet.model.Achat;
 import projet.model.Client;
 import projet.model.Compte;
+import projet.model.Consommable;
 import projet.model.Employe;
+import projet.model.Jeu;
 import projet.request.ClientRequest;
 import projet.request.EmployeRequest;
 import projet.response.ClientResponse;
+import projet.response.CompteInfoResponse;
 import projet.response.EmployeResponse;
 import projet.response.ReservationResponse;
 
@@ -27,6 +35,12 @@ public class CompteService implements UserDetailsService {
 
     @Autowired
     private IDAOCompte daoCompte;
+
+    @Autowired
+    private IDAOReservation daoReservation;
+
+    @Autowired
+    private IDAOAchat daoAchat;
 
     // COMPTE
     public Compte getByLogin(String login)
@@ -78,7 +92,6 @@ public class CompteService implements UserDetailsService {
         return true;
     }
     
-    
     public List<ReservationResponse> getReservationsByClientId(Integer id){
     	Compte compte = (Client) daoCompte.findById(id).get();
     	
@@ -92,6 +105,29 @@ public class CompteService implements UserDetailsService {
                 .map(ReservationResponse::convert)
                 .collect(Collectors.toList());
     	
+    }
+
+    public CompteInfoResponse getCompteInfo(Integer id) {
+        CompteInfoResponse compteInfoResponse = new CompteInfoResponse();
+
+        compteInfoResponse.setReservations(daoReservation.getReservationsByClientId(id));
+        
+        List<Achat> achats = daoAchat.getAchatsByClientId(id);
+        HashMap<String, Integer> consommables = new HashMap<String, Integer>();
+        List<Jeu> jeux = new ArrayList<Jeu>();
+
+        for (Achat a : achats) {
+            if (a.getProduit() instanceof Consommable consommable) {
+                consommables.put(consommable.getNom(), a.getQuantite());
+            } else if (a.getProduit() instanceof Jeu jeu) {
+                jeux.add(jeu);
+            }
+        }
+
+        compteInfoResponse.setConsommables(consommables);
+        compteInfoResponse.setJeux(jeux);
+
+        return compteInfoResponse;
     }
 
     //EMPLOYE
