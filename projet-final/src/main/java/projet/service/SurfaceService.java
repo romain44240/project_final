@@ -1,12 +1,15 @@
 package projet.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projet.dao.IDAOReservation;
 import projet.dao.IDAOSurface;
+import projet.model.Reservation;
 import projet.model.Surface;
 import projet.request.SurfaceRequest;
 import projet.response.SurfaceResponse;
@@ -16,6 +19,9 @@ public class SurfaceService {
 
     @Autowired
     private IDAOSurface daoSurface;
+    
+    @Autowired
+    private IDAOReservation daoReservation;
 
     
     public List<SurfaceResponse> getAll() {
@@ -57,5 +63,19 @@ public class SurfaceService {
         }
         daoSurface.deleteById(id);
     }
+    
+    public List<SurfaceResponse> getSurfacesDisponibles(LocalDateTime debut, LocalDateTime fin) {
+        
+        List<Reservation> incluses = daoReservation.findByDebutLessThanAndFinGreaterThan(fin, debut);
+        
+        List<Surface> listeSurfaces = daoSurface.findAll();
+        for(Reservation r : incluses) {
+        	listeSurfaces.remove(r.getSurface());
+        }
+        
+        return listeSurfaces.stream().map(SurfaceResponse::convert).collect(Collectors.toList());
+    }
+
+    
 }
 

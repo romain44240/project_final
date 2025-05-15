@@ -1,5 +1,6 @@
 package projet.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,6 @@ public interface IDAOReservation extends JpaRepository<Reservation,Integer>{
 
     @Query("SELECT r FROM Reservation r WHERE r.client.id = :id")
     List<Reservation> getReservationsByClientId(@Param("id") Integer id);
+    
+    List<Reservation> findByDebutLessThanAndFinGreaterThan(LocalDateTime debut, LocalDateTime fin);
 }

@@ -10,5 +10,4 @@ import projet.model.Surface;
 
 public interface IDAOSurface extends JpaRepository<Surface,Integer> {
 
-    List<Reservation> findByDebutLowerThanAndFinGreaterThan(LocalDateTime debut, LocalDateTime fin);
 }
