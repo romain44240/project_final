@@ -6,7 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import projet.dao.IDAOCompte;
 import projet.dao.IDAOProduit;
@@ -47,7 +49,7 @@ public class ReservationService {
 	
 	public ReservationResponse getById(Integer id) {
 		Reservation reservation = daoReservation.findById(id)
-				.orElseThrow(() -> new RuntimeException("Réservation non trouvée avec id : " + id));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservation non trouvée avec id : " + id));
 		return ReservationResponse.convert(reservation);
 	}
 
@@ -58,7 +60,7 @@ public class ReservationService {
 		//Client
 		Optional<Compte> client = daoCompte.findById(dto.getIdClient());
 		if (client.isEmpty()) {
-			throw new RuntimeException("Client avec l'id: " + dto.getIdClient() + " non trouvé");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Client avec l'id: " + dto.getIdClient() + " non trouvé");
 		}
 		reservation.setClient((Client) client.get());
 
@@ -66,7 +68,7 @@ public class ReservationService {
 	    if (dto.getIdEmploye() != null) {
 			Optional<Compte> employe = daoCompte.findById(dto.getIdEmploye());
 			if (employe.isEmpty()) {
-				throw new RuntimeException("Employe avec l'id: " + dto.getIdEmploye() + " non trouvé");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employe avec l'id: " + dto.getIdEmploye() + " non trouvé");
 			}
 	        reservation.setEmploye((Employe) employe.get());
 	    }
@@ -74,14 +76,14 @@ public class ReservationService {
 		//Surface
 		reservation.setSurface(
 			daoSurface.findById(dto.getIdSurface())
-				.orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + dto.getIdSurface()))
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Surface non trouvée avec id : " + dto.getIdSurface()))
 		);
 
 		//Jeu 
 		Produit produit = daoProduit.findById(dto.getIdJeu())
-				.orElseThrow(() -> new RuntimeException("Jeu non trouvé avec id : " + dto.getIdJeu()));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Jeu non trouvé avec id : " + dto.getIdJeu()));
 		if (!(produit instanceof Jeu)) {
-			throw new RuntimeException("Le produit avec l'id " + dto.getIdJeu() + " n'est pas un jeu.");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le produit avec l'id " + dto.getIdJeu() + " n'est pas un jeu.");
 		}
 		reservation.setJeu((Jeu) produit);
 
@@ -94,7 +96,7 @@ public class ReservationService {
 	
 	public void delete(Integer id) {
 		if (!daoReservation.existsById(id)) {
-			throw new RuntimeException("Réservation non trouvée avec id : " + id);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservation non trouvée avec id : " + id);
 		}
 		daoReservation.deleteById(id);
 	}
@@ -102,7 +104,7 @@ public class ReservationService {
 	
 	public ReservationResponse update(Integer id, ReservationRequest dto) {
 		Reservation reservation = daoReservation.findById(id)
-				.orElseThrow(() -> new RuntimeException("Réservation non trouvée avec id : " + id));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservation non trouvée avec id : " + id));
 
 		reservation.setDebut(dto.getDebut());
 		reservation.setFin(dto.getFin());
@@ -111,28 +113,28 @@ public class ReservationService {
 		//Client
 		Optional<Compte> client = daoCompte.findById(dto.getIdClient());
 		if (client.isEmpty()) {
-			throw new RuntimeException("Client avec l'id: " + dto.getIdClient() + " non trouvé");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Client avec l'id: " + dto.getIdClient() + " non trouvé");
 		}
 		reservation.setClient((Client) client.get());
 
 		//Employé
 		Optional<Compte> employe = daoCompte.findById(dto.getIdEmploye());
 		if (employe.isEmpty()) {
-			throw new RuntimeException("Employe avec l'id: " + dto.getIdEmploye() + " non trouvé");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employe avec l'id: " + dto.getIdEmploye() + " non trouvé");
 		}
 		reservation.setEmploye((Employe) employe.get());
 
 		//Surface
 		reservation.setSurface(
 			daoSurface.findById(dto.getIdSurface())
-				.orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + dto.getIdSurface()))
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Surface non trouvée avec id : " + dto.getIdSurface()))
 		);
 
 		//Jeu 
 		Produit produit = daoProduit.findById(dto.getIdJeu())
-				.orElseThrow(() -> new RuntimeException("Jeu non trouvé avec id : " + dto.getIdJeu()));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Jeu non trouvé avec id : " + dto.getIdJeu()));
 		if (!(produit instanceof Jeu)) {
-			throw new RuntimeException("Le produit avec l'id " + dto.getIdJeu() + " n'est pas un jeu.");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le produit avec l'id " + dto.getIdJeu() + " n'est pas un jeu.");
 		}
 		reservation.setJeu((Jeu) produit);
 

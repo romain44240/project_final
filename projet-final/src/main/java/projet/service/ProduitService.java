@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import projet.dao.IDAOProduit;
 import projet.model.Consommable;
@@ -47,7 +49,7 @@ public class ProduitService {
 	
 	public ProduitResponse getById(Integer id) {
 		Produit produit = daoProduit.findById(id)
-				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + id));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id));
 		return ProduitResponse.convert(produit);
 	}
 	
@@ -88,7 +90,7 @@ public class ProduitService {
 
 	public ProduitResponse update(Integer id, ProduitRequest produitRequest) {
 		Produit produit = daoProduit.findById(id)
-				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + id));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id));
 		
 		BeanUtils.copyProperties(produitRequest, produit);
 		produit = daoProduit.save(produit);
@@ -98,7 +100,7 @@ public class ProduitService {
 	
 	public void delete(Integer id) {
 		if (!daoProduit.existsById(id)) {
-			throw new RuntimeException("Produit non trouvé avec id : " + id);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id);
 		}
 		daoProduit.deleteById(id);
 	}

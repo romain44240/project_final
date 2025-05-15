@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import projet.dao.IDAOReservation;
 import projet.dao.IDAOSurface;
@@ -33,7 +35,7 @@ public class SurfaceService {
     
     public SurfaceResponse getById(Integer id) {
         Surface surface = daoSurface.findById(id)
-                .orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Surface non trouvée avec id : " + id));
         return SurfaceResponse.convert(surface);
     }
 
@@ -47,7 +49,7 @@ public class SurfaceService {
     
     public SurfaceResponse update(Integer id, SurfaceRequest dto) {
         Surface surface = daoSurface.findById(id)
-                .orElseThrow(() -> new RuntimeException("Surface non trouvée avec id : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Surface non trouvée avec id : " + id));
         
         surface.setCapacite(dto.getCapacite());
         surface.setCouleur(dto.getCouleur());
@@ -59,7 +61,7 @@ public class SurfaceService {
     
     public void delete(Integer id) {
         if (!daoSurface.existsById(id)) {
-            throw new RuntimeException("Surface non trouvée avec id : " + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Surface non trouvée avec id : " + id);
         }
         daoSurface.deleteById(id);
     }

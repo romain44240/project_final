@@ -8,11 +8,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import projet.dao.IDAOAchat;
 import projet.dao.IDAOCompte;
@@ -76,7 +78,7 @@ public class CompteService implements UserDetailsService {
 
     public ClientResponse updateClient(Integer id, ClientRequest clientRequest) {
         Client client = (Client) daoCompte.findById(id)
-                .orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client non trouvé avec id : " + id));
         BeanUtils.copyProperties(clientRequest, client);
         client = daoCompte.save(client);
         return ClientResponse.convert(client);
@@ -91,7 +93,7 @@ public class CompteService implements UserDetailsService {
 
     public ClientResponse getClientById(Integer id) {
         Client client = (Client) daoCompte.findById(id)
-                .orElseThrow(() -> new RuntimeException("Client non trouvé avec id : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client non trouvé avec id : " + id));
         return ClientResponse.convert(client);
     }
 
@@ -104,7 +106,7 @@ public class CompteService implements UserDetailsService {
     	Compte compte = (Client) daoCompte.findById(id).get();
     	
     	if(!(compte instanceof Client)) {
-    		throw new RuntimeException("Le compte avec l'id " + id + "n'est pas un client.");
+    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le compte avec l'id " + id + "n'est pas un client.");
     	}
     	
     	Client client = (Client) compte;
@@ -148,7 +150,7 @@ public class CompteService implements UserDetailsService {
 
     public EmployeResponse updateEmploye(Integer id, EmployeRequest employeRequest) {
         Employe employe = (Employe) daoCompte.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employé non trouvé avec id : " + id));
         BeanUtils.copyProperties(employeRequest, employe);
         employe = daoCompte.save(employe);
         return EmployeResponse.convert(employe);
@@ -163,7 +165,7 @@ public class CompteService implements UserDetailsService {
 
     public EmployeResponse getEmployeById(Integer id) {
         Employe employe = (Employe) daoCompte.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employé non trouvé avec id : " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employé non trouvé avec id : " + id));
         return EmployeResponse.convert(employe);
     }
 
