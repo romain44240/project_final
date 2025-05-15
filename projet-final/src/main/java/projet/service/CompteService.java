@@ -50,6 +50,14 @@ public class CompteService implements UserDetailsService {
 		else {return opt.get();}
 	}
     
+    public Compte getByEmail(String email) {
+    	Optional<Compte> opt = daoCompte.findByEmail(email);
+    	if(opt.isEmpty()) {return null;}
+    	else {
+    		return opt.get();
+    	}
+    }
+    
     public Compte getByLoginAndPassword(String login, String password) {
     	Optional<Compte> opt = daoCompte.findByLoginAndPassword(login, password);
     	if(opt.isEmpty()) {

@@ -15,7 +15,6 @@ public class ClientRequest {
 	private String prenom;
 	private String email;
 	private LocalDate dateArrivee;
-	
 	private String telephone;
 	
 

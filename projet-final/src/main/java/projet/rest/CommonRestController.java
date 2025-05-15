@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import projet.request.ClientRequest;
 import projet.request.ConnexionRequest;
+import projet.response.ClientResponse;
 import projet.response.ConnexionResponse;
 import projet.service.CompteService;
 import projet.config.jwt.JwtUtil;
@@ -60,5 +62,18 @@ public class CommonRestController {
 		}
 
 		return connexionResponse;
+	}
+	
+	@PostMapping("/inscription")
+	public ClientResponse inscription(@RequestBody ClientRequest clientRequest) {
+		if(this.compteService.getByEmail(clientRequest.getEmail()) != null) {
+			throw new IllegalArgumentException("email déjà utilisé");
+		}
+		
+		if (this.compteService.getByLogin(clientRequest.getLogin()) != null) {
+			throw new IllegalArgumentException("login déjà utilisé");
+		}
+		
+	    return compteService.createClient(clientRequest);
 	}
 }

@@ -9,6 +9,8 @@ public interface IDAOCompte extends JpaRepository<Compte,Integer>{
 	
 	public Optional<Compte> findByLogin(String login);
 	
+	public Optional<Compte> findByEmail(String email);
+	
 	public Optional<Compte> findByLoginAndPassword(String login, String password);
 
 }
