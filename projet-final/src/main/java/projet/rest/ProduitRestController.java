@@ -36,6 +36,18 @@ public class ProduitRestController {
 		return this.produitService.getAll();
 	}
 
+	@GetMapping("/jeux")
+	@JsonView(Views.ViewProduit.class)
+	public List<ProduitResponse> getAllJeux() {
+		return this.produitService.getAllJeux();
+	}
+
+	@GetMapping("/consos")
+	@JsonView(Views.ViewProduit.class)
+	public List<ProduitResponse> getAllConsommables() {
+		return this.produitService.getAllConsommables();
+	}
+
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewProduit.class)
 	public ProduitResponse getById(@PathVariable Integer id) {
