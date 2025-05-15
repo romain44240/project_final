@@ -14,7 +14,6 @@ import projet.model.Surface;
 
 public class ReservationResponse {
 
-	
 	private Integer id;
 	private LocalDateTime debut;
 	private LocalDateTime fin;
@@ -113,5 +112,4 @@ public class ReservationResponse {
 		dto.setAchats(reservation.getAchats());
 		return dto;
 	}
-
 }

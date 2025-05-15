@@ -1,24 +1,14 @@
 package projet.response;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import projet.model.Consommable;
 import projet.model.Jeu;
 import projet.model.Produit;
-import projet.model.Views;
 
 public abstract class ProduitResponse {
 	
-	@JsonView(Views.ViewProduitDetail.class)
 	protected Integer id;
-
-	@JsonView(Views.ViewProduit.class)
 	protected String nom;
-
-	@JsonView(Views.ViewProduit.class)
 	protected double prix;
-
-	@JsonView(Views.ViewProduitDetail.class)
 	protected int stock;
 	
 	public ProduitResponse() {}

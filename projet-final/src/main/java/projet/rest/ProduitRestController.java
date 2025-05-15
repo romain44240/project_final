@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.fasterxml.jackson.annotation.JsonView;
 
-import projet.model.Views;
 import projet.request.ProduitRequest;
 import projet.response.ProduitResponse;
 import projet.service.ProduitService;
