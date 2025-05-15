@@ -44,7 +44,7 @@ public class ProduitRestController {
 	
 	@GetMapping("/{id}/detail")
 	@JsonView(Views.ViewProduitDetail.class)
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public ProduitResponse getDetailById(@PathVariable Integer id) {
 		// id + stock
 		return this.produitService.getById(id);
@@ -52,20 +52,20 @@ public class ProduitRestController {
 
 	@PostMapping("")
 	@JsonView(Views.ViewProduitDetail.class)
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public ProduitResponse create(@RequestBody ProduitRequest dto) {
 		return this.produitService.create(dto);
 	}
 
 	@PutMapping("/{id}")
 	@JsonView(Views.ViewProduit.class)
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public ProduitResponse update(@PathVariable Integer id, @RequestBody ProduitRequest dto) {
 		return this.produitService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public void delete(@PathVariable Integer id) {
 		this.produitService.delete(id);
 	}

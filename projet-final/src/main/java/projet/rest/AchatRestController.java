@@ -21,32 +21,32 @@ public class AchatRestController {
 	}
 
 	@GetMapping("")
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public List<AchatResponse> getAll() {
 		return achatService.getAll(); 
 	}
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public AchatResponse getById(@PathVariable Integer id) {
 		return achatService.getById(id);
 	}
 
 	@PostMapping("")
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public AchatResponse create(@RequestBody AchatRequest dto) {
 		return achatService.create(dto);
 	}
 
 	@PutMapping("/{id}")
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public AchatResponse update(@PathVariable Integer id, @RequestBody AchatRequest dto) {
 		return achatService.update(id, dto);
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
 		achatService.delete(id);

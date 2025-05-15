@@ -42,14 +42,14 @@ public class ReservationRestController {
 
 	@GetMapping("")
 	@JsonView(Views.ViewReservation.class)
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public List<ReservationResponse> getAll() {
 		return this.reservationService.getAll();
 	}
 
 	@GetMapping("/{id}")
 	@JsonView(Views.ViewReservation.class)
-	@PreAuthorize("hasRole('employe')")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public ReservationResponse getById(@PathVariable Integer id) {
 		return this.reservationService.getById(id);
 	}
