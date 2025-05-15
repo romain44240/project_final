@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import projet.dao.IDAOAchat;
 import projet.dao.IDAOProduit;
@@ -32,7 +34,7 @@ public class AchatService {
 
 	public AchatResponse create(AchatRequest dto) {
 		Produit produit = daoProduit.findById(dto.getIdProduit())
-				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + dto.getIdProduit()));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + dto.getIdProduit()));
 
 		Achat achat = AchatRequest.convert(dto);
 
@@ -45,23 +47,23 @@ public class AchatService {
 
 	public AchatResponse getById(Integer id) {
 		Achat achat = daoAchat.findById(id)
-				.orElseThrow(() -> new RuntimeException("Achat non trouvé avec id : " + id));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Achat non trouvé avec id : " + id));
 		return AchatResponse.convert(achat);
 	}
 
 	public void delete(Integer id) {
 		if (!daoAchat.existsById(id)) {
-			throw new RuntimeException("Achat non trouvé avec id : " + id);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Achat non trouvé avec id : " + id);
 		}
 		daoAchat.deleteById(id);
 	}
 
 	public AchatResponse update(Integer id, AchatRequest dto) {
 		Achat achatExistant = daoAchat.findById(id)
-				.orElseThrow(() -> new RuntimeException("Achat non trouvé avec id : " + id));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Achat non trouvé avec id : " + id));
 
 		Produit produit = daoProduit.findById(dto.getIdProduit())
-				.orElseThrow(() -> new RuntimeException("Produit non trouvé avec id : " + dto.getIdProduit()));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + dto.getIdProduit()));
 
 		achatExistant.setQuantite(dto.getQuantite());
 		achatExistant.setProduit(produit);
