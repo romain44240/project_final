@@ -4,25 +4,28 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-
-import projet.config.jwt.JwtHeaderAuthorizationFilter;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http, JwtHeaderAuthorizationFilter jwtFilter) throws Exception {
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// Méthode d'authentification par HTTP Basic
 		http.httpBasic(Customizer.withDefaults());
 
@@ -59,6 +62,21 @@ public class SecurityConfig {
 			};
 
 			c.configurationSource(source);
+		});
+
+		Converter<Jwt, AbstractAuthenticationToken> converter = jwt -> {
+			List<String> roles = jwt.getClaimAsStringList("roles");
+
+			List<SimpleGrantedAuthority> authorities = roles.stream()
+				.map(r -> new SimpleGrantedAuthority(r))
+				.toList()
+			;
+
+			return new JwtAuthenticationToken(jwt, authorities);
+		};
+
+		http.oauth2ResourceServer(oauth2 -> {
+			oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(converter));
 		});
 
 		// Positionner le filtre JWT AVANT le filter

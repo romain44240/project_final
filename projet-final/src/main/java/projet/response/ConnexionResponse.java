@@ -3,7 +3,6 @@ package projet.response;
 public class ConnexionResponse {
 	private boolean success;
 	private String token;
-	private String role;
 
 	public ConnexionResponse() {
 		super();
@@ -23,13 +22,5 @@ public class ConnexionResponse {
 
 	public void setToken(String token) {
 		this.token = token;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 }

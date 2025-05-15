@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import projet.model.Reservation;
 import projet.model.Views;
 import projet.request.SurfaceRequest;
 import projet.response.SurfaceResponse;

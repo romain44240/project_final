@@ -14,10 +14,7 @@ import projet.request.ConnexionRequest;
 import projet.response.ClientResponse;
 import projet.response.ConnexionResponse;
 import projet.service.CompteService;
-import projet.config.jwt.JwtUtil;
-import projet.model.Client;
-import projet.model.Compte;
-import projet.model.Employe;
+import projet.service.JwtService;
 
 @RestController
 @RequestMapping("/api")
@@ -25,6 +22,9 @@ public class CommonRestController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtService jwtService;
 
 	@Autowired
 	private CompteService compteService;
@@ -43,23 +43,16 @@ public class CommonRestController {
 		Authentication authentication = new UsernamePasswordAuthenticationToken(connexionRequest.getLogin(),connexionRequest.getPassword());
 
 		// On demande à SPRING SECURITY de vérifier ces informations de connexion
-		this.authenticationManager.authenticate(authentication);
+		authentication = this.authenticationManager.authenticate(authentication);
 		
 		// Si on arrive ici, c'est que la connexion a fonctionné
 		ConnexionResponse connexionResponse = new ConnexionResponse();
 
 		// On génère un jeton pour l'utilisateur connecté
-		String token = JwtUtil.generate(authentication);
+		String token = this.jwtService.generate(authentication);
 		
 		connexionResponse.setSuccess(true);
 		connexionResponse.setToken(token);
-
-		Compte compte = compteService.getByLoginAndPassword(connexionRequest.getLogin(), connexionRequest.getPassword());
-		if (compte instanceof Employe) {
-			connexionResponse.setRole("EMPLOYE");
-		} else if (compte instanceof Client) {
-			connexionResponse.setRole("CLIENT");
-		}
 
 		return connexionResponse;
 	}
