@@ -3,8 +3,8 @@
 
 <div class="d-flex justify-content-center">
     <div class="w-75">
-        <div class="colorblue">
-            <h5>L'équipe de La Tour de Jeu est heureuse de vous revoir Monsieur X</h5>
+        <div *ngIf="currentUser" class="colorblue">
+            <h5>L'équipe de La Tour de Jeu est heureuse de vous revoir {{currentUser?.id}}</h5>
             <p class="fs-6 fst-italic">Nous tenons à vous rappeler que le catalogue de jeux évolue constamment, n’hésitez pas à le consulter et
                 à réserver votre prochaine partie de plaisir. </p>
         </div>
@@ -12,12 +12,12 @@
             <div class="card bg-light">
                 <h3 class="card-header">Historique des réservations</h3>
 
-                <div class="card-body">
-                    <h5 class="card-title text-center">Réservation numéro : 12345A</h5>
+                <div *ngFor="let res of reservations | async"  class="card-body">
+                    <h5 class="card-title text-center">Réservation numéro : {{res.id}}</h5>
                     <ul class="list-group">
-                        <li class="list-group-item">Date : 01/03/2025</li>
-                        <li class="list-group-item">Durée : 2 heures</li>
-                        <li class="list-group-item">Nombre de personnes : 4</li>
+                        <li class="list-group-item">Date : {{res.debut | date:"dd/MM/YYYY"}}</li>
+                        <li class="list-group-item">Durée : {{ getDuree(res.debut, res.fin) }}</li>
+                        <li class="list-group-item">Nombre de personnes : {{res.nbPersonne}}</li>
                         <button type="button" class="list-group-item list-group-item-action">Produits consomés</button>
                         <button type="button" class="list-group-item list-group-item-action">Jeux empruntés ou achetés</button>
                     </ul>

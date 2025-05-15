@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../environment';
 import { AuthRequest } from '../auth-request';
 import { AuthResponse } from '../auth-response';
+import { Client } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class AuthService {
   public role$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   private API_URL: string = `${environment.API_URL}`;
+
+  private currentUser: Client | null = null;
 
   constructor(private http: HttpClient) {
     this.token = sessionStorage.getItem('token');
@@ -36,8 +39,28 @@ export class AuthService {
         const decoded = this.decodeToken(resp.token);
         const role = decoded?.roles?.[0] ?? null;
         this.role$.next(role);
+
+        const userId = decoded?.sub;
+      if (userId) {
+        this.fetchCurrentUser(userId);  
+      }
       })
     );
+  }
+
+  private fetchCurrentUser(userId: string | null): void {
+    if (userId) {
+      this.http.get<Client>(`${this.API_URL}/utilisateur/${userId}`).subscribe(user => {
+        this.currentUser = user; 
+        console.log('User ID reçu depuis le token :', userId);
+
+      });
+    }
+  }
+
+  public getCurrentUser(): Client | null {
+    console.log(this.currentUser);
+    return this.currentUser;
   }
 
   public subscribe(authRequest: AuthRequest): void {
