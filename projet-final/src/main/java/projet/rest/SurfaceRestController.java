@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-import projet.model.Views;
 import projet.request.SurfaceRequest;
 import projet.response.SurfaceResponse;
 import projet.service.SurfaceService;

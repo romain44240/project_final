@@ -4,30 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import projet.model.Categorie;
 import projet.model.Jeu;
-import projet.model.Views;
 
 public class JeuResponse extends ProduitResponse {
 	
-	@JsonView(Views.ViewProduit.class)
 	private int nbMin;
-
-	@JsonView(Views.ViewProduit.class)
 	private int nbMax;
-
-	@JsonView(Views.ViewProduit.class)
 	private int duree;
-
-	@JsonView(Views.ViewProduit.class)
 	private String editeur;
-
-	@JsonView(Views.ViewProduit.class)
 	private String regle;
-
-	@JsonView(Views.ViewProduit.class)
 	private List<Categorie> categories;
 
 	public JeuResponse() {}

@@ -16,12 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import projet.model.Client;
 import projet.model.Compte;
 import projet.model.Employe;
-import projet.model.Views;
 import projet.request.ReservationRequest;
 import projet.response.ReservationResponse;
 import projet.service.CompteService;
