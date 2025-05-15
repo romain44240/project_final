@@ -22,9 +22,4 @@ public class Consommable extends Produit {
 		return "Consommable [id=" + id + ", nom=" + nom + ", prix=" + prix + ", stock=" + stock + "]";
 	}
 
-	
-	
-	
-	
-
 }

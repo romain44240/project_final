@@ -31,31 +31,26 @@ public class ProduitRestController {
 	}
 
 	@GetMapping("")
-	@JsonView(Views.ViewProduit.class)
 	public List<ProduitResponse> getAll() {
 		return this.produitService.getAll();
 	}
 
 	@GetMapping("/jeux")
-	@JsonView(Views.ViewProduitDetail.class)
 	public List<ProduitResponse> getAllJeux() {
 		return this.produitService.getAllJeux();
 	}
 
 	@GetMapping("/consos")
-	@JsonView(Views.ViewProduitDetail.class)
 	public List<ProduitResponse> getAllConsommables() {
 		return this.produitService.getAllConsommables();
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewProduit.class)
 	public ProduitResponse getById(@PathVariable Integer id) {
 		return this.produitService.getById(id);
 	}
 	
 	@GetMapping("/{id}/detail")
-	@JsonView(Views.ViewProduitDetail.class)
 	@PreAuthorize("hasRole('EMPLOYE')")
 	public ProduitResponse getDetailById(@PathVariable Integer id) {
 		// id + stock
@@ -63,14 +58,12 @@ public class ProduitRestController {
 	}
 
 	@PostMapping("")
-	@JsonView(Views.ViewProduitDetail.class)
 	@PreAuthorize("hasRole('EMPLOYE')")
 	public ProduitResponse create(@RequestBody ProduitRequest dto) {
 		return this.produitService.create(dto);
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(Views.ViewProduit.class)
 	@PreAuthorize("hasRole('EMPLOYE')")
 	public ProduitResponse update(@PathVariable Integer id, @RequestBody ProduitRequest dto) {
 		return this.produitService.update(id, dto);

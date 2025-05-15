@@ -41,21 +41,18 @@ public class ReservationRestController {
 	}
 
 	@GetMapping("")
-	@JsonView(Views.ViewReservation.class)
 	@PreAuthorize("hasRole('EMPLOYE')")
 	public List<ReservationResponse> getAll() {
 		return this.reservationService.getAll();
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(Views.ViewReservation.class)
 	@PreAuthorize("hasRole('EMPLOYE')")
 	public ReservationResponse getById(@PathVariable Integer id) {
 		return this.reservationService.getById(id);
 	}
 
 	@PostMapping("")
-	@JsonView(Views.ViewReservation.class)
 	//@PreAuthorize("hasAnyRole('employe', 'client')") //dépendant si on réserve en ligne ou sur place
 	@PreAuthorize("isAuthenticated()")
 	public ReservationResponse create(@RequestBody ReservationRequest dto) {
@@ -63,7 +60,6 @@ public class ReservationRestController {
 	}
 
 	@PutMapping("/{id}")
-	@JsonView(Views.ViewReservation.class)
 	@PreAuthorize("isAuthenticated()")
 	public ReservationResponse update(@RequestBody ReservationRequest dto, @PathVariable Integer id) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

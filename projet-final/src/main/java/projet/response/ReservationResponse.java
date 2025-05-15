@@ -5,35 +5,24 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
 import projet.model.Achat;
 import projet.model.Client;
 import projet.model.Employe;
 import projet.model.Jeu;
 import projet.model.Reservation;
 import projet.model.Surface;
-import projet.model.Views;
 
 public class ReservationResponse {
 
-	@JsonView(Views.ViewReservation.class)
+	
 	private Integer id;
-	@JsonView(Views.ViewReservation.class)
 	private LocalDateTime debut;
-	@JsonView(Views.ViewReservation.class)
 	private LocalDateTime fin;
-	@JsonView(Views.ViewReservation.class)
 	private int nbPersonne;
-	@JsonView(Views.ViewReservation.class)
 	private Client client;
-	@JsonView(Views.ViewReservation.class)
 	private Employe employe;
-	@JsonView(Views.ViewReservation.class)
 	private Surface surface;
-	@JsonView(Views.ViewReservation.class)
 	private Jeu jeu;
-	@JsonView(Views.ViewReservation.class)
 	private List<Achat> achats;
 
 	public ReservationResponse() {
@@ -117,11 +106,11 @@ public class ReservationResponse {
 		BeanUtils.copyProperties(reservation, dto);
 
 		dto.setClient(reservation.getClient());
+		dto.getClient().getReservations().clear();
 		dto.setEmploye(reservation.getEmploye());
-		dto.setSurface(reservation.getSurface());
-		dto.setJeu(reservation.getJeu());
+		dto.setSurface(null);
+		//dto.setJeu(reservation.getJeu());
 		dto.setAchats(reservation.getAchats());
-
 		return dto;
 	}
 

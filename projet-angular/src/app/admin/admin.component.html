@@ -86,14 +86,17 @@
       </tbody>
     </table>
 
-     <!--
+    
     <table *ngSwitchCase="'reservations'" class="table table-bordered table-hover">
       <thead>
         <tr>
           <th>ID</th>
           <th>Client</th>
-          <th>Produit</th>
-          <th>Date</th>
+          <th>Nb Personne</th>
+          <th>Jeu</th>
+          <th>GM</th>
+          <th>Début</th>
+          <th>Fin</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -101,14 +104,17 @@
         <tr *ngFor="let res of reservationList">
           <td>{{res.id}}</td>
           <td>{{res.client.nom}}</td>
-          <td>{{res.jeu.nom}}</td>
-          <td>{{res.date | date:'short'}}</td>
+          <td>{{res.nbPersonne}}</td>
+          <td>{{res.jeu?.nom}}</td>
+          <td>{{res.employe.nom}}</td>
+          <td>{{res.debut | date:'short'}}</td>
+          <td>{{res.fin| date:'short'}}</td>
           <td>
             <button class="btn btn-sm btn-danger" (click)="deleteReservation(res.id)">Supprimer</button>
           </td>
         </tr>
       </tbody>
-    </table> -->
+    </table>
 
   </ng-container>
 </div>

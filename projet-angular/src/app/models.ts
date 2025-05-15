@@ -34,11 +34,13 @@ export interface Surface {
 
 export interface Reservation {
   id: number;
-  dateReservation: string; // attention format string -> localDate
+  debut: string; // attention format string -> localDate
+  fin: string;
+  nbPersonne: number;
   client: Client;
+  employe: Employe;
   surface: Surface;
   jeu?: Jeu;
-  consommable?: Consommable;
 }
 
 export interface Compte {
