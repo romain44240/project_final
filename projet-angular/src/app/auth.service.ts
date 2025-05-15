@@ -3,28 +3,49 @@ import { Injectable } from '@angular/core';
 import { AuthResponse } from './auth-response';
 import { AuthRequest } from './auth-request';
 import { environment } from './environment';
-
+import { jwtDecode } from 'jwt-decode';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public token: string = "";
+  public token: string | null = null;
+  public role$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
-  private API_URL: string = `${environment.API_URL}/connexion`;
+  private API_URL: string = `${environment.API_URL}`;
 
   constructor(private http: HttpClient) {
-    this.token = sessionStorage.getItem('token') as string;
+    this.token = sessionStorage.getItem('token');
+    if (this.token) {
+      const decoded = this.decodeToken(this.token);
+      this.role$.next(decoded?.roles?.[0] ?? null);
+    }
   }
 
-  public authenticate(authRequest: AuthRequest) {
-    this.http.post<AuthResponse>(this.API_URL, {
+  public authenticate(authRequest: AuthRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(this.API_URL + "/connexion", {
       login: authRequest.login,
       password: authRequest.password
-    }).subscribe(resp => {
-      this.token = resp.token;
-      sessionStorage.setItem('token', this.token);
+    }).pipe(
+      tap(resp => {
+        this.token = resp.token;
+        sessionStorage.setItem('token', this.token);
+
+        const decoded = this.decodeToken(resp.token);
+        const role = decoded?.roles?.[0] ?? null;
+        this.role$.next(role);
+      })
+    );
+  }
+
+  public subscribe(authRequest: AuthRequest): void {
+    this.http.post<AuthResponse>(this.API_URL + "/inscription", {
+      login: authRequest.login,
+      password: authRequest.password
+    }).subscribe(() => {
+      this.authenticate(authRequest).subscribe(); 
     });
   }
 
@@ -33,9 +54,28 @@ export class AuthService {
   }
 
   public logout(): void {
-    this.token = '';
+    this.token = null;
     sessionStorage.removeItem('token');
+    this.role$.next(null);
   }
 
+  public getRole(): string | null {
+    return this.role$.value;
+  }
 
+  private decodeToken(token: string): JwtPayload | null {
+    try {
+      return jwtDecode<JwtPayload>(token);
+    } catch (error) {
+      console.error('Erreur lors du décodage du token :', error);
+      return null;
+    }
+  }
+}
+
+export interface JwtPayload {
+  sub: string;
+  email: string;
+  roles: string[];
+  exp?: number;
 }

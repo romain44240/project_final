@@ -37,13 +37,13 @@ public class ProduitRestController {
 	}
 
 	@GetMapping("/jeux")
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewProduitDetail.class)
 	public List<ProduitResponse> getAllJeux() {
 		return this.produitService.getAllJeux();
 	}
 
 	@GetMapping("/consos")
-	@JsonView(Views.ViewProduit.class)
+	@JsonView(Views.ViewProduitDetail.class)
 	public List<ProduitResponse> getAllConsommables() {
 		return this.produitService.getAllConsommables();
 	}

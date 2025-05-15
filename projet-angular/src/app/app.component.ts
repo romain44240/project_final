@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'projet-angular';
+  role : string | null | undefined;
 
   constructor(public authService: AuthService, private router: Router) { }
 
@@ -18,10 +19,12 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/connexion']);
   }
 
-
   ngOnInit(): void {
-    console.log("Initialisation !");
+    this.authService.role$.subscribe(role => {
+      this.role = role;
+    });
   }
+
   sidebarOpen = true;
   isMobile = false;
 

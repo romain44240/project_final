@@ -8,8 +8,6 @@
                 min="11:00" max="23:59" (keydown)="onTimeChange($event)" (input)="onTimeInput($event)" class="colorblue">
             <input type="number" id="duree" name="duree" [disabled]="!selectedTime" [(ngModel)]="selectedDuree" step="15"
                 min="15" max="480" class="colorblue" (blur)="validateDuree()" placeholder="Durée (en minutes)">
-
-            <input type="submit" class="btn btn-primary rounded" value="Valider" />
         </form>
     </div>
 

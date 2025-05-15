@@ -22,7 +22,8 @@ export class InscriptionComponent implements OnInit{
 
   submitted = false;
 
-  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder) { 
+  }
 
   ngOnInit(): void {
     this.emailCtrl = this.formBuilder.control('', [Validators.required, Validators.email]);
@@ -31,11 +32,6 @@ export class InscriptionComponent implements OnInit{
     this.nomCtrl = this.formBuilder.control('', Validators.required);
     this.prenomCtrl = this.formBuilder.control('', Validators.required);
     this.telephoneCtrl = this.formBuilder.control('', [Validators.required, Validators.pattern('^(\\+?\\d{1,3})?[\\s.-]?(\\d{1,4}[\\s.-]?){1,4}\\d{1,4}$')]);
-
-    // this.authForm = this.formBuilder.group({
-    //   login: this.formBuilder.control('Valeur par défaut', Validators.required),
-    //   password: this.formBuilder.control('', [ Validators.required, Validators.minLength(6) ])
-    // });
 
     this.authForm = this.formBuilder.group({
       login: this.loginCtrl,
@@ -52,7 +48,7 @@ export class InscriptionComponent implements OnInit{
     if(this.authForm.invalid){
       return;
     }
-    this.service.authenticate(new AuthRequest(this.authForm.value.login, this.authForm.value.password, this.authForm.value.nom, this.authForm.value.prenom, this.authForm.value.telephone, this.authForm.value.email));
+    this.service.subscribe(new AuthRequest(this.authForm.value.login, this.authForm.value.password));
 
     // FIXME : Si l'auth échoue, on est quand même redirigé
     this.router.navigate([ '/home' ]);

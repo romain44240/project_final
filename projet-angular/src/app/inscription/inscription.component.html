@@ -34,7 +34,7 @@
             </div>
 
             <div class="text-center mb-3">
-                <input class="rounded w-75" type="text" formControlName="login" placeholder="Email" />
+                <input class="rounded w-75" type="text" formControlName="email" placeholder="Email" />
 
                 <div *ngIf="submitted && emailCtrl?.hasError('required')">
                     L'email est obligatoire
@@ -57,7 +57,7 @@
             </div>
 
             <div class="text-center mb-3">
-                <input class="rounded w-75" type="login" formControlName="login" placeholder="Nom d'utilisateur" />
+                <input class="rounded w-75" type="text" formControlName="login" placeholder="Nom d'utilisateur" />
 
                 <div *ngIf="submitted && authForm.get('login')?.hasError('required')">
                     Le nom d'utilisateur est obligatoire

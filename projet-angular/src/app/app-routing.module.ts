@@ -8,17 +8,20 @@ import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { SurfaceComponent } from './surface/surface.component';
 import { CarteComponent } from './carte/carte.component';
+import { authGuard } from './auth.guard';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: '', component: HomeComponent},
   {path: 'connexion', component: ConnexionComponent},
   {path: 'inscription', component: InscriptionComponent},
-  {path: 'compte', component: CompteComponent},
+  {path: 'compte', component: CompteComponent, canActivate: [authGuard], data: {roles: ['ROLE_EMPLOYE', 'ROLE_CLIENT']}},
   {path: 'bibliotheque', component: BibliothequeComponent},
   {path: 'surface', component: SurfaceComponent},
-  {path: 'reservation', component: ReservationComponent},
-  {path: 'carte', component: CarteComponent}
+  {path: 'reservation', component: ReservationComponent, canActivate: [authGuard],data: {roles: ['ROLE_EMPLOYE', 'ROLE_CLIENT']}},
+  {path: 'carte', component: CarteComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [authGuard], data: {roles: ['ROLE_EMPLOYE']}}
 
 ];
 

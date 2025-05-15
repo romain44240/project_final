@@ -13,9 +13,10 @@
     <a href="/surface">Réserver</a>
     <a href="/compte">Mon compte</a>
     <a routerLink="/connexion" *ngIf="!authService.isLoggedIn()" class="sidebar-link">Se connecter</a>
-
     <button *ngIf="authService.isLoggedIn()" (click)="logout()" class="sidebar-link">Se déconnecter</button>
-
+    <span *ngIf="role === 'ROLE_EMPLOYE'">
+      <a routerLink="/admin">Page Admin</a>
+    </span>
   </div>
 
   <div class="main-content">

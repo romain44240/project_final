@@ -1,0 +1,114 @@
+<div class="container mt-4">
+  <div class="mb-3">
+    <button class="btn btn-primary me-2" (click)="selectedView = 'users'">Voir les comptes</button>
+    <button class="btn btn-secondary me-2" (click)="selectedView = 'products'">Voir les produits</button>
+    <button class="btn btn-success" (click)="selectedView = 'reservations'">Voir les réservations</button>
+  </div>
+
+  <ng-container [ngSwitch]="selectedView">
+
+    <!-- COMPTES (clients + employés) -->
+    <table *ngSwitchCase="'users'" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="comptes | async as data">
+        <tr *ngFor="let client of data.clients">
+          <td>{{client.id}}</td>
+          <td>{{client.nom}}</td>
+          <td>{{client.email}}</td>
+          <td>Client</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="editClient(client)">Modifier</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteUser(client.id)">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngFor="let employe of data.employes">
+          <td>{{employe.id}}</td>
+          <td>{{employe.nom}}</td>
+          <td>{{employe.email}}</td>
+          <td>Employé</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="editEmploye(employe)">Modifier</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteUser(employe.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PRODUITS -->
+    <table *ngSwitchCase="'products'" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Nom</th>
+          <th>Prix</th>
+          <th>Nb Joueurs / Stock</th>
+          <th>Duree</th>
+          <th>Editeur</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="products | async as dataProduct">
+        <tr *ngFor="let jeu of dataProduct.jeux">
+          <td>{{jeu.id}}</td>
+          <td>Jeu</td>
+          <td>{{jeu.nom}}</td>
+          <td>{{jeu.prix}} €</td>
+          <td>{{jeu.nbMin}} - {{jeu.nbMax}}</td>
+          <td>{{jeu.duree}}</td>
+          <td>{{jeu.editeur}}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="editJeu(jeu)">Modifier</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProduct(jeu.id)">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngFor="let conso of dataProduct.consos">
+          <td>{{conso.id}}</td>
+          <td>Consommable</td>
+          <td>{{conso.nom}}</td>
+          <td>{{conso.prix}} €</td>
+          <td>{{conso.stock}}</td>
+          <td></td>
+          <td></td>
+          <td>
+            <button class="btn btn-sm btn-warning" (click)="editConso(conso)">Modifier</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProduct(conso.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+     <!--
+    <table *ngSwitchCase="'reservations'" class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Produit</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="reservations | async as reservationList">
+        <tr *ngFor="let res of reservationList">
+          <td>{{res.id}}</td>
+          <td>{{res.client.nom}}</td>
+          <td>{{res.jeu.nom}}</td>
+          <td>{{res.date | date:'short'}}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteReservation(res.id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+
+  </ng-container>
+</div>

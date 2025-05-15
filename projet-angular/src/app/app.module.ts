@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { CompteComponent } from './compte/compte.component';
@@ -13,12 +13,14 @@ import { BibliothequeComponent } from './bibliotheque/bibliotheque.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { SurfaceComponent } from './surface/surface.component';
 import { CarteComponent } from './carte/carte.component';
+import { AdminComponent } from './admin/admin.component';
+import { authInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [ // Déclaration dans notre module de tout ce qui est utilisé dans notre module principal
     AppComponent, 
     HomeComponent, 
-    ConnexionComponent, InscriptionComponent, CompteComponent, BibliothequeComponent, ReservationComponent, SurfaceComponent, CarteComponent
+    ConnexionComponent, InscriptionComponent, CompteComponent, BibliothequeComponent, ReservationComponent, SurfaceComponent, CarteComponent, AdminComponent
   ],
   
   imports: [ // Tous les modules dont on a besoin dans notre module à nous
@@ -29,8 +31,7 @@ import { CarteComponent } from './carte/carte.component';
   ],
 
   providers: [ // Tous les services injectables
-    provideHttpClient(withFetch()) //Remplace l'import de HttpClientModule
-
+    provideHttpClient(withInterceptors([authInterceptor])), //Remplace l'import de HttpClientModule
   ],
 
   bootstrap: [ // Le composant principal de notre module, si besoin

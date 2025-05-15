@@ -87,15 +87,15 @@ validateDuree() {
     this.selectedDuree = corrected;
   }
 }
-  isConnected(): boolean {
-    return this.authService.isLoggedIn();
-  } 
+  // isConnected(): boolean {
+  //   return this.authService.isLoggedIn();
+  // } 
   
   goToReservation(tableId: number){
-    if(!this.isConnected()){
-      this.router.navigate(['/connexion'])
-    }
-    else {
+    // if(!this.isConnected()){
+    //   this.router.navigate(['/connexion'])
+    // }
+    // else {
     this.surface.table = tableId;
     if(tableId == 5 || tableId == 6){
       this.surface.capaciteMax = 6;
@@ -116,4 +116,4 @@ validateDuree() {
 
   
 
-}
+// }
