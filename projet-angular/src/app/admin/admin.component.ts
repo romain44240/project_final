@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../environment';
-import { AdminService } from '../admin.service';
+import { AdminService } from '../service/admin.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Client, Compte, Consommable, Employe, Jeu, Produit, Reservation } from '../models';

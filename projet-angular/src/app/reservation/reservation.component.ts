@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthRequest } from '../auth-request';
-import { take } from 'rxjs';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-reservation',

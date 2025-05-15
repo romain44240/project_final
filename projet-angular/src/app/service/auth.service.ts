@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthResponse } from './auth-response';
-import { AuthRequest } from './auth-request';
-import { environment } from './environment';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../environment';
+import { AuthRequest } from '../auth-request';
+import { AuthResponse } from '../auth-response';
 
 @Injectable({
   providedIn: 'root'
