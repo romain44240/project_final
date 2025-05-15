@@ -107,8 +107,8 @@
           <td>{{res.nbPersonne}}</td>
           <td>{{res.jeu?.nom}}</td>
           <td>{{res.employe.nom}}</td>
-          <td>{{res.debut | date:'short'}}</td>
-          <td>{{res.fin| date:'short'}}</td>
+          <td>{{res.debut | date:"dd/MM/YYYY, à HH:mm"}}</td>
+          <td>{{res.fin| date:"dd/MM/YYYY, à HH:mm"}}</td>
           <td>
             <button class="btn btn-sm btn-danger" (click)="deleteReservation(res.id)">Supprimer</button>
           </td>
