@@ -63,7 +63,8 @@ export class AdminComponent {
       prenom: '',
       email: '',
       telephone: '',
-      dateArrivee: new Date().toString()
+      dateArrivee: new Date().toISOString().substring(0, 10)
+
     });
 
     this.employeForm = this.formBuilder.group({
@@ -72,20 +73,21 @@ export class AdminComponent {
       password: '',
       nom: '',
       prenom: '',
-      dateArrivee: new Date().toString(),
+      dateArrivee: new Date().toISOString().substring(0, 10),
       email: '',
-      salaire : 0,
+      salaire : 0.0,
       poste: ''
     });
 
     this.jeuForm = this.formBuilder.group({
       id:null,
       nom: '',
-      prix: 0,
+      prix: 0.0,
       nbMin : 0,
       nbMax : 0,
       duree : 0,
-      regle : '',
+      urlRegle : '',
+      urlImage : '',
       categories : [],
       stock : 1,
       editeur: '',
@@ -95,7 +97,7 @@ export class AdminComponent {
     this.consoForm = this.formBuilder.group({
       id:null,
       nom: '',
-      prix: 0 ,
+      prix: 0.0,
       stock: 0,
       type:'consommable'
     });
@@ -103,18 +105,30 @@ export class AdminComponent {
 
   // Edition et suppression
   editClient(client: Client): void {
+    if(!this.showClientForm){
+      this.showClientForm = true;
+    }
     this.clientForm.patchValue(client);
   }
 
   editEmploye(employe: Employe): void {
+    if(!this.showEmployeForm){
+      this.showEmployeForm = true;
+    }
     this.employeForm.patchValue(employe);
   }
 
   editJeu(jeu: Jeu): void {
+    if(!this.showJeuForm){
+      this.showJeuForm = true;
+    }
     this.jeuForm.patchValue(jeu);
   }
 
   editConso(conso : Consommable){
+    if(!this.showConsoForm){
+      this.showConsoForm = true;
+    }
     this.consoForm.patchValue(conso);
   }
 
@@ -207,21 +221,21 @@ export class AdminComponent {
     }
   }
 
-  createOrUpdateJeu(): Observable<Produit> {
+  createOrUpdateJeu(): Observable<Jeu> {
     const jeu = this.jeuForm.value;
     if (jeu.id) {
-      return this.service.updateProduct(jeu);
+      return this.service.updateJeu(jeu);
     } else {
-      return this.service.createProduct(jeu);
+      return this.service.createJeu(jeu);
     }
   }
 
-  createOrUpdateConso(): Observable<Produit> {
+  createOrUpdateConso(): Observable<Consommable> {
     const conso = this.consoForm.value;
     if (conso.id) {
-      return this.service.updateProduct(conso);
+      return this.service.updateConso(conso);
     } else {
-      return this.service.createProduct(conso);
+      return this.service.createConso(conso);
     }
   }
 
