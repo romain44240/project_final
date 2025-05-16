@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import projet.model.Categorie;
 import projet.request.AchatRequest;
 import projet.request.ClientRequest;
 import projet.request.ConsommableRequest;
@@ -49,30 +50,43 @@ public class DBData {
         
         // Jeux
         JeuRequest jeuRequest1 = new JeuRequest();
-        jeuRequest1.setNom("Jeu de l'oie");
-        jeuRequest1.setPrix(7.0);
+        jeuRequest1.setNom("Catan");
+        jeuRequest1.setPrix(32.54);
         jeuRequest1.setStock(10);
-        jeuRequest1.setNbMin(2);
+        jeuRequest1.setNbMin(3);
         jeuRequest1.setNbMax(4);
         jeuRequest1.setDuree(1);
-        jeuRequest1.setEditeur("");
-        jeuRequest1.setUrlRegle("");
-        jeuRequest1.setUrlImage("");
+        jeuRequest1.setEditeur("Kosmos");
+        jeuRequest1.setUrlRegle("http://ludikerborg.free.fr/Jeux/catan/Catan.pdf");
+        jeuRequest1.setUrlImage("https://i92.servimg.com/u/f92/19/95/93/11/catan10.jpg");
         
         ProduitResponse jeuResponse1 = produitService.createJeu(jeuRequest1);
         
         JeuRequest jeuRequest2 = new JeuRequest();
         jeuRequest2.setNom("Monopoly");
-        jeuRequest2.setPrix(19.99);
+        jeuRequest2.setPrix(29.99);
         jeuRequest2.setStock(15);
         jeuRequest2.setNbMin(2);
         jeuRequest2.setNbMax(6);
         jeuRequest2.setDuree(2);
         jeuRequest2.setEditeur("Hasbro");
-        jeuRequest2.setUrlRegle("Faites faillite ou devenez riche !");
-        jeuRequest2.setUrlImage("");
+        jeuRequest2.setUrlRegle("https://cdn.1j1ju.com/medias/6a/06/1d-monopoly-regle.pdf");
+        jeuRequest2.setUrlImage("https://i92.servimg.com/u/f92/19/95/93/11/monopo10.png");
 
         ProduitResponse jeuResponse2 = produitService.createJeu(jeuRequest2);
+
+        JeuRequest jeuRequest3 = new JeuRequest();
+        jeuRequest3.setNom("Les aventuriers du rail");
+        jeuRequest3.setPrix(29.99);
+        jeuRequest3.setStock(15);
+        jeuRequest3.setNbMin(2);
+        jeuRequest3.setNbMax(5);
+        jeuRequest3.setDuree(1);
+        jeuRequest3.setEditeur("Asmodee");
+        jeuRequest3.setUrlRegle("https://www.jeuxavolonte.asso.fr/regles/les_aventuriers_du_rail.pdf");
+        jeuRequest3.setUrlImage("https://i92.servimg.com/u/f92/19/95/93/11/aventu10.jpg");
+
+        ProduitResponse jeuResponse3 = produitService.createJeu(jeuRequest3);
         
         // Consommables
         ConsommableRequest consommableRequest1 = new ConsommableRequest();
