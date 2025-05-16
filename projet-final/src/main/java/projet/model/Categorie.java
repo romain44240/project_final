@@ -2,6 +2,6 @@ package projet.model;
 
 public enum Categorie {
 	
-	dé, carte, plateau, pion, cooperation, strategie, gestion, hasard, role, bluff, enquete, connaissance, memoire;
+	DE, CARTE, PLATEAU, PION, COOPERATION, STRATEGIE, GESTION, HASARD, ROLE, BLUFF, ENQUETE, CONNAISSANCE, MEMOIRE;
 
 }

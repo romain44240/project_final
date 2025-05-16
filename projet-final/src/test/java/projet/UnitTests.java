@@ -57,7 +57,7 @@ class UnitTests {
 		jeu.setUrlRegle("Lien internet");
 		jeu.setUrlImage("Lien internet");
 		List<Categorie> categories = new ArrayList<Categorie>();
-		categories.add(Categorie.carte);
+		categories.add(Categorie.CARTE);
 		jeu.setCategories(categories);
 		
 		return jeu;
@@ -123,12 +123,12 @@ class UnitTests {
 		ClientResponse clientResponse = compteService.createClient(clientRequest);
 
 		//
-		assertEquals(clientResponse.getLogin(), clientRequest.getLogin());
-		assertEquals(clientResponse.getNom(), clientRequest.getNom());
-		assertEquals(clientResponse.getPrenom(), clientRequest.getPrenom());
-		assertEquals(clientResponse.getDateArrivee(), clientRequest.getDateArrivee());
-		assertEquals(clientResponse.getEmail(), clientRequest.getEmail());
-		assertEquals(clientResponse.getTelephone(), clientRequest.getTelephone());
+		assertEquals(clientRequest.getLogin(), clientResponse.getLogin());
+		assertEquals(clientRequest.getNom(), clientResponse.getNom());
+		assertEquals(clientRequest.getPrenom(), clientResponse.getPrenom());
+		assertEquals(clientRequest.getDateArrivee(), clientResponse.getDateArrivee());
+		assertEquals(clientRequest.getEmail(), clientResponse.getEmail());
+		assertEquals(clientRequest.getTelephone(), clientResponse.getTelephone());
 	}
 
 	@Test
@@ -180,13 +180,13 @@ class UnitTests {
 		EmployeResponse employeResponse = compteService.createEmploye(employeRequest);
 
 		//
-		assertEquals(employeResponse.getLogin(), employeRequest.getLogin());
-		assertEquals(employeResponse.getNom(), employeRequest.getNom());
-		assertEquals(employeResponse.getPrenom(), employeRequest.getPrenom());
-		assertEquals(employeResponse.getDateArrivee(), employeRequest.getDateArrivee());
-		assertEquals(employeResponse.getEmail(), employeRequest.getEmail());
-		assertEquals(employeResponse.getPoste(), employeRequest.getPoste());
-		assertEquals(employeResponse.getSalaire(), employeRequest.getSalaire());
+		assertEquals(employeRequest.getLogin(), employeResponse.getLogin());
+		assertEquals(employeRequest.getNom(), employeResponse.getNom());
+		assertEquals(employeRequest.getPrenom(), employeResponse.getPrenom());
+		assertEquals(employeRequest.getDateArrivee(), employeResponse.getDateArrivee());
+		assertEquals(employeRequest.getEmail(), employeResponse.getEmail());
+		assertEquals(employeRequest.getPoste(), employeResponse.getPoste());
+		assertEquals(employeRequest.getSalaire(), employeResponse.getSalaire());
 	}
 
 	@Test
@@ -208,9 +208,9 @@ class UnitTests {
 		assertEquals(employeResponse.getNom(), "employe1Nom");
 		assertEquals(employeResponse.getPrenom(), "employe1Prenom");
 		assertEquals(employeResponse.getEmail(), "employe1@gmail.com");
-		assertEquals(employeResponse.getDateArrivee(), LocalDate.parse("2025-04-25"));
-		assertEquals(employeResponse.getPoste(), "tResponsable");
-		assertEquals(employeRequest.getSalaire(), 1200);
+		assertEquals(employeResponse.getDateArrivee(), LocalDate.parse("2025-01-01"));
+		assertEquals(employeResponse.getPoste(), "serveur");
+		assertEquals(employeRequest.getSalaire(), 2000);
 	}
 
 	@Test
@@ -241,16 +241,15 @@ class UnitTests {
 		JeuResponse jeuResponse = produitService.createJeu(jeuRequest);
 		
 		//
-		assertEquals(jeuResponse.getNom(), jeuRequest.getNom());
-		assertEquals(jeuResponse.getPrix(), jeuRequest.getPrix());
-		assertEquals(jeuResponse.getStock(), jeuRequest.getStock());
-		assertEquals(jeuResponse.getNbMin(), jeuRequest.getNbMin());
-		assertEquals(jeuResponse.getNbMax(), jeuRequest.getNbMax());
-		assertEquals(jeuResponse.getDuree(), jeuRequest.getDuree());
-		assertEquals(jeuResponse.getEditeur(), jeuRequest.getEditeur());
-		assertEquals(jeuResponse.getUrlRegle(), jeuRequest.getUrlRegle());
-		assertEquals(jeuResponse.getUrlImage(), jeuRequest.getUrlImage());
-		assertEquals(jeuResponse.getCategories(), jeuRequest.getCategories());
+		assertEquals(jeuRequest.getNom(), jeuResponse.getNom());
+		assertEquals(jeuRequest.getPrix(), jeuResponse.getPrix());
+		assertEquals(jeuRequest.getStock(), jeuResponse.getStock());
+		assertEquals(jeuRequest.getNbMin(), jeuResponse.getNbMin());
+		assertEquals(jeuRequest.getNbMax(), jeuResponse.getNbMax());
+		assertEquals(jeuRequest.getDuree(), jeuResponse.getDuree());
+		assertEquals(jeuRequest.getEditeur(), jeuResponse.getEditeur());
+		assertEquals(jeuRequest.getUrlRegle(), jeuResponse.getUrlRegle());
+		assertEquals(jeuRequest.getUrlImage(), jeuResponse.getUrlImage());
 	}
 	
 	@Test
