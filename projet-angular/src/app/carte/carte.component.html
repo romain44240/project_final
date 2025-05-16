@@ -1,68 +1,12 @@
 <div class="d-flex justify-content-center mt-3">
     <div class="card bg-light w-25">
-        <h3 class="card-header text-center">Sans Alcool</h3>
+        <h3 class="card-header text-center">Produits Consommables</h3>
 
-        <div class="card-body">
-            <h5 class="card-title text-center">Sodas</h5>
-            <ul class="list-group">
-                <li class="list-group-item">Coca Cola <span>3,80€</span></li>
-                <li class="list-group-item">Schweppes <span>3,20€</span></li>
-                <li class="list-group-item">Orangina  <span>3,20€</span></li>
-                <li class="list-group-item">Fuze Tea  <span>3,00€</span></li>
+        <div *ngIf="products | async as dataProduct" class="card-body">
+            <ul *ngFor="let conso of dataProduct.consos" class="list-group">
+                <li class="list-group-item">{{conso.nom}} <span>{{conso.prix}}€</span></li>
             </ul>
         </div>
-        <div class="card-body">
-            <h5 class="card-title text-center">Jus de fruits</h5>
-            <ul class="list-group">
-                <li class="list-group-item">Pomme <span>2,80€</span></li>
-                <li class="list-group-item">Orange <span>2,80€</span></li>
-                <li class="list-group-item">Citron <span>2,80€</span></li>
-                <li class="list-group-item">Tomate <span>3,00€</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="ms-3">
-        <div class="d-flex justify-content-center w-100">
-
-
-            <div class="ms-auto">
-                <div class="card bg-light mb-3 w-100">
-                    <h3 class="card-header">Boissons chaudes</h3>
-
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">Expresso <span>1,50€</span></li>
-                            <li class="list-group-item">Cappuccino <span>2,00€</span></li>
-                            <li class="list-group-item">Chocolat chaud <span>3,00€</span></li>
-                            <li class="list-group-item">Thé et infusion <span>3,00€</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card bg-light w-100">
-                    <h3 class="card-header text-center">Avec Alcool</h3>
-
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Bières</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">Leffe Blonde <span>4,50€</span></li>
-                            <li class="list-group-item">Leffe Ruby <span>4,50€</span></li>
-                            <li class="list-group-item">Guiness <span>4,50€</span></li>
-                            <li class="list-group-item">Kwak <span>4,50€</span></li>
-                        </ul>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Cocktails</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">Mojito <span>5,50€</span></li>
-                            <li class="list-group-item">Aperol Spritz <span>5,50€</span></li>
-                            <li class="list-group-item">Pina Colada <span>5,50€</span></li>
-                            <li class="list-group-item">Sex on the Beach <span>5,50€</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
     </div>
 </div>
