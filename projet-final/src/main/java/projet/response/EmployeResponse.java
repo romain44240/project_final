@@ -14,6 +14,7 @@ public class EmployeResponse {
 	private String prenom;
 	private String email;
 	private LocalDate dateArrivee;
+
 	private String poste;
 	private double salaire;
 
@@ -88,7 +89,7 @@ public class EmployeResponse {
 		return salaire;
 	}
 
-	public void setSal(double salaire) {
+	public void setSalaire(double salaire) {
 		this.salaire = salaire;
 	}
 

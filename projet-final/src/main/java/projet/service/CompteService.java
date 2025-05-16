@@ -1,5 +1,6 @@
 package projet.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +87,8 @@ public class CompteService implements UserDetailsService {
             clientRequest.setPassword(encode(clientRequest.getPassword()));
         }
         BeanUtils.copyProperties(clientRequest, client);
+        client.setId(id);
+
         client = daoCompte.save(client);
         return ClientResponse.convert(client);
     }
@@ -167,6 +170,8 @@ public class CompteService implements UserDetailsService {
         Employe employe = (Employe) daoCompte.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employé non trouvé avec id : " + id));
         BeanUtils.copyProperties(employeRequest, employe);
+        employe.setId(id);
+
         employe = daoCompte.save(employe);
         return EmployeResponse.convert(employe);
     }
@@ -182,6 +187,18 @@ public class CompteService implements UserDetailsService {
         Employe employe = (Employe) daoCompte.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employé non trouvé avec id : " + id));
         return EmployeResponse.convert(employe);
+    }
+
+    public List<EmployeResponse> getEmployesDisponibles(LocalDateTime debut, LocalDateTime fin) {
+        List<Reservation> incluses = daoReservation.findByDebutLessThanAndFinGreaterThan(fin, debut);
+
+        List<Employe> employesDisponibles = daoCompte.findAllEmployes();
+
+        for (Reservation r : incluses) {
+            if (r.getEmploye() != null) {employesDisponibles.remove(r.getEmploye());}
+        }
+
+        return employesDisponibles.stream().map(EmployeResponse::convert).collect(Collectors.toList());
     }
 
     public boolean deleteEmploye(Integer id) {

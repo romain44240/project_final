@@ -81,7 +81,7 @@ class UnitTests {
 		client.setNom("client1Nom");
 		client.setPrenom("client1Prenom");
 		client.setDateArrivee(LocalDate.parse("2025-04-25"));
-		client.setEmail("client1@email.com");
+		client.setEmail("client1@gmail.com");
 		client.setTelephone("0101010101");
 		
 		return client;
@@ -149,7 +149,7 @@ class UnitTests {
 		assertEquals(clientResponse.getLogin(), "client1Login");
 		assertEquals(clientResponse.getNom(), "client1Nom");
 		assertEquals(clientResponse.getPrenom(), "client1Prenom");
-		assertEquals(clientResponse.getEmail(), "client1@email.com");
+		assertEquals(clientResponse.getEmail(), "client1@gmail.com");
 		assertEquals(clientResponse.getDateArrivee(), LocalDate.parse("2025-04-25"));
 		assertEquals(clientResponse.getTelephone(), "0101010101");
 	}
@@ -207,7 +207,7 @@ class UnitTests {
 		assertEquals(employeResponse.getLogin(), "employe1Login");
 		assertEquals(employeResponse.getNom(), "employe1Nom");
 		assertEquals(employeResponse.getPrenom(), "employe1Prenom");
-		assertEquals(employeResponse.getEmail(), "employe1@email.com");
+		assertEquals(employeResponse.getEmail(), "employe1@gmail.com");
 		assertEquals(employeResponse.getDateArrivee(), LocalDate.parse("2025-04-25"));
 		assertEquals(employeResponse.getPoste(), "tResponsable");
 		assertEquals(employeRequest.getSalaire(), 1200);
