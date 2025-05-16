@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import projet.model.Categorie;
 import projet.request.AchatRequest;
 import projet.request.ClientRequest;
 import projet.request.ConsommableRequest;
@@ -86,7 +85,7 @@ public class DBData {
         jeuRequest3.setUrlRegle("https://www.jeuxavolonte.asso.fr/regles/les_aventuriers_du_rail.pdf");
         jeuRequest3.setUrlImage("https://i92.servimg.com/u/f92/19/95/93/11/aventu10.jpg");
 
-        ProduitResponse jeuResponse3 = produitService.createJeu(jeuRequest3);
+        produitService.createJeu(jeuRequest3);
         
         // Consommables
         ConsommableRequest consommableRequest1 = new ConsommableRequest();
