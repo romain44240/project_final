@@ -15,15 +15,17 @@ import { jwtDecode } from 'jwt-decode';
   templateUrl: './compte.component.html',
   styleUrl: './compte.component.css'
 })
-export class CompteComponent implements OnInit{
+export class CompteComponent implements OnInit {
 
   compteInfo?: CompteInfoResponse;
   public utilisateurNom: string | null = null;
+  selectedReservationId: number | null = null;
+
 
   constructor(
     private compteService: CompteService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const userId = this.authService.getUserId();
@@ -59,6 +61,11 @@ export class CompteComponent implements OnInit{
 
     return `${heures} h ${minutes} min`;
   }
+
+  toggleJeux(id: number): void {
+    this.selectedReservationId = this.selectedReservationId === id ? null : id;
+  }
+
 
 
 }
