@@ -25,6 +25,7 @@ import projet.model.Compte;
 import projet.model.Consommable;
 import projet.model.Employe;
 import projet.model.Jeu;
+import projet.model.Reservation;
 import projet.request.ClientRequest;
 import projet.request.EmployeRequest;
 import projet.response.ClientResponse;
@@ -121,6 +122,15 @@ public class CompteService implements UserDetailsService {
         CompteInfoResponse compteInfoResponse = new CompteInfoResponse();
 
         compteInfoResponse.setReservations(daoReservation.getReservationsByClientId(id));
+
+        for (Reservation r : compteInfoResponse.getReservations()) {
+            r.getClient().setReservation(null);
+            r.getSurface().setReservation(null);
+            if(r.getEmploye()!=null){
+                r.getEmploye().setReservation(null);
+            }
+            
+        }
         
         List<Achat> achats = daoAchat.getAchatsByClientId(id);
         HashMap<String, Integer> consommables = new HashMap<String, Integer>();

@@ -56,6 +56,9 @@ public class CommonRestController {
 		connexionResponse.setSuccess(true);
 		connexionResponse.setToken(token);
 
+		Integer id = this.compteService.getByLogin(connexionRequest.getLogin()).getId();
+		connexionResponse.setId(id);
+
 		return connexionResponse;
 	}
 	

@@ -41,6 +41,14 @@ public class Employe extends Compte {
 		this.salaire = salaire;
 	}
 
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
 	@Override
 	public String toString() {
 		return "Employe [poste=" + poste + ", salaire=" + salaire + ", id=" + id + ", login=" + login + ", password=" + password
