@@ -1,16 +1,23 @@
 <div class="container mt-4">
-  <div class="mb-3">
-    <button class="btn btn-primary me-2" (click)="selectedView = 'users'">Voir les comptes</button>
-    <button class="btn btn-secondary me-2" (click)="selectedView = 'products'">Voir les produits</button>
-    <button class="btn btn-success" (click)="selectedView = 'reservations'">Voir les réservations</button>
+  <div class="d-flex justify-content-between flex-wrap gap-2 mb-3">
+    <div>
+      <button class="btn btn-primary me-2" (click)="selectedView = 'users'">Voir les comptes</button>
+      <button class="btn btn-secondary me-2" (click)="selectedView = 'products'">Voir les produits</button>
+      <button class="btn btn-success" (click)="selectedView = 'reservations'">Voir les réservations</button>
+    </div>
+     <div>
+      <button class="btn btn-outline-primary me-2" (click)="showClientForm = !showClientForm">Ajouter un client</button>
+      <button class="btn btn-outline-primary me-2" (click)="showEmployeForm = !showEmployeForm">Ajouter un employé</button>
+      <button class="btn btn-outline-primary me-2" (click)="showJeuForm = !showJeuForm">Ajouter un jeu</button>
+      <button class="btn btn-outline-primary" (click)="showConsoForm = !showConsoForm">Ajouter une conso</button>
+    </div>
   </div>
-
   <ng-container [ngSwitch]="selectedView">
 
     <!-- COMPTES (clients + employés) -->
     <table *ngSwitchCase="'users'" class="table table-bordered table-hover">
       <thead>
-        <tr>
+        <tr class="text-center">
           <th>ID</th>
           <th>Nom</th>
           <th>Email</th>
@@ -19,24 +26,23 @@
         </tr>
       </thead>
       <tbody *ngIf="comptes | async as data">
-        <tr *ngFor="let client of data.clients">
-          <td>{{client.id}}</td>
+        <tr *ngFor="let client of data.clients" class="text-center">
+          <td>{{client.id ?? 'X'}}</td>
           <td>{{client.nom}}</td>
           <td>{{client.email}}</td>
           <td>Client</td>
-          <td>
+          <td class="text-center">
             <button class="btn btn-sm btn-warning" (click)="editClient(client)">Modifier</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteUser(client.id)">Supprimer</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteClient(client.id ?? 0)">Supprimer</button>
           </td>
         </tr>
-        <tr *ngFor="let employe of data.employes">
-          <td>{{employe.id}}</td>
+        <tr *ngFor="let employe of data.employes" class="text-center">
+          <td>{{employe.id ?? 'X'}}</td>
           <td>{{employe.nom}}</td>
           <td>{{employe.email}}</td>
           <td>Employé</td>
-          <td>
-            <button class="btn btn-sm btn-warning" (click)="editEmploye(employe)">Modifier</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteUser(employe.id)">Supprimer</button>
+          <td class="text-center">
+            <button class="btn btn-sm btn-dark">X</button>
           </td>
         </tr>
       </tbody>
@@ -45,7 +51,7 @@
     <!-- PRODUITS -->
     <table *ngSwitchCase="'products'" class="table table-bordered table-hover">
       <thead>
-        <tr>
+        <tr class="text-center">
           <th>ID</th>
           <th>Type</th>
           <th>Nom</th>
@@ -57,8 +63,8 @@
         </tr>
       </thead>
       <tbody *ngIf="products | async as dataProduct">
-        <tr *ngFor="let jeu of dataProduct.jeux">
-          <td>{{jeu.id}}</td>
+        <tr *ngFor="let jeu of dataProduct.jeux" class="text-center">
+          <td>{{jeu.id ?? 'X'}}</td>
           <td>Jeu</td>
           <td>{{jeu.nom}}</td>
           <td>{{jeu.prix}} €</td>
@@ -67,11 +73,11 @@
           <td>{{jeu.editeur}}</td>
           <td>
             <button class="btn btn-sm btn-warning" (click)="editJeu(jeu)">Modifier</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteProduct(jeu.id)">Supprimer</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProduct(jeu.id ?? 0)">Supprimer</button>
           </td>
         </tr>
-        <tr *ngFor="let conso of dataProduct.consos">
-          <td>{{conso.id}}</td>
+        <tr *ngFor="let conso of dataProduct.consos" class="text-center">
+          <td>{{conso.id ?? 'X'}}</td>
           <td>Consommable</td>
           <td>{{conso.nom}}</td>
           <td>{{conso.prix}} €</td>
@@ -80,7 +86,7 @@
           <td></td>
           <td>
             <button class="btn btn-sm btn-warning" (click)="editConso(conso)">Modifier</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteProduct(conso.id)">Supprimer</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProduct(conso.id ?? 0)">Supprimer</button>
           </td>
         </tr>
       </tbody>
@@ -89,7 +95,7 @@
     
     <table *ngSwitchCase="'reservations'" class="table table-bordered table-hover">
       <thead>
-        <tr>
+        <tr class="text-center">
           <th>ID</th>
           <th>Client</th>
           <th>Nb Personne</th>
@@ -101,20 +107,120 @@
         </tr>
       </thead>
       <tbody *ngIf="reservations | async as reservationList">
-        <tr *ngFor="let res of reservationList">
-          <td>{{res.id}}</td>
-          <td>{{res.client.nom}}</td>
+        <tr *ngFor="let res of reservationList" class="text-center">
+          <td>{{res.id ?? 'X'}}</td>
+          <td>{{res.client}}</td>
           <td>{{res.nbPersonne}}</td>
-          <td>{{res.jeu?.nom}}</td>
-          <td>{{res.employe.nom}}</td>
+          <td>{{res.jeu}}</td>
+          <td>{{res.employe}}</td>
           <td>{{res.debut | date:"dd/MM/YYYY, à HH:mm"}}</td>
           <td>{{res.fin| date:"dd/MM/YYYY, à HH:mm"}}</td>
           <td>
-            <button class="btn btn-sm btn-danger" (click)="deleteReservation(res.id)">Supprimer</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteReservation(res.id ?? 0)">Supprimer</button>
           </td>
         </tr>
       </tbody>
     </table>
 
+    <!-- FORM CLIENT -->
+    <div *ngIf="showClientForm" class="card p-3 mt-3">
+      <form [formGroup]="clientForm" (ngSubmit)="submitClient()">
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="nom" placeholder="Nom">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="prenom" placeholder="Prénom">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="email" placeholder="Email">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="login" placeholder="Login">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="password" placeholder="Mot de passe" type="password">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="telephone" placeholder="Téléphone">
+          </div>
+          <div>
+            <span> si aucune date sélectionné, la date du jour sera utilisé !</span>
+            <input type="date" id="date" name="date" formControlName="dateArrivee" class="colorblue">
+          </div>
+        </div>
+        <button class="btn btn-success mt-2" type="submit">Créer / Modifier client</button>
+      </form>
+    </div>
+
+    <!-- FORM EMPLOYE -->
+    <div *ngIf="showEmployeForm" class="card p-3 mt-3">
+      <form [formGroup]="employeForm" (ngSubmit)="submitEmploye()">
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="nom" placeholder="Nom">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="prenom" placeholder="Prénom">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="email" placeholder="Email">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="login" placeholder="Login">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="password" placeholder="Mot de passe" type="password">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="salaire" placeholder="Salaire">
+          </div>
+          <div class="col-md-4 mb-2">
+            <input class="form-control" formControlName="poste" placeholder="Poste">
+          </div>
+          <div>
+            <span> si aucune date sélectionné, la date du jour sera utilisé !</span>
+            <input type="date" id="date" name="date" formControlName="dateArrivee" class="colorblue">
+          </div>
+        </div>
+        <button class="btn btn-success mt-2" type="submit">Créer / Modifier employés</button>
+      </form>
+    </div>
+
+    <!-- FORM JEU -->
+    <div *ngIf="showJeuForm" class="card p-3 mt-3">
+      <form [formGroup]="jeuForm" (ngSubmit)="submitJeu()">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <input class="form-control" formControlName="nom" placeholder="Nom du jeu">
+          </div>
+          <div class="col-md-3 mb-2">
+            <input class="form-control" formControlName="prix" placeholder="Prix (€)" type="number">
+          </div>
+          <div class="col-md-3 mb-2">
+            <input class="form-control" formControlName="editeur" placeholder="Éditeur">
+          </div>
+        </div>
+        <button class="btn btn-success mt-2" type="submit">Créer / Modifier jeu</button>
+      </form>
+    </div>
+
+    <!-- FORM CONSO -->
+    <div *ngIf="showConsoForm" class="card p-3 mt-3">
+      <form [formGroup]="consoForm" (ngSubmit)="submitConso()">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <input class="form-control" formControlName="nom" placeholder="Nom de la conso">
+          </div>
+          <div class="col-md-3 mb-2">
+            <input class="form-control" formControlName="prix" placeholder="Prix (€)" type="number">
+          </div>
+          <div class="col-md-3 mb-2">
+            <input class="form-control" formControlName="stock" placeholder="Stock" type="number">
+          </div>
+        </div>
+        <button class="btn btn-success mt-2" type="submit">Créer / Modifier conso</button>
+      </form>
+    </div>
   </ng-container>
 </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environment';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Client, Compte, Consommable, Employe, Jeu, Produit, Reservation } from '../models';
+import { Client, Consommable, Employe, Jeu, Produit, Reservation } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +21,10 @@ export class AdminService {
     return this.http.get<Employe[]>(`${this.apiUrl}/compte/employes`);
   }
 
-  addClient(user: Client): Observable<Client> {
+  createClient(user: Client): Observable<Client> {
     return this.http.post<Client>(`${this.apiUrl}/compte/client`, user);
   }
-  addEmploye(user: Employe): Observable<Employe> {
+  createEmploye(user: Employe): Observable<Employe> {
     return this.http.post<Employe>(`${this.apiUrl}/compte/employe`, user);
   }
 
@@ -35,12 +35,8 @@ export class AdminService {
     return this.http.put<Employe>(`${this.apiUrl}/compte/employe/${user.id}`, user);
   }
 
-  deleteClient(id: number){
-    this.http.delete(`${this.apiUrl}/compte/delete/client/${id}`);
-  }
-
-  deleteEmploye(id: number){
-    this.http.delete(`${this.apiUrl}/compte/delete/employe/${id}`);
+  deleteClient(id: number) : Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/compte/client/${id}`);
   }
 
   // Produits
@@ -53,27 +49,27 @@ export class AdminService {
   getAllConsos(): Observable<Consommable[]> {
     return this.http.get<Consommable[]>(`${this.apiUrl}/produit/consos`);
   }
-  addProduct(product: Produit): Observable<Produit> {
+  createProduct(product: Produit): Observable<Produit> {
     return this.http.post<Produit>(`${this.apiUrl}/produit`, product);
   }
   updateProduct(product: Produit): Observable<Produit> {
     return this.http.put<Produit>(`${this.apiUrl}/produit/${product.id}`, product);
   }
-  deleteProduct(id: number) {
-    this.http.delete(`${this.apiUrl}/produit/${id}`);
+  deleteProduct(id: number) : Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/produit/${id}`);
   }
 
   // Réservations
   getAllReservations(): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(`${this.apiUrl}/reservation`);
   }
-  addReservation(reservation:Reservation):Observable<Reservation>{
+  createReservation(reservation:Reservation):Observable<Reservation>{
     return this.http.post<Reservation>(`${this.apiUrl}/reservation`, reservation);
   }
   updateReservation(reservation:Reservation):Observable<Reservation>{
     return this.http.put<Reservation>(`${this.apiUrl}/reservation`, reservation);
   }
-  deleteReservation(id: number) {
-    this.http.delete(`${this.apiUrl}/reservation/${id}`);
+  deleteReservation(id: number) :Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/reservation/${id}`);
   }
 }

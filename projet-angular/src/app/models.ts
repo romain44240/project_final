@@ -1,5 +1,5 @@
 export interface Produit {
-  id: number;
+  id?: number;
   nom: string;
   prix: number;
   stock: number;
@@ -12,7 +12,7 @@ export interface Consommable extends Produit {
 
 //TODO à adapter en back
 export interface Categorie {
-  id: number;
+  id?: number;
   nom: string;
 }
 
@@ -27,13 +27,13 @@ export interface Jeu extends Produit {
 }
 
 export interface Surface {
-  id: number;
+  id?: number;
   capacite: number;
   couleur?: string;
 }
 
 export interface Reservation {
-  id: number;
+  id?: number;
   debut: string; // attention format string -> localDate
   fin: string;
   nbPersonne: number;
@@ -44,8 +44,9 @@ export interface Reservation {
 }
 
 export interface Compte {
-  id: number;
+  id?: number;
   login: string;
+  password: string;
   nom: string;
   prenom: string;
   email: string;

@@ -28,16 +28,6 @@ export class ConnexionComponent implements OnInit {
     });
   }
 
-  // public authenticate() {
-  //   this.submitted = true;
-  //   if(this.authForm.invalid){
-  //     return;
-  //   }
-  //   this.service.authenticate(new AuthRequest(this.authForm.value.login, this.authForm.value.password));
-
-  //   // FIXME : Si l'auth échoue, on est quand même redirigé
-  //    this.router.navigate([ '/home' ]);
-  // }
   public authenticate() {
     this.submitted = true;
     if (this.authForm.invalid) {
