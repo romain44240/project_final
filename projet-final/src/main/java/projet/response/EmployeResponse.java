@@ -15,7 +15,7 @@ public class EmployeResponse {
 	private String email;
 	private LocalDate dateArrivee;
 	private String poste;
-	private double sal;
+	private double salaire;
 
 	public EmployeResponse() {}
 
@@ -84,12 +84,12 @@ public class EmployeResponse {
 		this.poste = poste;
 	}
 
-	public double getSal() {
-		return sal;
+	public double getSalaire() {
+		return salaire;
 	}
 
-	public void setSal(double sal) {
-		this.sal = sal;
+	public void setSal(double salaire) {
+		this.salaire = salaire;
 	}
 
 	public static EmployeResponse convert(Employe employe) {
