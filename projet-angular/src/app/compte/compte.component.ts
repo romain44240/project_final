@@ -7,6 +7,7 @@ import { Client, CompteInfoResponse, Consommable, Employe, Jeu, Reservation } fr
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { CompteService } from '../service/compte.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-compte',
@@ -15,24 +16,35 @@ import { CompteService } from '../service/compte.service';
   styleUrl: './compte.component.css'
 })
 export class CompteComponent implements OnInit{
-  
-  data$!: Observable<CompteInfoResponse>; // On attend un Observable contenant toutes les données
 
-  constructor(private compteService: CompteService) { }
+  compteInfo?: CompteInfoResponse;
+  public utilisateurNom: string | null = null;
+
+  constructor(
+    private compteService: CompteService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Décoder le JWT pour obtenir l'id de l'utilisateur
-      const decoded: any = jwt_decode(token);
-      const userId = decoded.id; // L'ID de l'utilisateur
+    const userId = this.authService.getUserId();
 
-      // Appeler le service pour récupérer toutes les informations du compte (y compris les réservations)
-      this.data$ = this.compteService.getCompteInfo(userId);
+    if (!userId) {
+      console.error("ID utilisateur manquant !");
+      return;
     }
+
+    this.compteService.getCompteInfo(+userId).subscribe({
+      next: (data) => {
+        this.compteInfo = data;
+        console.log("Compte info récupérée :", data);
+      },
+      error: (err) => {
+        console.error("Erreur lors de la récupération des données :", err);
+      }
+    });
+
+    this.utilisateurNom = this.authService.getNomUtilisateur();
   }
-
-
 
 
   getDuree(debut: string | Date, fin: string | Date): string {
@@ -49,8 +61,5 @@ export class CompteComponent implements OnInit{
   }
 
 
-}
-function jwt_decode(token: string): any {
-  throw new Error('Function not implemented.');
 }
 

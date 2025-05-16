@@ -111,6 +111,17 @@ public class DBData {
         ClientResponse clientResponse2 = compteService.createClient(clientRequest2);
         System.out.println("Client créé : " + clientResponse2.getPrenom() + " " + clientResponse2.getNom());
 
+        ClientRequest clientRequest2 = new ClientRequest();
+        clientRequest2.setLogin("leenaP");
+        clientRequest2.setPassword("client2");
+        clientRequest2.setNom("Permallee");
+        clientRequest2.setPrenom("Leena");
+        clientRequest2.setEmail("leena@gmail.com");
+        clientRequest2.setDateArrivee(LocalDate.of(2025,5,7));
+        clientRequest2.setTelephone("0606060606");
+        ClientResponse clientResponse2 = compteService.createClient(clientRequest2);
+        System.out.println("Client créé : " + clientResponse2.getPrenom() + " " + clientResponse2.getNom());
+
         // --- EMPLOYÉ ---
         EmployeRequest employeRequest = new EmployeRequest();
         employeRequest.setLogin("JulienL");
@@ -136,6 +147,17 @@ public class DBData {
         EmployeResponse employeResponse2 = compteService.createEmploye(employeRequest2);
         System.out.println("Employé créé : " + employeResponse2.getPrenom() + " " + employeResponse2.getNom());
 
+        EmployeRequest employeRequest2 = new EmployeRequest();
+        employeRequest2.setLogin("YannisV");
+        employeRequest2.setPassword("employe2");
+        employeRequest2.setNom("Voynnet");
+        employeRequest2.setPrenom("Yannis");
+        employeRequest2.setEmail("yv@gmail.com");
+        employeRequest2.setDateArrivee(LocalDate.of(2025,4,1));
+        employeRequest2.setPoste("GameMaster");
+        employeRequest2.setSalaire(1500);
+        EmployeResponse employeResponse2 = compteService.createEmploye(employeRequest2);
+        System.out.println("Employé créé : " + employeResponse2.getPrenom() + " " + employeResponse2.getNom());
 
 
         // --- SURFACE ---
@@ -161,17 +183,17 @@ public class DBData {
 
         
         // --- RESERVATION ---
-        ReservationRequest reservationRequest = new ReservationRequest();
-        reservationRequest.setDebut(LocalDateTime.now());
-        reservationRequest.setFin(LocalDateTime.now().plusHours(2));
-        reservationRequest.setNbPersonne(4);
-        reservationRequest.setIdClient(clientResponse.getId());; 
-        reservationRequest.setIdEmploye(employeResponse.getId());;  
-        reservationRequest.setIdSurface(surfaceResponse1.getId());
-        reservationRequest.setIdJeu(jeuResponse1.getId());
+        ReservationRequest reservationRequest1 = new ReservationRequest();
+        reservationRequest1.setDebut(LocalDateTime.now());
+        reservationRequest1.setFin(LocalDateTime.now().plusHours(2));
+        reservationRequest1.setNbPersonne(4);
+        reservationRequest1.setIdClient(clientResponse1.getId());; 
+        reservationRequest1.setIdEmploye(employeResponse1.getId());;  
+        reservationRequest1.setIdSurface(surfaceResponse1.getId());
+        reservationRequest1.setIdJeu(jeuResponse1.getId());
         
-        ReservationResponse reservationResponse = reservationService.create(reservationRequest);
-        System.out.println("Réservation créée : " + reservationResponse.getId() + " pour le client " + clientResponse.getNom());
+        ReservationResponse reservationResponse1 = reservationService.create(reservationRequest1);
+        System.out.println("Réservation créée : " + reservationResponse1.getId() + " pour le client " + clientResponse1.getNom());
 
         
         ReservationRequest reservationRequest2 = new ReservationRequest();
@@ -192,7 +214,7 @@ public class DBData {
         achatRequest.setQuantite(5);
         achatRequest.setIdProduit(consommableResponse1.getId());
         achatRequest.setProduitType(ProduitType.CONSOMMABLE);
-        achatRequest.setIdReservation(reservationResponse.getId());
+        achatRequest.setIdReservation(reservationResponse1.getId());
 
         achatService.create(achatRequest);
     }

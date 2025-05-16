@@ -17,6 +17,8 @@ export class CompteService {
     return this.http.get<CompteInfoResponse>(`${this.apiUrl}/compte/client/${userId}/info`);
   }
 
+  
+
 
 
 }

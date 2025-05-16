@@ -1,5 +1,5 @@
 export class AuthResponse {
-    constructor(private _success: boolean, private _token: string, private _role: string){}
+    constructor(private _success: boolean, private _token: string, private _id: number){}
 
     public get success(): boolean{
         return this._success;
@@ -17,12 +17,12 @@ export class AuthResponse {
         this._token=value;
     }
 
-    public set role(value: string){
-        this._role = value;
+    public set id(value: number){
+        this._id = value;
     }
 
-    public get role():string{
-        return this._role;
+    public get id():number{
+        return this._id;
     }
 
 }
