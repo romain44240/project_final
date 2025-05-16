@@ -3,8 +3,8 @@
 
 <div class="d-flex justify-content-center">
     <div class="w-75">
-        <div class="colorblue">
-            <h5>L'équipe de La Tour de Jeu est heureuse de vous revoir</h5>
+        <div *ngIf="utilisateurNom" class="colorblue">
+            <h5>L'équipe de La Tour de Jeu est heureuse de vous revoir, {{utilisateurNom}} </h5>
             <p class="fs-6 fst-italic">Nous tenons à vous rappeler que le catalogue de jeux évolue constamment,
                 n’hésitez pas à le consulter et
                 à réserver votre prochaine partie de plaisir. </p>
@@ -13,8 +13,8 @@
             <div class="card bg-light">
                 <h3 class="card-header">Historique des réservations</h3>
 
-                <div *ngIf="data$ | async as data">
-                    <div *ngFor="let res of data.reservations" class="card-body">
+                <div *ngIf="compteInfo">
+                    <div *ngFor="let res of compteInfo.reservations" class="card-body">
                         <h5 class="card-title text-center">Réservation numéro : {{res.id}}</h5>
                         <ul class="list-group">
                             <li class="list-group-item">Date : {{res.debut | date:"dd/MM/YYYY"}}</li>
@@ -33,12 +33,14 @@
                 <div class="card bg-light mb-3">
                     <h3 class="card-header">Produits consommés</h3>
 
-                    <div class="card-body">
+                    <div *ngIf="compteInfo">
+                    <div *ngFor="let res of compteInfo.reservations" class="card-body">
                         <h5 class="card-title text-center">Réservation numéro : 12345A</h5>
                         <ul class="list-group">
-                            <li class="list-group-item">2 Coca Cola</li>
+                            <li class="list-group-item">{{res.id}}</li>
                             <li class="list-group-item">1 Café</li>
                         </ul>
+                    </div>
                     </div>
                 </div>
 
