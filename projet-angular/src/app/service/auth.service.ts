@@ -17,8 +17,6 @@ export class AuthService {
 
   private API_URL: string = `${environment.API_URL}`;
 
-  private currentUser: Client | null = null;
-
   constructor(private http: HttpClient) {
     this.token = sessionStorage.getItem('token');
     if (this.token) {
@@ -40,27 +38,8 @@ export class AuthService {
         const role = decoded?.roles?.[0] ?? null;
         this.role$.next(role);
 
-        const userId = decoded?.sub;
-      if (userId) {
-        this.fetchCurrentUser(userId);  
-      }
       })
     );
-  }
-
-  private fetchCurrentUser(userId: string | null): void {
-    if (userId) {
-      this.http.get<Client>(`${this.API_URL}/utilisateur/${userId}`).subscribe(user => {
-        this.currentUser = user; 
-        console.log('User ID reçu depuis le token :', userId);
-
-      });
-    }
-  }
-
-  public getCurrentUser(): Client | null {
-    console.log(this.currentUser);
-    return this.currentUser;
   }
 
   public subscribe(authRequest: AuthRequest): void {

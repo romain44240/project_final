@@ -38,6 +38,7 @@ public class ReservationRestController {
 	}
 
 	@GetMapping("")
+	@PreAuthorize("hasRole('EMPLOYE')")
 	public List<ReservationResponse> getAll() {
 		return this.reservationService.getAll();
 	}

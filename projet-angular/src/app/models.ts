@@ -62,3 +62,9 @@ export interface Employe extends Compte {
   salaire: number;
   reservation?: Reservation;
 }
+
+export interface CompteInfoResponse {
+  reservations: Reservation[];
+  consommables: { [nom: string]: number};
+  jeux: Jeu[];
+}

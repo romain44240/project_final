@@ -3,31 +3,36 @@
 
 <div class="d-flex justify-content-center">
     <div class="w-75">
-        <div *ngIf="currentUser" class="colorblue">
-            <h5>L'équipe de La Tour de Jeu est heureuse de vous revoir {{currentUser?.id}}</h5>
-            <p class="fs-6 fst-italic">Nous tenons à vous rappeler que le catalogue de jeux évolue constamment, n’hésitez pas à le consulter et
+        <div class="colorblue">
+            <h5>L'équipe de La Tour de Jeu est heureuse de vous revoir</h5>
+            <p class="fs-6 fst-italic">Nous tenons à vous rappeler que le catalogue de jeux évolue constamment,
+                n’hésitez pas à le consulter et
                 à réserver votre prochaine partie de plaisir. </p>
         </div>
         <div class="d-flex justify-content-center">
             <div class="card bg-light">
                 <h3 class="card-header">Historique des réservations</h3>
 
-                <div *ngFor="let res of reservations | async"  class="card-body">
-                    <h5 class="card-title text-center">Réservation numéro : {{res.id}}</h5>
-                    <ul class="list-group">
-                        <li class="list-group-item">Date : {{res.debut | date:"dd/MM/YYYY"}}</li>
-                        <li class="list-group-item">Durée : {{ getDuree(res.debut, res.fin) }}</li>
-                        <li class="list-group-item">Nombre de personnes : {{res.nbPersonne}}</li>
-                        <button type="button" class="list-group-item list-group-item-action">Produits consomés</button>
-                        <button type="button" class="list-group-item list-group-item-action">Jeux empruntés ou achetés</button>
-                    </ul>
+                <div *ngIf="data$ | async as data">
+                    <div *ngFor="let res of data.reservations" class="card-body">
+                        <h5 class="card-title text-center">Réservation numéro : {{res.id}}</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item">Date : {{res.debut | date:"dd/MM/YYYY"}}</li>
+                            <li class="list-group-item">Durée : {{ getDuree(res.debut, res.fin) }}</li>
+                            <li class="list-group-item">Nombre de personnes : {{res.nbPersonne}}</li>
+                            <button type="button" class="list-group-item list-group-item-action">Produits
+                                consomés</button>
+                            <button type="button" class="list-group-item list-group-item-action">Jeux empruntés ou
+                                achetés</button>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div class="ms-auto">
                 <div class="card bg-light mb-3">
                     <h3 class="card-header">Produits consommés</h3>
-    
+
                     <div class="card-body">
                         <h5 class="card-title text-center">Réservation numéro : 12345A</h5>
                         <ul class="list-group">
@@ -36,10 +41,10 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="card bg-light">
                     <h3 class="card-header">Jeux</h3>
-    
+
                     <div class="card-body">
                         <h5 class="card-title text-center">Réservation numéro : 12345A</h5>
                         <ul class="list-group">
