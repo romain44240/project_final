@@ -200,8 +200,8 @@ public class DBData {
         reservationRequest2.setDebut(LocalDateTime.now());
         reservationRequest2.setFin(LocalDateTime.now().plusHours(2));
         reservationRequest2.setNbPersonne(8);
-        reservationRequest2.setIdClient(clientResponse.getId());; 
-        reservationRequest2.setIdEmploye(employeResponse.getId());;  
+        reservationRequest2.setIdClient(clientResponse2.getId());; 
+        reservationRequest2.setIdEmploye(employeResponse2.getId());;  
         reservationRequest2.setIdSurface(surfaceResponse2.getId());
         reservationRequest2.setIdJeu(jeuResponse2.getId());
         
