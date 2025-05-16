@@ -6,21 +6,22 @@
                 n’hésitez pas à le consulter et
                 à réserver votre prochaine partie de plaisir. </p>
         </div>
-        <div class="d-flex justify-content-center gap-4">
-            <div class="card bg-light">
-                <h3 class="card-header text-center">Historique des réservations</h3>
+        <div *ngIf="isReservationListValid()">
+            <div class="d-flex justify-content-center gap-4">
+                <div class="card bg-light">
+                    <h3 class="card-header text-center">Historique des réservations</h3>
 
-                <div *ngIf="compteInfo">
-                    <div *ngFor="let res of compteInfo.reservations" class="card-body border-bottom">
-                        <h5 class="card-title text-center">Réservation numéro : {{res.id}}</h5>
-                        <ul class="list-group mb-2">
-                            <li class="list-group-item">Date : {{res.debut | date:"dd/MM/YYYY"}}</li>
-                            <li class="list-group-item">Durée : {{ getDuree(res.debut, res.fin) }}</li>
-                            <li class="list-group-item">Nombre de personnes : {{res.nbPersonne}}</li>
-                            <button type="button" class="list-group-item list-group-item-action"
-                                (click)="toggleJeux(res.id)">Jeux</button>
-                        </ul>
-                    </div>
+                    <ng-container *ngIf="compteInfo?.reservations as reservations">
+                        <ng-container *ngFor="let res of reservations" class="card-body border-bottom">
+                            <h5 class="card-title text-center">Réservation numéro : {{ res.id }}</h5>
+                            <ul class="list-group mb-2">
+                                <li class="list-group-item">Date : {{ res.debut | date: "dd/MM/YYYY" }}</li>
+                                <li class="list-group-item">Durée : {{ getDuree(res.debut, res.fin) }}</li>
+                                <li class="list-group-item">Nombre de personnes : {{ res.nbPersonne }}</li>
+                                <button type="button" class="list-group-item list-group-item-action" (click)="toggleJeux(res.id!)"> Jeux </button>
+                            </ul>
+                        </ng-container>
+                    </ng-container>
                 </div>
             </div>
 
@@ -28,21 +29,23 @@
                 <div class="card bg-light">
                     <h3 class="card-header text-center">Jeux</h3>
 
-                    <div *ngIf="compteInfo">
-                        <ng-container *ngFor="let res of compteInfo.reservations">
-                            <div *ngIf="selectedReservationId === res.id && res.jeu" class="card-body border-bottom">
-                                <h5 class="card-title text-center">Jeu de la réservation numéro : {{res.id}}</h5>
+                    <ng-container *ngIf="compteInfo?.reservations as reservations">
+                        <ng-container *ngFor="let res of reservations">
+                            <div *ngIf="selectedReservationId === res.id && res.jeu" class="card-body border-bottom" >
+                                <h5 class="card-title text-center"> Jeu de la réservation numéro : {{ res.id }} </h5>
                                 <ul class="list-group">
-                                    <li class="list-group-item">{{res.jeu.nom}}</li>
+                                    <li class="list-group-item">{{ res.jeu.nom }}</li>
                                 </ul>
                             </div>
                         </ng-container>
-                    </div>
+                    </ng-container>
                 </div>
-
-
             </div>
         </div>
-    </div>
 
+        <!-- Si aucune réservation -->
+        <div *ngIf="compteInfo?.reservations?.length === 0">
+            <h3>Vous n'avez aucune réservation</h3>
+        </div>
+    </div>
 </div>

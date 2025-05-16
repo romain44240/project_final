@@ -38,7 +38,6 @@ export class CompteComponent implements OnInit {
     this.compteService.getCompteInfo(+userId).subscribe({
       next: (data) => {
         this.compteInfo = data;
-        console.log("Compte info récupérée :", data);
       },
       error: (err) => {
         console.error("Erreur lors de la récupération des données :", err);
@@ -66,7 +65,9 @@ export class CompteComponent implements OnInit {
     this.selectedReservationId = this.selectedReservationId === id ? null : id;
   }
 
-
+  isReservationListValid(): boolean {
+    return Array.isArray(this.compteInfo?.reservations) && this.compteInfo.reservations.length > 0;
+  }
 
 }
 
