@@ -7,8 +7,12 @@ import org.springframework.beans.BeanUtils;
 import projet.model.Categorie;
 import projet.model.Jeu;
 
-public class JeuRequest extends ProduitRequest {
+public class JeuRequest {
 	
+	private Integer id;
+	private String nom;
+	private double prix;
+	private int stock;
 	private int nbMin;
 	private int nbMax;
 	private int duree;
@@ -18,6 +22,38 @@ public class JeuRequest extends ProduitRequest {
 	private List<Categorie> categories;
 	
 	public JeuRequest() {}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 
 	public int getNbMin() {
 		return nbMin;
@@ -79,6 +115,8 @@ public class JeuRequest extends ProduitRequest {
 		Jeu jeu = new Jeu();
 		
 		BeanUtils.copyProperties(jeuRequestDTO, jeu);
+
+		jeu.setCategories(jeuRequestDTO.getCategories());
 		
 		return jeu;
 	}

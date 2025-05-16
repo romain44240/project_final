@@ -16,6 +16,8 @@ import projet.model.Produit;
 import projet.request.ConsommableRequest;
 import projet.request.JeuRequest;
 import projet.request.ProduitRequest;
+import projet.response.ConsommableResponse;
+import projet.response.JeuResponse;
 import projet.response.ProduitResponse;
 
 @Service
@@ -61,7 +63,7 @@ public class ProduitService {
 		return ProduitResponse.convert(produit);
 	}
 	
-	public ProduitResponse createJeu(JeuRequest jeuRequest) {
+	public JeuResponse createJeu(JeuRequest jeuRequest) {
 		Jeu jeu = new Jeu();
 		jeu.setNom(jeuRequest.getNom());
 		jeu.setPrix(jeuRequest.getPrix());
@@ -73,18 +75,18 @@ public class ProduitService {
 		jeu.setUrlRegle(jeuRequest.getUrlRegle());
 		jeu.setUrlImage(jeuRequest.getUrlImage());
 		
-		Produit saved = daoProduit.save(jeu);
-	    return ProduitResponse.convert(saved);
+		Jeu saved = daoProduit.save(jeu);
+	    return JeuResponse.convert(saved);
 	}
 	
-	public ProduitResponse createConsommable(ConsommableRequest consommableRequest) {
+	public ConsommableResponse createConsommable(ConsommableRequest consommableRequest) {
 		Consommable consommable = new Consommable();
 		consommable.setNom(consommableRequest.getNom());
 		consommable.setPrix(consommableRequest.getPrix());
 		consommable.setStock(consommableRequest.getStock());
 		
-		Produit saved = daoProduit.save(consommable);
-		return ProduitResponse.convert(saved);
+		Consommable saved = daoProduit.save(consommable);
+		return ConsommableResponse.convert(saved);
 		
 	}
 

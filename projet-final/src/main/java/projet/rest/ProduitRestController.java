@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import projet.request.ConsommableRequest;
+import projet.request.JeuRequest;
 import projet.request.ProduitRequest;
+import projet.response.ConsommableResponse;
+import projet.response.JeuResponse;
 import projet.response.ProduitResponse;
 import projet.service.ProduitService;
 
@@ -55,10 +59,16 @@ public class ProduitRestController {
 		return this.produitService.getById(id);
 	}
 
-	@PostMapping("")
+	@PostMapping("/jeu")
 	@PreAuthorize("hasRole('EMPLOYE')")
-	public ProduitResponse create(@RequestBody ProduitRequest dto) {
-		return this.produitService.create(dto);
+	public JeuResponse createJeu(@RequestBody JeuRequest jeu) {
+		return this.produitService.createJeu(jeu);
+	}
+
+	@PostMapping("/consommable")
+	@PreAuthorize("hasRole('EMPLOYE')")
+	public ConsommableResponse createConsommable(@RequestBody ConsommableRequest consommable) {
+		return this.produitService.createConsommable(consommable);
 	}
 
 	@PutMapping("/{id}")
