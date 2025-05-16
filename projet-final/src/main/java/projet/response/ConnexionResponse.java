@@ -4,6 +4,7 @@ public class ConnexionResponse {
 	private boolean success;
 	private String token;
 	private Integer id;
+	private String timer;
 
 	public ConnexionResponse() {
 		super();
@@ -32,6 +33,15 @@ public class ConnexionResponse {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public String getTimer() {
+		return timer;
+	}
+
+	public void setTimer(String timer) {
+		this.timer = timer;
+	}
+	
 }
 
 

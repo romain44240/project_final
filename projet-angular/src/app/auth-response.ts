@@ -1,5 +1,5 @@
 export class AuthResponse {
-    constructor(private _success: boolean, private _token: string, private _id: number){}
+    constructor(private _success: boolean, private _token: string, private _id: number, private _timer : Date){}
 
     public get success(): boolean{
         return this._success;
@@ -23,6 +23,14 @@ export class AuthResponse {
 
     public get id():number{
         return this._id;
+    }
+
+    public set timer(value: Date){
+        this._timer = value;
+    }
+
+    public get timer():Date{
+        return this._timer;
     }
 
 }

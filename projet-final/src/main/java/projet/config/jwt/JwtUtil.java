@@ -21,8 +21,8 @@ public class JwtUtil {
 	private static Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
 	private static final String JWT_KEY = "6E5A7234753778214125442A472D4B6150645367556B58703273357638792F42";
-	private static final int JWT_EXPIRATION = 3600000;
-
+	private static final int JWT_EXPIRATION = 300;
+// 3600000
 	private JwtUtil() {
 	}
 
@@ -75,5 +75,9 @@ public class JwtUtil {
 		}
 
 		return Optional.empty();
+	}
+
+	public static int getJwtExpiration() {
+		return JWT_EXPIRATION;
 	}
 }

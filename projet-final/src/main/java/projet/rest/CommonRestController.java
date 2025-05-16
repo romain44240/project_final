@@ -1,5 +1,8 @@
 package projet.rest;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import projet.config.jwt.JwtUtil;
 import projet.request.ClientRequest;
 import projet.request.ConnexionRequest;
 import projet.response.ClientResponse;
@@ -55,6 +59,7 @@ public class CommonRestController {
 		
 		connexionResponse.setSuccess(true);
 		connexionResponse.setToken(token);
+		connexionResponse.setTimer(LocalDateTime.now().plus(Duration.ofMillis(JwtUtil.getJwtExpiration())).toString());
 
 		Integer id = this.compteService.getByLogin(connexionRequest.getLogin()).getId();
 		connexionResponse.setId(id);
