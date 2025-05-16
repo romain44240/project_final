@@ -3,6 +3,7 @@ package projet.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -15,7 +16,7 @@ public class Client extends Compte {
 	@Column(length = 100)
 	private String telephone;
 	
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Reservation> reservations;
 	
 	public Client() {super();}
@@ -38,7 +39,7 @@ public class Client extends Compte {
 		return reservations;
 	}
 
-	public void setReservation(List<Reservation> reservations) {
+	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 

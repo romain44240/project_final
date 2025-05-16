@@ -6,11 +6,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import projet.model.Achat;
-import projet.model.Client;
-import projet.model.Employe;
-import projet.model.Jeu;
 import projet.model.Reservation;
-import projet.model.Surface;
 
 public class ReservationResponse {
 
@@ -18,10 +14,10 @@ public class ReservationResponse {
 	private LocalDateTime debut;
 	private LocalDateTime fin;
 	private int nbPersonne;
-	private Client client;
-	private Employe employe;
-	private Surface surface;
-	private Jeu jeu;
+	private String client;
+	private Integer idClient;
+	private String employe;
+	private String jeu;
 	private List<Achat> achats;
 
 	public ReservationResponse() {
@@ -59,35 +55,35 @@ public class ReservationResponse {
 		this.nbPersonne = nbPersonne;
 	}
 
-	public Client getClient() {
+	public String getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(String client) {
 		this.client = client;
 	}
 
-	public Employe getEmploye() {
+	public Integer getIdClient() {
+		return idClient;
+	}
+
+	public void setIdClient(Integer idClient) {
+		this.idClient = idClient;
+	}
+
+	public String getEmploye() {
 		return employe;
 	}
 
-	public void setEmploye(Employe employe) {
+	public void setEmploye(String employe) {
 		this.employe = employe;
 	}
 
-	public Surface getSurface() {
-		return surface;
-	}
-
-	public void setSurface(Surface surface) {
-		this.surface = surface;
-	}
-
-	public Jeu getJeu() {
+	public String getJeu() {
 		return jeu;
 	}
 
-	public void setJeu(Jeu jeu) {
+	public void setJeu(String jeu) {
 		this.jeu = jeu;
 	}
 
@@ -104,11 +100,16 @@ public class ReservationResponse {
 		ReservationResponse dto = new ReservationResponse();
 		BeanUtils.copyProperties(reservation, dto);
 
-		dto.setClient(reservation.getClient());
-		dto.getClient().getReservations().clear();
-		dto.setEmploye(reservation.getEmploye());
-		dto.setSurface(null);
-		//dto.setJeu(reservation.getJeu());
+		dto.setClient(reservation.getClient().getNom());
+		dto.setIdClient(reservation.getClient().getId());
+
+		if(reservation.getEmploye() != null){
+			dto.setEmploye(reservation.getEmploye().getNom());
+		}
+		if(reservation.getJeu() != null){
+			dto.setJeu(reservation.getJeu().getNom());
+		}
+		
 		dto.setAchats(reservation.getAchats());
 		return dto;
 	}

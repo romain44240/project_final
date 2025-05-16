@@ -15,7 +15,6 @@ import projet.request.JeuRequest;
 import projet.request.ReservationRequest;
 import projet.request.SurfaceRequest;
 import projet.request.AchatRequest.ProduitType;
-import projet.response.AchatResponse;
 import projet.response.ClientResponse;
 import projet.response.EmployeResponse;
 import projet.response.ProduitResponse;
@@ -71,7 +70,7 @@ public class DBData {
         jeuRequest2.setEditeur("Hasbro");
         jeuRequest2.setRegle("Faites faillite ou devenez riche !");
 
-        ProduitResponse jeuResponse2 = produitService.createJeu(jeuRequest2);
+        produitService.createJeu(jeuRequest2);
         
         // Consommables
         ConsommableRequest consommableRequest1 = new ConsommableRequest();
@@ -86,7 +85,7 @@ public class DBData {
         consommableRequest2.setPrix(2.0);
         consommableRequest2.setStock(100);
         
-        ProduitResponse consommableResponse2 = produitService.createConsommable(consommableRequest2);
+        produitService.createConsommable(consommableRequest2);
         
         
         // --- CLIENT ---
@@ -157,6 +156,6 @@ public class DBData {
         achatRequest.setProduitType(ProduitType.CONSOMMABLE);
         achatRequest.setIdReservation(reservationResponse.getId());
 
-        AchatResponse achatResponse = achatService.create(achatRequest);
+        achatService.create(achatRequest);
     }
 }

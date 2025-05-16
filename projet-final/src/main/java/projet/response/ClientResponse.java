@@ -10,7 +10,6 @@ public class ClientResponse {
 
 	private Integer id;
 	private String login;
-	private String password;
 	private String nom;
 	private String prenom;
 	private String email;
@@ -33,14 +32,6 @@ public class ClientResponse {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getNom() {

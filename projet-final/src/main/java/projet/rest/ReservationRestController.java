@@ -76,7 +76,7 @@ public class ReservationRestController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Compte compte = compteService.getByLogin((String) authentication.getPrincipal());
 		
-		if(compte instanceof Employe || (compte instanceof Client && compte.getId() == reservationService.getById(id).getClient().getId())) {
+		if(compte instanceof Employe || (compte instanceof Client && compte.getId() == reservationService.getById(id).getIdClient())) {
 			this.reservationService.delete(id);
 		} else {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'avez pas les droits pour faire cela");
