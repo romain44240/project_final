@@ -90,14 +90,27 @@ public class ProduitService {
 		
 	}
 
-	public ProduitResponse update(Integer id, ProduitRequest produitRequest) {
-		Produit produit = daoProduit.findById(id)
+	public JeuResponse updateJeu(Integer id, JeuRequest jeuRequest) {
+		Jeu jeu = (Jeu) daoProduit.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id));
 		
-		BeanUtils.copyProperties(produitRequest, produit);
-		produit = daoProduit.save(produit);
+		BeanUtils.copyProperties(jeuRequest, jeu);
+		jeu.setId(id);
+		jeu = daoProduit.save(jeu);
 		
-		return ProduitResponse.convert(produit);
+		return JeuResponse.convert(jeu);
+	}
+
+	public ConsommableResponse updateConsommable(Integer id, ConsommableRequest consommableRequest) {
+		Consommable consommable = (Consommable) daoProduit.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id));
+		
+		BeanUtils.copyProperties(consommableRequest, consommable);
+		consommable.setId(id);
+
+		consommable = daoProduit.save(consommable);
+		
+		return ConsommableResponse.convert(consommable);
 	}
 	
 	public void delete(Integer id) {
