@@ -33,7 +33,8 @@ public class Reservation {
 	@JoinColumn(name = "client_id")
 	private Client client;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "employe_id")
 	private Employe employe;
 	
 	@OneToOne

@@ -1,17 +1,19 @@
 package projet.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @DiscriminatorValue("employe")
 public class Employe extends Compte {
 
-	@OneToOne(mappedBy = "employe")
-	private Reservation reservation;
+	@OneToMany(mappedBy = "employe", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<Reservation> reservations;
 	
 	private String poste; // null = serveur --> gameMaster => c'est qu'il peut plus servir ?
 	
@@ -41,12 +43,12 @@ public class Employe extends Compte {
 		this.salaire = salaire;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+	public List<Reservation> getReservations() {
+		return reservations;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	@Override

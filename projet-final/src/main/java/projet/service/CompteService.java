@@ -124,10 +124,10 @@ public class CompteService implements UserDetailsService {
         compteInfoResponse.setReservations(daoReservation.getReservationsByClientId(id));
 
         for (Reservation r : compteInfoResponse.getReservations()) {
-            r.getClient().setReservation(null);
+            r.getClient().setReservations(null);
             r.getSurface().setReservation(null);
             if(r.getEmploye()!=null){
-                r.getEmploye().setReservation(null);
+                r.getEmploye().setReservations(null);
             }
             
         }

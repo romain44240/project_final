@@ -70,7 +70,7 @@ public class DBData {
         jeuRequest2.setEditeur("Hasbro");
         jeuRequest2.setRegle("Faites faillite ou devenez riche !");
 
-        produitService.createJeu(jeuRequest2);
+        ProduitResponse jeuResponse2 = produitService.createJeu(jeuRequest2);
         
         // Consommables
         ConsommableRequest consommableRequest1 = new ConsommableRequest();
@@ -99,6 +99,17 @@ public class DBData {
         clientRequest.setTelephone("0601020304");
         ClientResponse clientResponse = compteService.createClient(clientRequest);
         System.out.println("Client créé : " + clientResponse.getPrenom() + " " + clientResponse.getNom());
+        
+        ClientRequest clientRequest2 = new ClientRequest();
+        clientRequest2.setLogin("LeenaP");
+        clientRequest2.setPassword("client2");
+        clientRequest2.setNom("test");
+        clientRequest2.setPrenom("Leena");
+        clientRequest2.setEmail("leena.p44@gmail.com");
+        clientRequest2.setDateArrivee(LocalDate.now());
+        clientRequest2.setTelephone("0690762456");
+        ClientResponse clientResponse2 = compteService.createClient(clientRequest2);
+        System.out.println("Client créé : " + clientResponse2.getPrenom() + " " + clientResponse2.getNom());
 
         // --- EMPLOYÉ ---
         EmployeRequest employeRequest = new EmployeRequest();
@@ -112,6 +123,19 @@ public class DBData {
         employeRequest.setSalaire(1500);
         EmployeResponse employeResponse = compteService.createEmploye(employeRequest);
         System.out.println("Employé créé : " + employeResponse.getPrenom() + " " + employeResponse.getNom());
+        
+        EmployeRequest employeRequest2 = new EmployeRequest();
+        employeRequest2.setLogin("YannisV");
+        employeRequest2.setPassword("employe2");
+        employeRequest2.setNom("test2");
+        employeRequest2.setPrenom("Yannis");
+        employeRequest2.setEmail("yv@gmail.com");
+        employeRequest2.setDateArrivee(LocalDate.now());
+        employeRequest2.setPoste("Responsable des ventes");
+        employeRequest2.setSalaire(1600);
+        EmployeResponse employeResponse2 = compteService.createEmploye(employeRequest2);
+        System.out.println("Employé créé : " + employeResponse2.getPrenom() + " " + employeResponse2.getNom());
+
 
 
         // --- SURFACE ---
@@ -149,6 +173,20 @@ public class DBData {
         ReservationResponse reservationResponse = reservationService.create(reservationRequest);
         System.out.println("Réservation créée : " + reservationResponse.getId() + " pour le client " + clientResponse.getNom());
 
+        
+        ReservationRequest reservationRequest2 = new ReservationRequest();
+        reservationRequest2.setDebut(LocalDateTime.now());
+        reservationRequest2.setFin(LocalDateTime.now().plusHours(2));
+        reservationRequest2.setNbPersonne(8);
+        reservationRequest2.setIdClient(clientResponse.getId());; 
+        reservationRequest2.setIdEmploye(employeResponse.getId());;  
+        reservationRequest2.setIdSurface(surfaceResponse2.getId());
+        reservationRequest2.setIdJeu(jeuResponse2.getId());
+        
+        ReservationResponse reservationResponse2 = reservationService.create(reservationRequest2);
+        System.out.println("Réservation créée : " + reservationResponse2.getId() + " pour le client " + clientResponse.getNom());
+        
+        
         // ACHAT
         AchatRequest achatRequest = new AchatRequest();
         achatRequest.setQuantite(5);
