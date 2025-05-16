@@ -78,8 +78,13 @@ public class CompteService implements UserDetailsService {
     }
 
     public ClientResponse updateClient(Integer id, ClientRequest clientRequest) {
-        Client client = (Client) daoCompte.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client non trouvé avec id : " + id));
+        Client client = (Client) daoCompte.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client non trouvé avec id : " + id));
+
+        if(clientRequest.getPassword() == null){
+            clientRequest.setPassword(client.getPassword());
+        }else{
+            clientRequest.setPassword(encode(clientRequest.getPassword()));
+        }
         BeanUtils.copyProperties(clientRequest, client);
         client = daoCompte.save(client);
         return ClientResponse.convert(client);

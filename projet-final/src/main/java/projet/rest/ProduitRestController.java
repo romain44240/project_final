@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import projet.request.ProduitRequest;
+import projet.request.ConsommableRequest;
+import projet.request.JeuRequest;
+import projet.response.ConsommableResponse;
+import projet.response.JeuResponse;
 import projet.response.ProduitResponse;
 import projet.service.ProduitService;
-
 
 @RestController
 @RequestMapping("/api/produit")
@@ -47,24 +49,29 @@ public class ProduitRestController {
 	public ProduitResponse getById(@PathVariable Integer id) {
 		return this.produitService.getById(id);
 	}
-	
-	@GetMapping("/{id}/detail")
+
+	@PostMapping("/jeu")
 	@PreAuthorize("hasRole('EMPLOYE')")
-	public ProduitResponse getDetailById(@PathVariable Integer id) {
-		// id + stock
-		return this.produitService.getById(id);
+	public JeuResponse createJeu(@RequestBody JeuRequest jeu) {
+		return this.produitService.createJeu(jeu);
 	}
 
-	@PostMapping("")
+	@PostMapping("/consommable")
 	@PreAuthorize("hasRole('EMPLOYE')")
-	public ProduitResponse create(@RequestBody ProduitRequest dto) {
-		return this.produitService.create(dto);
+	public ConsommableResponse createConsommable(@RequestBody ConsommableRequest consommable) {
+		return this.produitService.createConsommable(consommable);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/jeu/{id}")
 	@PreAuthorize("hasRole('EMPLOYE')")
-	public ProduitResponse update(@PathVariable Integer id, @RequestBody ProduitRequest dto) {
-		return this.produitService.update(id, dto);
+	public JeuResponse updateJeu(@PathVariable Integer id, @RequestBody JeuRequest dto) {
+		return this.produitService.updateJeu(id, dto);
+	}
+
+	@PutMapping("/consommable/{id}")
+	@PreAuthorize("hasRole('EMPLOYE')")
+	public ConsommableResponse updateConsommable(@PathVariable Integer id, @RequestBody ConsommableRequest dto) {
+		return this.produitService.updateConsommable(id, dto);
 	}
 
 	@DeleteMapping("/{id}")

@@ -49,11 +49,17 @@ export class AdminService {
   getAllConsos(): Observable<Consommable[]> {
     return this.http.get<Consommable[]>(`${this.apiUrl}/produit/consos`);
   }
-  createProduct(product: Produit): Observable<Produit> {
-    return this.http.post<Produit>(`${this.apiUrl}/produit`, product);
+  createJeu(product: Jeu): Observable<Jeu> {
+    return this.http.post<Jeu>(`${this.apiUrl}/produit/jeu`, product);
   }
-  updateProduct(product: Produit): Observable<Produit> {
-    return this.http.put<Produit>(`${this.apiUrl}/produit/${product.id}`, product);
+  createConso(product: Consommable): Observable<Consommable> {
+    return this.http.post<Consommable>(`${this.apiUrl}/produit/consommable`, product);
+  }
+  updateJeu(product: Jeu): Observable<Jeu> {
+    return this.http.put<Jeu>(`${this.apiUrl}/produit/jeu/${product.id}`, product);
+  }
+  updateConso(product: Consommable): Observable<Consommable> {
+    return this.http.put<Consommable>(`${this.apiUrl}/produit/consommable/${product.id}`, product);
   }
   deleteProduct(id: number) : Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/produit/${id}`);

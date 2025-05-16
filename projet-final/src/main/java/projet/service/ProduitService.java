@@ -16,6 +16,8 @@ import projet.model.Produit;
 import projet.request.ConsommableRequest;
 import projet.request.JeuRequest;
 import projet.request.ProduitRequest;
+import projet.response.ConsommableResponse;
+import projet.response.JeuResponse;
 import projet.response.ProduitResponse;
 
 @Service
@@ -61,7 +63,7 @@ public class ProduitService {
 		return ProduitResponse.convert(produit);
 	}
 	
-	public ProduitResponse createJeu(JeuRequest jeuRequest) {
+	public JeuResponse createJeu(JeuRequest jeuRequest) {
 		Jeu jeu = new Jeu();
 		jeu.setNom(jeuRequest.getNom());
 		jeu.setPrix(jeuRequest.getPrix());
@@ -73,29 +75,42 @@ public class ProduitService {
 		jeu.setUrlRegle(jeuRequest.getUrlRegle());
 		jeu.setUrlImage(jeuRequest.getUrlImage());
 		
-		Produit saved = daoProduit.save(jeu);
-	    return ProduitResponse.convert(saved);
+		Jeu saved = daoProduit.save(jeu);
+	    return JeuResponse.convert(saved);
 	}
 	
-	public ProduitResponse createConsommable(ConsommableRequest consommableRequest) {
+	public ConsommableResponse createConsommable(ConsommableRequest consommableRequest) {
 		Consommable consommable = new Consommable();
 		consommable.setNom(consommableRequest.getNom());
 		consommable.setPrix(consommableRequest.getPrix());
 		consommable.setStock(consommableRequest.getStock());
 		
-		Produit saved = daoProduit.save(consommable);
-		return ProduitResponse.convert(saved);
+		Consommable saved = daoProduit.save(consommable);
+		return ConsommableResponse.convert(saved);
 		
 	}
 
-	public ProduitResponse update(Integer id, ProduitRequest produitRequest) {
-		Produit produit = daoProduit.findById(id)
+	public JeuResponse updateJeu(Integer id, JeuRequest jeuRequest) {
+		Jeu jeu = (Jeu) daoProduit.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id));
 		
-		BeanUtils.copyProperties(produitRequest, produit);
-		produit = daoProduit.save(produit);
+		BeanUtils.copyProperties(jeuRequest, jeu);
+		jeu.setId(id);
+		jeu = daoProduit.save(jeu);
 		
-		return ProduitResponse.convert(produit);
+		return JeuResponse.convert(jeu);
+	}
+
+	public ConsommableResponse updateConsommable(Integer id, ConsommableRequest consommableRequest) {
+		Consommable consommable = (Consommable) daoProduit.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produit non trouvé avec id : " + id));
+		
+		BeanUtils.copyProperties(consommableRequest, consommable);
+		consommable.setId(id);
+
+		consommable = daoProduit.save(consommable);
+		
+		return ConsommableResponse.convert(consommable);
 	}
 	
 	public void delete(Integer id) {

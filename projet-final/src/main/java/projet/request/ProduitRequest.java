@@ -1,18 +1,28 @@
 package projet.request;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 
-import projet.model.Consommable;
-import projet.model.Jeu;
+import projet.model.Categorie;
 import projet.model.Produit;
 
-public abstract class ProduitRequest {
+public class ProduitRequest {
 	
+	// JEU + CONSO
 	private Integer id;
 	private String nom;
 	private double prix;
 	private int stock;
-	private ProduitType produitType;
+
+	// JEU
+	private int nbMin;
+	private int nbMax;
+	private int duree;
+	private String editeur;
+	private String urlRegle;
+	private String urlImage;
+	private List<Categorie> categories;
 	
 	public ProduitRequest() {}
 
@@ -47,30 +57,68 @@ public abstract class ProduitRequest {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	
-	public ProduitType getProduitType() {
-		return produitType;
+
+	public int getNbMin() {
+		return nbMin;
 	}
 
-	public void setProduitType(ProduitType produitType) {
-		this.produitType = produitType;
+	public void setNbMin(int nbMin) {
+		this.nbMin = nbMin;
+	}
+
+	public int getNbMax() {
+		return nbMax;
+	}
+
+	public void setNbMax(int nbMax) {
+		this.nbMax = nbMax;
+	}
+
+	public int getDuree() {
+		return duree;
+	}
+
+	public void setDuree(int duree) {
+		this.duree = duree;
+	}
+
+	public String getEditeur() {
+		return editeur;
+	}
+
+	public void setEditeur(String editeur) {
+		this.editeur = editeur;
+	}
+
+	public String getUrlRegle() {
+		return urlRegle;
+	}
+
+	public void setUrlRegle(String urlRegle) {
+		this.urlRegle = urlRegle;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+	public List<Categorie> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Categorie> categories) {
+		this.categories = categories;
 	}
 
 	public static Produit convert(ProduitRequest produitRequest) {
 		Produit produit = null;
 		
-		if (produitRequest.getProduitType() == ProduitType.JEU) {
-			produit = new Jeu();
-		} else if (produitRequest.getProduitType() == ProduitType.CONSOMMABLE) {
-			produit = new Consommable();
-		}
-		
 		BeanUtils.copyProperties(produitRequest, produit);
 		
 		return produit;
-	}
-	
-	public enum ProduitType {
-		JEU, CONSOMMABLE;
 	}
 }

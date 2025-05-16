@@ -140,19 +140,6 @@ public class DBData {
         EmployeResponse employeResponse = compteService.createEmploye(employeRequest);
         System.out.println("Employé créé : " + employeResponse.getPrenom() + " " + employeResponse.getNom());
 
-        EmployeRequest employeRequest2 = new EmployeRequest();
-        employeRequest2.setLogin("YannisV");
-        employeRequest2.setPassword("employe2");
-        employeRequest2.setNom("Voynnet");
-        employeRequest2.setPrenom("Yannis");
-        employeRequest2.setEmail("yv@gmail.com");
-        employeRequest2.setDateArrivee(LocalDate.of(2025,4,1));
-        employeRequest2.setPoste("GameMaster");
-        employeRequest2.setSalaire(1500);
-        EmployeResponse employeResponse2 = compteService.createEmploye(employeRequest2);
-        System.out.println("Employé créé : " + employeResponse2.getPrenom() + " " + employeResponse2.getNom());
-
-
         // --- SURFACE ---
         SurfaceRequest surfaceRequest1 = new SurfaceRequest();
         surfaceRequest1.setCapacite(4);

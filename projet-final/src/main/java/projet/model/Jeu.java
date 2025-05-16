@@ -22,7 +22,7 @@ public class Jeu extends Produit {
 
 	private String urlImage; // Lien internet vers l'image du jeu
 	
-	List<Categorie> categories;
+	private List<Categorie> categories;
 	
 	@OneToOne(mappedBy = "jeu")
 	private Reservation reservation;

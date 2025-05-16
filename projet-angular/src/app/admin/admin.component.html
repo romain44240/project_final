@@ -6,10 +6,18 @@
       <button class="btn btn-success" (click)="selectedView = 'reservations'">Voir les réservations</button>
     </div>
      <div>
-      <button class="btn btn-outline-primary me-2" (click)="showClientForm = !showClientForm">Ajouter un client</button>
-      <button class="btn btn-outline-primary me-2" (click)="showEmployeForm = !showEmployeForm">Ajouter un employé</button>
-      <button class="btn btn-outline-primary me-2" (click)="showJeuForm = !showJeuForm">Ajouter un jeu</button>
-      <button class="btn btn-outline-primary" (click)="showConsoForm = !showConsoForm">Ajouter une conso</button>
+      <button class="btn btn-outline-primary me-2" (click)="showClientForm = !showClientForm">
+        {{ showClientForm ? 'Masquer Client' : 'Ajouter un client' }}
+      </button>
+      <button class="btn btn-outline-primary me-2" (click)="showEmployeForm = !showEmployeForm">
+        {{ showEmployeForm ? 'Masquer Employé' : 'Ajouter un employé' }}
+      </button>
+      <button class="btn btn-outline-primary me-2" (click)="showJeuForm = !showJeuForm">
+        {{ showJeuForm ? 'Masquer Jeu' : 'Ajouter un jeu' }}
+      </button>
+      <button class="btn btn-outline-primary" (click)="showConsoForm = !showConsoForm">
+        {{ showConsoForm ? 'Masquer Conso' : 'Ajouter une conso' }}
+      </button>
     </div>
   </div>
   <ng-container [ngSwitch]="selectedView">
@@ -124,6 +132,7 @@
 
     <!-- FORM CLIENT -->
     <div *ngIf="showClientForm" class="card p-3 mt-3">
+      <h3>Formulaire CLIENT</h3>
       <form [formGroup]="clientForm" (ngSubmit)="submitClient()">
         <div class="row">
           <div class="col-md-4 mb-2">
@@ -155,6 +164,7 @@
 
     <!-- FORM EMPLOYE -->
     <div *ngIf="showEmployeForm" class="card p-3 mt-3">
+      <h3>Formulaire EMPLOYE</h3>
       <form [formGroup]="employeForm" (ngSubmit)="submitEmploye()">
         <div class="row">
           <div class="col-md-4 mb-2">
@@ -180,7 +190,7 @@
           </div>
           <div>
             <span> si aucune date sélectionné, la date du jour sera utilisé !</span>
-            <input type="date" id="date" name="date" formControlName="dateArrivee" class="colorblue">
+            <input type="date" id="date1" name="date1" formControlName="dateArrivee" class="colorblue">
           </div>
         </div>
         <button class="btn btn-success mt-2" type="submit">Créer / Modifier employés</button>
@@ -189,16 +199,40 @@
 
     <!-- FORM JEU -->
     <div *ngIf="showJeuForm" class="card p-3 mt-3">
+      <h3>Formulaire JEU</h3>
       <form [formGroup]="jeuForm" (ngSubmit)="submitJeu()">
         <div class="row">
           <div class="col-md-6 mb-2">
+            <label> Nom </label>
             <input class="form-control" formControlName="nom" placeholder="Nom du jeu">
           </div>
           <div class="col-md-3 mb-2">
-            <input class="form-control" formControlName="prix" placeholder="Prix (€)" type="number">
+            <label>Prix</label>
+            <input class="form-control" formControlName="prix" placeholder="Prix (€)" type="number" step="0.01">
           </div>
           <div class="col-md-3 mb-2">
+            <label>Editeur</label>
             <input class="form-control" formControlName="editeur" placeholder="Éditeur">
+          </div>
+          <div class="col-md-3 mb-2">
+            <label>Stock</label>
+            <input class="form-control" formControlName="stock" placeholder="Stock" type="number">
+          </div>
+          <div class="col-md-3 mb-2">
+            <label>Nb joueur Min</label>
+            <input class="form-control" formControlName="nbMin" placeholder="Nombre de joueur min" type="number">
+          </div>
+          <div class="col-md-3 mb-2">
+            <label>Nb joueur Max</label>
+            <input class="form-control" formControlName="nbMax" placeholder="Nombre de joueur max" type="number">
+          </div>
+          <div class="col-md-3 mb-2">
+            <label>Durée</label>
+            <input class="form-control" formControlName="duree" placeholder="Durée" type="number">
+          </div>
+          <div class="col-md-3 mb-2">
+            <label>Url regle</label>
+            <input class="form-control" formControlName="urlRegle" placeholder="Regle">
           </div>
         </div>
         <button class="btn btn-success mt-2" type="submit">Créer / Modifier jeu</button>
@@ -207,15 +241,19 @@
 
     <!-- FORM CONSO -->
     <div *ngIf="showConsoForm" class="card p-3 mt-3">
+      <h3>Formulaire CONSOMMABLE</h3>
       <form [formGroup]="consoForm" (ngSubmit)="submitConso()">
         <div class="row">
           <div class="col-md-6 mb-2">
+            <label>Nom</label>
             <input class="form-control" formControlName="nom" placeholder="Nom de la conso">
           </div>
           <div class="col-md-3 mb-2">
-            <input class="form-control" formControlName="prix" placeholder="Prix (€)" type="number">
+            <label>Prix</label>
+            <input class="form-control" formControlName="prix" placeholder="Prix (€)" type="number" step="0.01">
           </div>
           <div class="col-md-3 mb-2">
+            <label>Stock</label>
             <input class="form-control" formControlName="stock" placeholder="Stock" type="number">
           </div>
         </div>

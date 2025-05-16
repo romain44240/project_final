@@ -9,6 +9,10 @@ import projet.model.Jeu;
 
 public class JeuResponse extends ProduitResponse {
 	
+	protected Integer id;
+	protected String nom;
+	protected double prix;
+	protected int stock;
 	private int nbMin;
 	private int nbMax;
 	private int duree;
@@ -18,6 +22,38 @@ public class JeuResponse extends ProduitResponse {
 	private List<Categorie> categories;
 
 	public JeuResponse() {}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 
 	public int getNbMin() {
 		return nbMin;
@@ -79,6 +115,8 @@ public class JeuResponse extends ProduitResponse {
 		JeuResponse jeuResponse = new JeuResponse();
 		
 		BeanUtils.copyProperties(jeu, jeuResponse);
+
+		jeuResponse.setCategories(jeu.getCategories());
 		
 		return jeuResponse;
 	}

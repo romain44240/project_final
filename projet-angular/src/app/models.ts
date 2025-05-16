@@ -22,8 +22,8 @@ export interface Jeu extends Produit {
   nbMax: number;
   duree: number;
   editeur: string;
-  urlRegle: string; 
-  urlImage: string;// ça doit être une url normalement
+  urlRegle: string;
+  urlImage: string;
   categories: Categorie[];
 }
 
