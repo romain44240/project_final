@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import projet.dao.IDAOAchat;
 import projet.dao.IDAOCompte;
 import projet.dao.IDAOProduit;
 import projet.dao.IDAOReservation;
@@ -22,6 +23,8 @@ import projet.model.Jeu;
 import projet.model.Produit;
 import projet.model.Reservation;
 import projet.request.ReservationRequest;
+import projet.response.FactureResponse;
+import projet.response.ProduitFactureResponse;
 import projet.response.ReservationResponse;
 
 @Service
@@ -39,20 +42,20 @@ public class ReservationService {
 	@Autowired
 	private IDAOProduit daoProduit;
 
+	@Autowired
+	private IDAOAchat daoAchat;
 	
 	public List<ReservationResponse> getAll() {
 		return daoReservation.findAll().stream()
 				.map(ReservationResponse::convert)
 				.collect(Collectors.toList());
 	}
-
 	
 	public ReservationResponse getById(Integer id) {
 		Reservation reservation = daoReservation.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservation non trouvée avec id : " + id));
 		return ReservationResponse.convert(reservation);
 	}
-
 	
 	public ReservationResponse create(ReservationRequest dto) {
 		Reservation reservation = ReservationRequest.convert(dto);
@@ -92,7 +95,6 @@ public class ReservationService {
 		Reservation saved = daoReservation.save(reservation);
 		return ReservationResponse.convert(saved);
 	}
-
 	
 	public void delete(Integer id) {
 		if (!daoReservation.existsById(id)) {
@@ -100,7 +102,6 @@ public class ReservationService {
 		}
 		daoReservation.deleteById(id);
 	}
-
 	
 	public ReservationResponse update(Integer id, ReservationRequest dto) {
 		Reservation reservation = daoReservation.findById(id)
@@ -140,5 +141,26 @@ public class ReservationService {
 
 		Reservation updated = daoReservation.save(reservation);
 		return ReservationResponse.convert(updated);
+	}
+
+	public FactureResponse getFacture(Integer id) {
+		List<ProduitFactureResponse> produits = daoAchat.getAllAchatsByIdReservation(id)
+				.stream().map(ProduitFactureResponse::convert)
+				.collect(Collectors.toMap(
+					ProduitFactureResponse::getNom, // comparaison sur le nom
+					p -> p, // si l'élément n'existe pas on l'ajoute tel quel
+					(p1, p2) -> {p1.setQuantite(p1.getQuantite() + p2.getQuantite()); return p1;} // fonction de fusion si deja present
+				)).values().stream().collect(Collectors.toList());
+
+		int total = 0;
+		for (ProduitFactureResponse p : produits) {
+			total += p.getQuantite() * p.getPrix();
+		}
+
+		FactureResponse factureResponse = new FactureResponse();
+		factureResponse.setTotal(total);
+		factureResponse.setProduits(produits);
+		
+		return factureResponse;
 	}
 }

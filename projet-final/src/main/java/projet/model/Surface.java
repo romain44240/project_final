@@ -15,9 +15,12 @@ public class Surface {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Column(nullable=false)
 	private int capacite;
+
 	private String couleur;
+
 	@OneToOne(mappedBy = "surface")
 	private Reservation reservation;
 	

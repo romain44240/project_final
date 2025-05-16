@@ -20,6 +20,7 @@ import projet.model.Client;
 import projet.model.Compte;
 import projet.model.Employe;
 import projet.request.ReservationRequest;
+import projet.response.FactureResponse;
 import projet.response.ReservationResponse;
 import projet.service.CompteService;
 import projet.service.ReservationService;
@@ -47,6 +48,11 @@ public class ReservationRestController {
 	@PreAuthorize("hasRole('EMPLOYE')")
 	public ReservationResponse getById(@PathVariable Integer id) {
 		return this.reservationService.getById(id);
+	}
+
+	@GetMapping("/{id}/facture")
+	public FactureResponse getFacture(@PathVariable Integer id) {
+		return this.reservationService.getFacture(id);
 	}
 
 	@PostMapping("")

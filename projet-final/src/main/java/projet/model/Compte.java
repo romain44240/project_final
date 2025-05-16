@@ -24,12 +24,16 @@ public abstract class Compte {
 	
 	@Column(length = 25, nullable=false, unique = true)
 	protected String login;
+
 	@Column(length = 100, nullable=false)
 	protected String password;
+
 	@Column(length = 50, nullable=false)
 	protected String nom;
+
 	@Column(length = 50, nullable=false)
 	protected String prenom;
+	
 	@Column(length = 100, nullable=false, unique=true)
 	private String email;
 	

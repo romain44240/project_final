@@ -28,7 +28,6 @@ public class Reservation {
 	@Column(nullable=false)
 	private int nbPersonne;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;

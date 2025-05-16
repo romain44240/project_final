@@ -13,4 +13,7 @@ public interface IDAOAchat extends JpaRepository<Achat,Integer>{
 
     @Query("SELECT a FROM Achat a WHERE a.reservation.client.id = :id")
     List<Achat> getAchatsByClientId(@Param("id") Integer id);
+
+    @Query("SELECT a FROM Achat a WHERE a.reservation.id = :id")
+    List<Achat> getAllAchatsByIdReservation(@Param("id") Integer id);
 }

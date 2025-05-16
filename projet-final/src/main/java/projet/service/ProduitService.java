@@ -70,7 +70,8 @@ public class ProduitService {
 		jeu.setNbMax(jeuRequest.getNbMax());
 		jeu.setDuree(jeuRequest.getDuree());
 		jeu.setEditeur(jeuRequest.getEditeur());
-		jeu.setRegle(jeuRequest.getRegle());
+		jeu.setUrlRegle(jeuRequest.getUrlRegle());
+		jeu.setUrlImage(jeuRequest.getUrlImage());
 		
 		Produit saved = daoProduit.save(jeu);
 	    return ProduitResponse.convert(saved);
@@ -86,7 +87,6 @@ public class ProduitService {
 		return ProduitResponse.convert(saved);
 		
 	}
-
 
 	public ProduitResponse update(Integer id, ProduitRequest produitRequest) {
 		Produit produit = daoProduit.findById(id)

@@ -18,7 +18,9 @@ public class Jeu extends Produit {
 	
 	private String editeur;
 	
-	private String regle; // Lien internet vers les règles
+	private String urlRegle; // Lien internet vers les règles
+
+	private String urlImage; // Lien internet vers l'image du jeu
 	
 	List<Categorie> categories;
 	
@@ -28,24 +30,24 @@ public class Jeu extends Produit {
 	public Jeu() {super();}
 	
 	public Jeu(Integer id, String nom, double prix, int stock, int nbMin, int nbMax, int duree, String editeur,
-			String regle, List<Categorie> categories) {
+			String urlRegle, List<Categorie> categories) {
 		super(id, nom, prix, stock);
 		this.nbMin = nbMin;
 		this.nbMax = nbMax;
 		this.duree = duree;
 		this.editeur = editeur;
-		this.regle = regle;
+		this.urlRegle = urlRegle;
 		this.categories = categories;
 	}
 	
 	public Jeu(String nom, double prix, int stock, int nbMin, int nbMax, int duree, String editeur,
-			String regle, List<Categorie> categories) {
+			String urlRegle, List<Categorie> categories) {
 		super(nom, prix, stock);
 		this.nbMin = nbMin;
 		this.nbMax = nbMax;
 		this.duree = duree;
 		this.editeur = editeur;
-		this.regle = regle;
+		this.urlRegle = urlRegle;
 		this.categories = categories;
 	}
 
@@ -65,8 +67,16 @@ public class Jeu extends Produit {
 		return editeur;
 	}
 
-	public String getRegle() {
-		return regle;
+	public String getUrlRegle() {
+		return urlRegle;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public List<Categorie> getCategories() {
+		return categories;
 	}
 
 	public void setNbMin(int nbMin) {
@@ -85,12 +95,12 @@ public class Jeu extends Produit {
 		this.editeur = editeur;
 	}
 
-	public void setRegle(String regle) {
-		this.regle = regle;
+	public void setUrlRegle(String urlRegle) {
+		this.urlRegle = urlRegle;
 	}
 
-	public List<Categorie> getCategories() {
-		return categories;
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public void setCategories(List<Categorie> categories) {
@@ -99,7 +109,7 @@ public class Jeu extends Produit {
 
 	@Override
 	public String toString() {
-		return "Jeu [nbMin=" + nbMin + ", nbMax=" + nbMax + ", duree=" + duree + ", editeur=" + editeur + ", regle="
-				+ regle + ", id=" + id + ", nom=" + nom + ", prix=" + prix + ", stock=" + stock + "]";
+		return "Jeu [nbMin=" + nbMin + ", nbMax=" + nbMax + ", duree=" + duree + ", editeur=" + editeur + ", urlRegle="
+				+ urlRegle + ", urlImage=" + urlImage + ", id=" + id + ", nom=" + nom + ", prix=" + prix + ", stock=" + stock + "]";
 	}
 }

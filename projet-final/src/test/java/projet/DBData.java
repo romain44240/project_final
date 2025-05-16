@@ -56,7 +56,8 @@ public class DBData {
         jeuRequest1.setNbMax(4);
         jeuRequest1.setDuree(1);
         jeuRequest1.setEditeur("");
-        jeuRequest1.setRegle("");
+        jeuRequest1.setUrlRegle("");
+        jeuRequest1.setUrlImage("");
         
         ProduitResponse jeuResponse1 = produitService.createJeu(jeuRequest1);
         
@@ -68,7 +69,8 @@ public class DBData {
         jeuRequest2.setNbMax(6);
         jeuRequest2.setDuree(2);
         jeuRequest2.setEditeur("Hasbro");
-        jeuRequest2.setRegle("Faites faillite ou devenez riche !");
+        jeuRequest2.setUrlRegle("Faites faillite ou devenez riche !");
+        jeuRequest2.setUrlImage("");
 
         ProduitResponse jeuResponse2 = produitService.createJeu(jeuRequest2);
         
@@ -183,14 +185,14 @@ public class DBData {
 
         
         // --- RESERVATION ---
-        ReservationRequest reservationRequest1 = new ReservationRequest();
-        reservationRequest1.setDebut(LocalDateTime.now());
-        reservationRequest1.setFin(LocalDateTime.now().plusHours(2));
-        reservationRequest1.setNbPersonne(4);
-        reservationRequest1.setIdClient(clientResponse1.getId());; 
-        reservationRequest1.setIdEmploye(employeResponse1.getId());;  
-        reservationRequest1.setIdSurface(surfaceResponse1.getId());
-        reservationRequest1.setIdJeu(jeuResponse1.getId());
+        ReservationRequest reservationRequest = new ReservationRequest();
+        reservationRequest.setDebut(LocalDateTime.now());
+        reservationRequest.setFin(LocalDateTime.now().plusHours(2));
+        reservationRequest.setNbPersonne(4);
+        reservationRequest.setIdClient(clientResponse.getId());
+        reservationRequest.setIdEmploye(employeResponse.getId());
+        reservationRequest.setIdSurface(surfaceResponse1.getId());
+        reservationRequest.setIdJeu(jeuResponse1.getId());
         
         ReservationResponse reservationResponse1 = reservationService.create(reservationRequest1);
         System.out.println("Réservation créée : " + reservationResponse1.getId() + " pour le client " + clientResponse1.getNom());
@@ -200,8 +202,8 @@ public class DBData {
         reservationRequest2.setDebut(LocalDateTime.now());
         reservationRequest2.setFin(LocalDateTime.now().plusHours(2));
         reservationRequest2.setNbPersonne(8);
-        reservationRequest2.setIdClient(clientResponse2.getId());; 
-        reservationRequest2.setIdEmploye(employeResponse2.getId());;  
+        reservationRequest2.setIdClient(clientResponse.getId());
+        reservationRequest2.setIdEmploye(employeResponse.getId());
         reservationRequest2.setIdSurface(surfaceResponse2.getId());
         reservationRequest2.setIdJeu(jeuResponse2.getId());
         

@@ -13,7 +13,8 @@ public class JeuResponse extends ProduitResponse {
 	private int nbMax;
 	private int duree;
 	private String editeur;
-	private String regle;
+	private String urlRegle;
+	private String urlImage;
 	private List<Categorie> categories;
 
 	public JeuResponse() {}
@@ -50,12 +51,20 @@ public class JeuResponse extends ProduitResponse {
 		this.editeur = editeur;
 	}
 
-	public String getRegle() {
-		return regle;
+	public String getUrlRegle() {
+		return urlRegle;
 	}
 
-	public void setRegle(String regle) {
-		this.regle = regle;
+	public void setUrlRegle(String urlRegle) {
+		this.urlRegle = urlRegle;
+	}
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public List<Categorie> getCategories() {

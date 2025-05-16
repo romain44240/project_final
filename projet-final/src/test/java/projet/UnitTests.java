@@ -45,7 +45,8 @@ class UnitTests {
 		jeu.setNbMax(8);
 		jeu.setDuree(30);
 		jeu.setEditeur("Magilano");
-		jeu.setRegle("Lien internet");
+		jeu.setUrlRegle("Lien internet");
+		jeu.setUrlImage("Lien internet");
 		List<Categorie> categories = new ArrayList<Categorie>();
 		categories.add(Categorie.carte);
 		jeu.setCategories(categories);
@@ -121,7 +122,8 @@ class UnitTests {
 		assertEquals(jeuResponse.getNbMax(), jeuRequest.getNbMax());
 		assertEquals(jeuResponse.getDuree(), jeuRequest.getDuree());
 		assertEquals(jeuResponse.getEditeur(), jeuRequest.getEditeur());
-		assertEquals(jeuResponse.getRegle(), jeuRequest.getRegle());
+		assertEquals(jeuResponse.getUrlRegle(), jeuRequest.getUrlRegle());
+		assertEquals(jeuResponse.getUrlImage(), jeuRequest.getUrlImage());
 		assertEquals(jeuResponse.getCategories(), jeuRequest.getCategories());
 	}
 	
