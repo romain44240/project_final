@@ -141,25 +141,78 @@ public class DBData {
 
         // --- SURFACE ---
         SurfaceRequest surfaceRequest1 = new SurfaceRequest();
-        surfaceRequest1.setCapacite(4);
-        surfaceRequest1.setCouleur("rouge");
+        surfaceRequest1.setCapacite(8);
+        surfaceRequest1.setCouleur("jaune");
         SurfaceResponse surfaceResponse1 = surfaceService.create(surfaceRequest1);
         
         SurfaceRequest surfaceRequest2 = new SurfaceRequest();
         surfaceRequest2.setCapacite(8);
-        surfaceRequest2.setCouleur("noir");
+        surfaceRequest2.setCouleur("jaune");
         SurfaceResponse surfaceResponse2 = surfaceService.create(surfaceRequest2);
         
         SurfaceRequest surfaceRequest3 = new SurfaceRequest();
-        surfaceRequest3.setCapacite(2);
-        surfaceRequest3.setCouleur("marron");
+        surfaceRequest3.setCapacite(8);
+        surfaceRequest3.setCouleur("jaune");
         SurfaceResponse surfaceResponse3 = surfaceService.create(surfaceRequest3);
+
+        SurfaceRequest surfaceRequest4 = new SurfaceRequest();
+        surfaceRequest4.setCapacite(8);
+        surfaceRequest4.setCouleur("jaune");
+        SurfaceResponse surfaceResponse4 = surfaceService.create(surfaceRequest4);
+
+        SurfaceRequest surfaceRequest5 = new SurfaceRequest();
+        surfaceRequest5.setCapacite(6);
+        surfaceRequest5.setCouleur("orange");
+        SurfaceResponse surfaceResponse5 = surfaceService.create(surfaceRequest5);
+
+        SurfaceRequest surfaceRequest6 = new SurfaceRequest();
+        surfaceRequest6.setCapacite(6);
+        surfaceRequest6.setCouleur("orange");
+        SurfaceResponse surfaceResponse6 = surfaceService.create(surfaceRequest6);
+
+        SurfaceRequest surfaceRequest7 = new SurfaceRequest();
+        surfaceRequest7.setCapacite(4);
+        surfaceRequest7.setCouleur("orange");
+        SurfaceResponse surfaceResponse7 = surfaceService.create(surfaceRequest7);
+
+        SurfaceRequest surfaceRequest8 = new SurfaceRequest();
+        surfaceRequest8.setCapacite(4);
+        surfaceRequest8.setCouleur("orange");
+        SurfaceResponse surfaceResponse8 = surfaceService.create(surfaceRequest8);
+
+        SurfaceRequest surfaceRequest9 = new SurfaceRequest();
+        surfaceRequest9.setCapacite(4);
+        surfaceRequest9.setCouleur("rouge");
+        SurfaceResponse surfaceResponse9 = surfaceService.create(surfaceRequest9);
+
+        SurfaceRequest surfaceRequest10 = new SurfaceRequest();
+        surfaceRequest10.setCapacite(4);
+        surfaceRequest10.setCouleur("rouge");
+        SurfaceResponse surfaceResponse10 = surfaceService.create(surfaceRequest10);
+
+        SurfaceRequest surfaceRequest11 = new SurfaceRequest();
+        surfaceRequest11.setCapacite(4);
+        surfaceRequest11.setCouleur("rouge");
+        SurfaceResponse surfaceResponse11 = surfaceService.create(surfaceRequest11);
+
+        SurfaceRequest surfaceRequest12 = new SurfaceRequest();
+        surfaceRequest12.setCapacite(4);
+        surfaceRequest12.setCouleur("rouge");
+        SurfaceResponse surfaceResponse12 = surfaceService.create(surfaceRequest12);
         
         System.out.println("Surfaces créées : ");
         System.out.println("Surface 1 - Capacité: " + surfaceResponse1.getCapacite() + ", Couleur: " + surfaceResponse1.getCouleur());
         System.out.println("Surface 2 - Capacité: " + surfaceResponse2.getCapacite() + ", Couleur: " + surfaceResponse2.getCouleur());
         System.out.println("Surface 3 - Capacité: " + surfaceResponse3.getCapacite() + ", Couleur: " + surfaceResponse3.getCouleur());
-
+        System.out.println("Surface 4 - Capacité: " + surfaceResponse4.getCapacite() + ", Couleur: " + surfaceResponse4.getCouleur());
+        System.out.println("Surface 5 - Capacité: " + surfaceResponse5.getCapacite() + ", Couleur: " + surfaceResponse5.getCouleur());
+        System.out.println("Surface 6 - Capacité: " + surfaceResponse6.getCapacite() + ", Couleur: " + surfaceResponse6.getCouleur());
+        System.out.println("Surface 7 - Capacité: " + surfaceResponse7.getCapacite() + ", Couleur: " + surfaceResponse7.getCouleur());
+        System.out.println("Surface 8 - Capacité: " + surfaceResponse8.getCapacite() + ", Couleur: " + surfaceResponse8.getCouleur());
+        System.out.println("Surface 9 - Capacité: " + surfaceResponse9.getCapacite() + ", Couleur: " + surfaceResponse9.getCouleur());
+        System.out.println("Surface 10 - Capacité: " + surfaceResponse10.getCapacite() + ", Couleur: " + surfaceResponse10.getCouleur());
+        System.out.println("Surface 11 - Capacité: " + surfaceResponse11.getCapacite() + ", Couleur: " + surfaceResponse11.getCouleur());
+        System.out.println("Surface 12 - Capacité: " + surfaceResponse12.getCapacite() + ", Couleur: " + surfaceResponse12.getCouleur());
         
         // --- RESERVATION ---
         ReservationRequest reservationRequest = new ReservationRequest();
@@ -176,8 +229,8 @@ public class DBData {
 
         
         ReservationRequest reservationRequest2 = new ReservationRequest();
-        reservationRequest2.setDebut(LocalDateTime.now());
-        reservationRequest2.setFin(LocalDateTime.now().plusHours(2));
+        reservationRequest2.setDebut(LocalDateTime.of(2025,5,21,16,45));
+        reservationRequest2.setFin(LocalDateTime.of(2025,5,21,17,45));
         reservationRequest2.setNbPersonne(8);
         reservationRequest2.setIdClient(clientResponse.getId());
         reservationRequest2.setIdEmploye(employeResponse.getId());

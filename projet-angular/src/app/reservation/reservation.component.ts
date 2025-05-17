@@ -55,8 +55,6 @@ export class ReservationComponent implements OnInit{
   if (this.authForm.invalid) {
     return;
   }
-
-  // Traitement (ex. envoi API ou navigation)
   console.log('Formulaire soumis :', this.authForm.value);
 }
 

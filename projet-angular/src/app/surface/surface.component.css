@@ -64,3 +64,9 @@
   color: white;
   display: inline-block;
 }
+
+.indisponible {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}

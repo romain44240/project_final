@@ -5,24 +5,38 @@
             <input type="date" id="date" name="date" [(ngModel)]="selectedDate" (change)="onDateChange()"
                 [min]="currentDate" class="colorblue">
             <input type="time" id="time" name="time" [disabled]="!selectedDate" [(ngModel)]="selectedTime" step="900"
-                min="11:00" max="23:59" (keydown)="onTimeChange($event)" (input)="onTimeInput($event)" class="colorblue">
-            <input type="number" id="duree" name="duree" [disabled]="!selectedTime" [(ngModel)]="selectedDuree" step="15"
-                min="15" max="480" class="colorblue" (blur)="validateDuree()" placeholder="Durée (en minutes)">
+                min="11:00" max="23:59" (keydown)="onTimeChange($event)" (input)="onTimeInput($event)"
+                class="colorblue">
+            <input type="number" id="duree" name="duree" [disabled]="!selectedTime" [(ngModel)]="selectedDuree"
+                step="15" min="15" max="480" class="colorblue" (blur)="validateDuree()" (change)="validateDuree()"
+                placeholder="Durée (en minutes)">
         </form>
     </div>
 
     <div class="parent h-75 text-center m-3">
-        <div class="div1 table big yellow" (click)="goToReservation(1)" role="button">Table 1</div>
-        <div class="div2 table big yellow" (click)="goToReservation(2)" role="button">Table 2</div>
-        <div class="div3 table big yellow" (click)="goToReservation(3)" role="button">Table 3</div>
-        <div class="div4 table big yellow" (click)="goToReservation(4)" role="button">Table 4</div>
-        <div class="div5 table small orange" (click)="goToReservation(5)" role="button">Table 5</div>
-        <div class="div7 table small orange" (click)="goToReservation(7)" role="button">Table 7</div>
-        <div class="div6 table small orange" (click)="goToReservation(6)" role="button">Table 6</div>
-        <div class="div8 table small orange" (click)="goToReservation(8)" role="button">Table 8</div>
-        <div class="div9 table small red" (click)="goToReservation(9)" role="button">Table 9</div>
-        <div class="div10 table small red" (click)="goToReservation(10)" role="button">Table 10</div>
-        <div class="div11 table small red" (click)="goToReservation(11)" role="button">Table 11</div>
-        <div class="div12 table small red" (click)="goToReservation(12)" role="button">Table 12</div>
+        <div class="div1 table big yellow" [class.indisponible]="!surfaceEstDisponible(1)"
+            (click)="surfaceEstDisponible(1) && goToReservation(1)" role="button">Table 1</div>
+        <div class="div2 table big yellow" [class.indisponible]="!surfaceEstDisponible(2)"
+            (click)="surfaceEstDisponible(2) && goToReservation(2)">Table 2</div>
+        <div class="div3 table big yellow" [class.indisponible]="!surfaceEstDisponible(3)"
+            (click)="surfaceEstDisponible(3) && goToReservation(3)">Table 3</div>
+        <div class="div4 table big yellow" [class.indisponible]="!surfaceEstDisponible(4)"
+            (click)="surfaceEstDisponible(4) && goToReservation(4)">Table 4</div>
+        <div class="div5 table small orange" [class.indisponible]="!surfaceEstDisponible(5)"
+            (click)="surfaceEstDisponible(5) && goToReservation(5)">Table 5</div>
+        <div class="div6 table small orange" [class.indisponible]="!surfaceEstDisponible(6)"
+            (click)="surfaceEstDisponible(6) && goToReservation(6)">Table 6</div>
+        <div class="div7 table small orange" [class.indisponible]="!surfaceEstDisponible(7)"
+            (click)="surfaceEstDisponible(7) && goToReservation(7)">Table 7</div>
+        <div class="div8 table small orange" [class.indisponible]="!surfaceEstDisponible(8)"
+            (click)="surfaceEstDisponible(8) && goToReservation(8)">Table 8</div>
+        <div class="div9 table small red" [class.indisponible]="!surfaceEstDisponible(9)"
+            (click)="surfaceEstDisponible(9) && goToReservation(9)">Table 9</div>
+        <div class="div10 table small red" [class.indisponible]="!surfaceEstDisponible(10)"
+            (click)="surfaceEstDisponible(10) && goToReservation(10)">Table 10</div>
+        <div class="div11 table small red" [class.indisponible]="!surfaceEstDisponible(11)"
+            (click)="surfaceEstDisponible(11) && goToReservation(11)">Table 11</div>
+        <div class="div12 table small red" [class.indisponible]="!surfaceEstDisponible(12)"
+            (click)="surfaceEstDisponible(12) && goToReservation(12)">Table 12</div>
     </div>
 </div>
