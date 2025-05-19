@@ -21,7 +21,7 @@ pipeline {
             agent {
                 docker {
                     image 'node:20'
-                    args '--network host'
+                    args '--network project_final_default'
                 }
             }
             steps {
@@ -37,7 +37,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.9-amazoncorretto-21'
-                    args '--network host -u root'
+                    args '--network project_final_default -u root'
                 }
             }
             steps {
@@ -46,6 +46,31 @@ pipeline {
                 }
             }
         }
+
+        stage('Analyse SonarQube') {
+            agent {
+                docker {
+                    image 'maven:3.9.9-amazoncorretto-21'
+                    args '--network project_final_default -u root'
+                }
+            }
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    unstash 'code'
+            // si on veut faire avec le front
+//             dir('projet-angular') {
+//                 sh '''
+//                 npm install
+//                 npm run test -- --code-coverage --watch=false --browsers=ChromeHeadlessNoSandbox
+//                 '''
+//             }
+                    dir('projet-final') {
+                        sh 'mvn test sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'
+                    }
+                }
+            }
+        }
+
 
         stage('Build Docker Images And Push') {
             steps {

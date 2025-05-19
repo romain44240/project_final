@@ -37,9 +37,9 @@ public class SecurityConfig {
 			auth.requestMatchers("/api/produit/**").permitAll();
 			auth.requestMatchers("/api/reservation/**").permitAll();
 			auth.requestMatchers("/api/surface/**").permitAll();
-			// verifier les permissions !
-			auth.requestMatchers("/api/**").authenticated();
 			auth.requestMatchers("/**").permitAll();
+			auth.requestMatchers("/api/**").authenticated(); // DERNIÈRE RÈGLE
+
 		});
 
 		http.csrf(c -> c.ignoringRequestMatchers("/api/**"));

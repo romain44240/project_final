@@ -6,7 +6,7 @@ import { AuthService } from '../service/auth.service';
   selector: 'app-home',
   standalone: false,
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
   role: string | null | undefined;

@@ -100,98 +100,98 @@ public class DBData {
         consommableRequest2.setPrix(2.50);
         consommableRequest2.setStock(100);
         
-        ProduitResponse consommableResponse2 = produitService.createConsommable(consommableRequest2);
+        produitService.createConsommable(consommableRequest2);
 
         ConsommableRequest consommableRequest3 = new ConsommableRequest();
         consommableRequest3.setNom("Cappuccino");
         consommableRequest3.setPrix(3.00);
         consommableRequest3.setStock(100);
         
-        ProduitResponse consommableResponse3 = produitService.createConsommable(consommableRequest3);
+        produitService.createConsommable(consommableRequest3);
 
         ConsommableRequest consommableRequest4 = new ConsommableRequest();
         consommableRequest4.setNom("Latte Macchiato");
         consommableRequest4.setPrix(3.50);
         consommableRequest4.setStock(100);
         
-        ProduitResponse consommableResponse4 = produitService.createConsommable(consommableRequest4);
+        produitService.createConsommable(consommableRequest4);
 
         ConsommableRequest consommableRequest5 = new ConsommableRequest();
         consommableRequest5.setNom("Thé Vert");
         consommableRequest5.setPrix(2.80);
         consommableRequest5.setStock(100);
         
-        ProduitResponse consommableResponse5 = produitService.createConsommable(consommableRequest5);
+        produitService.createConsommable(consommableRequest5);
 
         ConsommableRequest consommableRequest6 = new ConsommableRequest();
         consommableRequest6.setNom("Thé Noir");
         consommableRequest6.setPrix(2.80);
         consommableRequest6.setStock(100);
         
-        ProduitResponse consommableResponse6 = produitService.createConsommable(consommableRequest6);
+        produitService.createConsommable(consommableRequest6);
 
         ConsommableRequest consommableRequest7 = new ConsommableRequest();
         consommableRequest7.setNom("Chocolat Chaud");
         consommableRequest7.setPrix(3.00);
         consommableRequest7.setStock(100);
         
-        ProduitResponse consommableResponse7 = produitService.createConsommable(consommableRequest7);
+        produitService.createConsommable(consommableRequest7);
 
         ConsommableRequest consommableRequest8 = new ConsommableRequest();
         consommableRequest8.setNom("Jus d'Orange Pressé");
         consommableRequest8.setPrix(3.20);
         consommableRequest8.setStock(100);
         
-        ProduitResponse consommableResponse8 = produitService.createConsommable(consommableRequest8);
+        produitService.createConsommable(consommableRequest8);
 
         ConsommableRequest consommableRequest9 = new ConsommableRequest();
         consommableRequest9.setNom("Smoothie Fraise Banane");
         consommableRequest9.setPrix(4.00);
         consommableRequest9.setStock(100);
         
-        ProduitResponse consommableResponse9 = produitService.createConsommable(consommableRequest9);
+        produitService.createConsommable(consommableRequest9);
 
         ConsommableRequest consommableRequest10 = new ConsommableRequest();
         consommableRequest10.setNom("Limonade Maison");
         consommableRequest10.setPrix(3.50);
         consommableRequest10.setStock(100);
         
-        ProduitResponse consommableResponse10 = produitService.createConsommable(consommableRequest10);
+        produitService.createConsommable(consommableRequest10);
 
         ConsommableRequest consommableRequest11 = new ConsommableRequest();
         consommableRequest11.setNom("Coca Cola");
         consommableRequest11.setPrix(2.50);
         consommableRequest11.setStock(100);
         
-        ProduitResponse consommableResponse11 = produitService.createConsommable(consommableRequest11);
+        produitService.createConsommable(consommableRequest11);
 
         ConsommableRequest consommableRequest12 = new ConsommableRequest();
         consommableRequest12.setNom("Eau Minérale (petite bouteille 33cl)");
         consommableRequest12.setPrix(1.50);
         consommableRequest12.setStock(100);
         
-        ProduitResponse consommableResponse12 = produitService.createConsommable(consommableRequest12);
+        produitService.createConsommable(consommableRequest12);
 
         ConsommableRequest consommableRequest13 = new ConsommableRequest();
         consommableRequest13.setNom("Eau Pétillante (petite bouteille 33cl)");
         consommableRequest13.setPrix(2.00);
         consommableRequest13.setStock(100);
         
-        ProduitResponse consommableResponse13 = produitService.createConsommable(consommableRequest13);
+        produitService.createConsommable(consommableRequest13);
 
         ConsommableRequest consommableRequest14 = new ConsommableRequest();
         consommableRequest14.setNom("Bière Artisanale");
         consommableRequest14.setPrix(4.50);
         consommableRequest14.setStock(100);
         
-        ProduitResponse consommableResponse14 = produitService.createConsommable(consommableRequest14);
+        produitService.createConsommable(consommableRequest14);
 
         ConsommableRequest consommableRequest15 = new ConsommableRequest();
         consommableRequest15.setNom("Vin Blanc (verre 12cl)");
         consommableRequest15.setPrix(4.00);
         consommableRequest15.setStock(100);
         
-        ProduitResponse consommableResponse15 = produitService.createConsommable(consommableRequest15);
+        produitService.createConsommable(consommableRequest15);
         
         
         // --- CLIENT ---
