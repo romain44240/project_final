@@ -20,7 +20,7 @@ export class ConnexionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginCtrl = this.formBuilder.control('', [Validators.required]);
-    this.passwordCtrl = this.formBuilder.control('', [ Validators.required, Validators.minLength(6) ]);
+    this.passwordCtrl = this.formBuilder.control('', [Validators.required, Validators.minLength(6)]);
 
     this.authForm = this.formBuilder.group({
       login: this.loginCtrl,
@@ -46,7 +46,7 @@ export class ConnexionComponent implements OnInit {
     });
   }
 
-  
+
 }
 
 

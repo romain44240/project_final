@@ -3,19 +3,15 @@ export interface Produit {
   nom: string;
   prix: number;
   stock: number;
-  type?: 'consommable' | 'jeu';  
+  type?: 'consommable' | 'jeu';
 }
-
 export interface Consommable extends Produit {
   type: 'consommable';
 }
-
-//TODO à adapter en back
 export interface Categorie {
   id?: number;
   nom: string;
 }
-
 export interface Jeu extends Produit {
   type: 'jeu';
   nbMin: number;
@@ -26,16 +22,14 @@ export interface Jeu extends Produit {
   urlImage: string;
   categories: Categorie[];
 }
-
 export interface Surface {
   id?: number;
   capacite: number;
   couleur?: string;
 }
-
 export interface Reservation {
   id?: number;
-  debut: string; // attention format string -> localDate
+  debut: string;
   fin: string;
   nbPersonne: number;
   client: Client;
@@ -43,7 +37,6 @@ export interface Reservation {
   surface: Surface;
   jeu?: Jeu;
 }
-
 export interface Compte {
   id?: number;
   login: string;
@@ -51,20 +44,17 @@ export interface Compte {
   nom: string;
   prenom: string;
   email: string;
-  dateArrivee: string; // attention format string -> localDate
+  dateArrivee: string; 
 }
-
 export interface Client extends Compte {
   telephone?: string;
   reservations?: Reservation[];
 }
-
 export interface Employe extends Compte {
   poste: string;
   salaire: number;
   reservation?: Reservation;
 }
-
 export interface CompteInfoResponse {
   reservations: Reservation[];
 }

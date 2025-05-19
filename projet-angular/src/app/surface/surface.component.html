@@ -5,8 +5,8 @@
             <input type="date" id="date" name="date" [(ngModel)]="selectedDate" (change)="onDateChange()"
                 [min]="currentDate" class="colorblue">
             <input type="time" id="time" name="time" [disabled]="!selectedDate" [(ngModel)]="selectedTime" step="900"
-                min="11:00" max="23:59" (keydown)="onTimeChange($event)" (input)="onTimeInput($event)" (change)="onTimeInput($event)"
-                class="colorblue">
+                min="11:00" max="23:59" (keydown)="onTimeChange($event)" (input)="onTimeInput($event)"
+                (change)="onTimeInput($event)" class="colorblue">
             <input type="number" id="duree" name="duree" [disabled]="!selectedTime" [(ngModel)]="selectedDuree"
                 step="15" min="15" max="480" class="colorblue" (blur)="validateDuree()" (change)="validateDuree()"
                 placeholder="Durée (en minutes)">

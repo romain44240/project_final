@@ -5,7 +5,7 @@
       <button class="btn btn-secondary me-2" (click)="selectedView = 'products'">Voir les produits</button>
       <button class="btn btn-success" (click)="selectedView = 'reservations'">Voir les réservations</button>
     </div>
-     <div>
+    <div>
       <button class="btn btn-outline-primary me-2" (click)="showClientForm = !showClientForm">
         {{ showClientForm ? 'Masquer Client' : 'Ajouter un client' }}
       </button>
@@ -100,7 +100,7 @@
       </tbody>
     </table>
 
-    
+
     <table *ngSwitchCase="'reservations'" class="table table-bordered table-hover">
       <thead>
         <tr class="text-center">

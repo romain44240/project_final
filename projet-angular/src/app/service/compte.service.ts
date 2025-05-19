@@ -11,7 +11,7 @@ export class CompteService {
 
   private apiUrl: string = `${environment.API_URL}`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCompteInfo(userId: number): Observable<CompteInfoResponse> {
     return this.http.get<CompteInfoResponse>(`${this.apiUrl}/compte/client/${userId}/info`);

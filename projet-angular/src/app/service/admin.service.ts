@@ -11,13 +11,13 @@ export class AdminService {
 
   private apiUrl: string = `${environment.API_URL}`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Compte / Client / Employes 
-  getAllClients(): Observable<Client[]>{
+  getAllClients(): Observable<Client[]> {
     return this.http.get<Client[]>(`${this.apiUrl}/compte/clients`);
   }
-  getAllEmployes(): Observable<Employe[]>{
+  getAllEmployes(): Observable<Employe[]> {
     return this.http.get<Employe[]>(`${this.apiUrl}/compte/employes`);
   }
 
@@ -35,7 +35,7 @@ export class AdminService {
     return this.http.put<Employe>(`${this.apiUrl}/compte/employe/${user.id}`, user);
   }
 
-  deleteClient(id: number) : Observable<void>{
+  deleteClient(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/compte/client/${id}`);
   }
 
@@ -61,7 +61,7 @@ export class AdminService {
   updateConso(product: Consommable): Observable<Consommable> {
     return this.http.put<Consommable>(`${this.apiUrl}/produit/consommable/${product.id}`, product);
   }
-  deleteProduct(id: number) : Observable<void> {
+  deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/produit/${id}`);
   }
 
@@ -69,13 +69,13 @@ export class AdminService {
   getAllReservations(): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(`${this.apiUrl}/reservation`);
   }
-  createReservation(reservation:Reservation):Observable<Reservation>{
+  createReservation(reservation: Reservation): Observable<Reservation> {
     return this.http.post<Reservation>(`${this.apiUrl}/reservation`, reservation);
   }
-  updateReservation(reservation:Reservation):Observable<Reservation>{
+  updateReservation(reservation: Reservation): Observable<Reservation> {
     return this.http.put<Reservation>(`${this.apiUrl}/reservation`, reservation);
   }
-  deleteReservation(id: number) :Observable<void>{
+  deleteReservation(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/reservation/${id}`);
   }
 }

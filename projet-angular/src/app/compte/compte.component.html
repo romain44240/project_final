@@ -18,7 +18,8 @@
                                 <li class="list-group-item">Date : {{ res.debut | date: "dd/MM/YYYY" }}</li>
                                 <li class="list-group-item">Durée : {{ getDuree(res.debut, res.fin) }}</li>
                                 <li class="list-group-item">Nombre de personnes : {{ res.nbPersonne }}</li>
-                                <button type="button" class="list-group-item list-group-item-action" (click)="toggleJeux(res.id!)"> Jeux </button>
+                                <button type="button" class="list-group-item list-group-item-action"
+                                    (click)="toggleJeux(res.id!)"> Jeux </button>
                             </ul>
                         </ng-container>
                     </ng-container>
@@ -31,7 +32,7 @@
 
                     <ng-container *ngIf="compteInfo?.reservations as reservations">
                         <ng-container *ngFor="let res of reservations">
-                            <div *ngIf="selectedReservationId === res.id && res.jeu" class="card-body border-bottom" >
+                            <div *ngIf="selectedReservationId === res.id && res.jeu" class="card-body border-bottom">
                                 <h5 class="card-title text-center"> Jeu de la réservation numéro : {{ res.id }} </h5>
                                 <ul class="list-group">
                                     <li class="list-group-item">{{ res.jeu.nom }}</li>

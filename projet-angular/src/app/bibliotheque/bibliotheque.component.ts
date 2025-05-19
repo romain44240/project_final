@@ -9,20 +9,20 @@ import { AdminService } from '../service/admin.service';
   templateUrl: './bibliotheque.component.html',
   styleUrl: './bibliotheque.component.css'
 })
-export class BibliothequeComponent implements OnInit{
+export class BibliothequeComponent implements OnInit {
 
-  public jeux : Observable<Jeu[]> | undefined;
+  public jeux: Observable<Jeu[]> | undefined;
 
-  public products : Observable<{ jeux: Jeu[];}> = of({ jeux: []});
+  public products: Observable<{ jeux: Jeu[]; }> = of({ jeux: [] });
 
   selectedJeu: any = null;
 
-  constructor(private service: AdminService){}
+  constructor(private service: AdminService) { }
 
   // INIT
   ngOnInit(): void {
     this.jeux = this.service.getAllJeux();
-   
+
 
     this.products = combineLatest({
       jeux: this.jeux,
@@ -36,11 +36,11 @@ export class BibliothequeComponent implements OnInit{
 
 
   onSlideChange(event: any) {
-  const activeIndex = event.to;
-  this.products.subscribe(data => {
-    this.selectedJeu = data.jeux[activeIndex];
-  });
-}
+    const activeIndex = event.to;
+    this.products.subscribe(data => {
+      this.selectedJeu = data.jeux[activeIndex];
+    });
+  }
 
 }
 
