@@ -61,6 +61,8 @@ public class AchatRequest {
 			produit = new Consommable();
 		} else if (achatRequestDTO.getProduitType() == ProduitType.JEU) {
 			produit = new Jeu();
+		}else{
+			throw new IllegalArgumentException("ni un jeu ni un consommable");
 		}
 		
 		produit.setId(achatRequestDTO.getIdProduit());

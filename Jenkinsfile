@@ -4,15 +4,23 @@ pipeline {
     environment {
         DOCKER_IMAGE_FRONT = 'front'
         DOCKER_IMAGE_BACK = 'back'
+        MAVEN_CLEAN_ARGS = 'clean package -Dspring.profiles.active=test'
     }
 
     stages {
+        stage('Cleanup Workspace') {
+            steps {
+                echo '🧹 Suppression du contenu du workspace...'
+                deleteDir() 
+            }
+        }
+
         stage('Checkout') {
             steps {
-                git credentialsId: 'github' ,
+                git credentialsId: 'github',
                     url: 'git@github.com:romain44240/project_final.git',
                     branch: 'main'
-                    
+
                 stash name: 'code', includes: '**/*'
             }
         }
@@ -42,7 +50,9 @@ pipeline {
             }
             steps {
                 dir('projet-final') {
-                    sh 'mvn clean package -Dspring.profiles.active=test'
+                
+                    sh 'mvn clean' 
+                    sh "mvn ${env.MAVEN_CLEAN_ARGS}"
                 }
             }
         }
@@ -57,20 +67,13 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     unstash 'code'
-            // si on veut faire avec le front
-//             dir('projet-angular') {
-//                 sh '''
-//                 npm install
-//                 npm run test -- --code-coverage --watch=false --browsers=ChromeHeadlessNoSandbox
-//                 '''
-//             }
+                    
                     dir('projet-final') {
                         sh 'mvn test sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'
                     }
                 }
             }
         }
-
 
         stage('Build Docker Images And Push') {
             steps {

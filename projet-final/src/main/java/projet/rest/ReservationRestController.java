@@ -69,7 +69,7 @@ public class ReservationRestController {
 		// authentication.getPrincipal() renvoie le login (String) car CompteService.loadUserByUsername() retourne un User
 		Compte compte = compteService.getByLogin((String) authentication.getPrincipal()); // login unique
 		
-		if(compte instanceof Employe || (compte instanceof Client && compte.getId() == dto.getIdClient())) {
+		if(compte instanceof Employe || (compte instanceof Client && compte.getId().equals(dto.getIdClient()))) {
 			return this.reservationService.update(id, dto);
 		} else {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'avez pas les droits pour faire cela");
@@ -82,7 +82,7 @@ public class ReservationRestController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Compte compte = compteService.getByLogin((String) authentication.getPrincipal());
 		
-		if(compte instanceof Employe || (compte instanceof Client && compte.getId() == reservationService.getById(id).getIdClient())) {
+		if(compte instanceof Employe || (compte instanceof Client && compte.getId().equals(reservationService.getById(id).getIdClient()))) {
 			this.reservationService.delete(id);
 		} else {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Vous n'avez pas les droits pour faire cela");

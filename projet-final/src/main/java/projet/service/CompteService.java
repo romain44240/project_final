@@ -112,7 +112,7 @@ public class CompteService implements UserDetailsService {
     }
     
     public List<ReservationResponse> getReservationsByClientId(Integer id){
-    	Compte compte = (Client) daoCompte.findById(id).get();
+    	Compte compte = (Client) daoCompte.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Réservation d'un client non trouvé avec id : " + id));
     	
     	if(!(compte instanceof Client)) {
     		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Le compte avec l'id " + id + "n'est pas un client.");
