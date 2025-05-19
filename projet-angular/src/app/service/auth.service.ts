@@ -15,14 +15,14 @@ export class AuthService {
 
   public token: string | null = null;
   public id: number | null = null;
-  public timer: Date;
+  public timer: String; // format LOCALSTRING utilisé
   public role$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
 
   private API_URL: string = `${environment.API_URL}`;
 
   constructor(private http: HttpClient, private router:Router) {
     this.token = sessionStorage.getItem('token');
-    this.timer = new Date();
+    this.timer = new Date().toLocaleString();
     if (this.token) {
       const decoded = this.decodeToken(this.token);
       this.role$.next(decoded?.roles?.[0] ?? null);
@@ -37,11 +37,12 @@ export class AuthService {
       tap(resp => {
         this.token = resp.token;
         this.id = resp.id;
-        this.timer = new Date(resp.timer);
+        this.timer = new Date(resp.timer).toLocaleString();
+        console.log(this.timer);
 
         sessionStorage.setItem('token', this.token);
         sessionStorage.setItem('id',this.id.toString());
-        sessionStorage.setItem('timer', this.timer.toISOString());
+        sessionStorage.setItem('timer', this.timer.toLocaleString());
 
         const decoded = this.decodeToken(resp.token);
         const role = decoded?.roles?.[0] ?? null;
@@ -76,10 +77,11 @@ export class AuthService {
   }
 
   public isTokenExpired(): boolean {
-    if (!this.timer){
+    const timerString = sessionStorage.getItem("timer"); 
+    if (!timerString){
       return true;
     }  
-    return new Date() > this.timer;
+    return new Date() > new Date(timerString);
   }
 
 
