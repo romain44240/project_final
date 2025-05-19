@@ -2,7 +2,6 @@ package projet.rest;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,6 @@ public class AchatRestController {
 
 	@PostMapping("")
 	@PreAuthorize("hasRole('EMPLOYE')")
-	@ResponseStatus(HttpStatus.CREATED)
 	public AchatResponse create(@RequestBody AchatRequest dto) {
 		return achatService.create(dto);
 	}
@@ -47,7 +45,6 @@ public class AchatRestController {
 
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('EMPLOYE')")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Integer id) {
 		achatService.delete(id);
 	}
