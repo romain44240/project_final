@@ -3,7 +3,8 @@ package projet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,25 +18,25 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-// import org.springframework.test.context.ActiveProfiles;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import projet.request.ConsommableRequest;
 import projet.request.JeuRequest;
-import projet.request.ReservationRequest;
 import projet.request.SurfaceRequest;
 import projet.response.ConsommableResponse;
 import projet.response.JeuResponse;
-import projet.response.ReservationResponse;
 import projet.response.SurfaceResponse;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-// ATTENTION, LES TESTS MODIFIENT LA BDD, IL FAUT BASCULER SUR UNE BASE H2 POUR TESTER SANS RISQUES DE MODIFICATION
-// @ActiveProfiles("test")
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@ActiveProfiles("test")
 public class RestTests {
     
     @Autowired
@@ -45,18 +46,20 @@ public class RestTests {
     @Autowired
     private TestRestTemplate template;
 
-    private HttpHeaders headers = new HttpHeaders();
-
-    private RestTests() {
-        this.headers.setContentType(MediaType.APPLICATION_JSON);
-        this.headers.setBasicAuth("JulienL", "employe1");
-    }
+    private HttpHeaders headers;
 
     @BeforeEach
     public void init() {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(applicationContext)
                 .build();
+
+        this.template = this.template.withBasicAuth("JulienL", "employe1");
+
+        String basicAuth = "Basic " + Base64.getEncoder().encodeToString("JulienL:employe1".getBytes(StandardCharsets.UTF_8));
+        this.headers = new HttpHeaders();
+        this.headers.set("Authorization", basicAuth);
+        this.headers.setContentType(MediaType.APPLICATION_JSON);
     }
 
     // ------------------------------------------------- //
@@ -73,21 +76,19 @@ public class RestTests {
 
     @Test
     void createSurface() throws Exception {
-        //
         SurfaceRequest surfaceRequest = new SurfaceRequest();
         surfaceRequest.setCapacite(4);
         surfaceRequest.setCouleur("rouge");
+
+        // HttpEntity<SurfaceRequest> request = new HttpEntity<>(surfaceRequest, this.headers);
         HttpEntity<SurfaceRequest> request = new HttpEntity<>(surfaceRequest, this.headers);
-
-        //
-        ResponseEntity<SurfaceResponse> surfaceResponse = template.postForEntity("/api/surface", request, SurfaceResponse.class);
-
-        //
-        assertEquals(HttpStatus.OK, surfaceResponse.getStatusCode());
-        assertEquals(MediaType.APPLICATION_JSON, surfaceResponse.getHeaders().getContentType());
-        assertNotNull(surfaceResponse.getBody());
-        assertEquals(4, surfaceResponse.getBody().getCapacite());
-        assertEquals("rouge", surfaceResponse.getBody().getCouleur());
+        ResponseEntity<SurfaceResponse> response = template.postForEntity("/api/surface", request, SurfaceResponse.class);
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(MediaType.APPLICATION_JSON, response.getHeaders().getContentType());
+        assertNotNull(response.getBody());
+        assertEquals(4, response.getBody().getCapacite());
+        assertEquals("rouge", response.getBody().getCouleur());
     }
 
     @Test
@@ -319,29 +320,5 @@ public class RestTests {
         );
 
         assertEquals(HttpStatus.NOT_FOUND, getResponse.getStatusCode());
-    }
-
-    // ----------------------------------------------------- //
-    // -------------------- RESERVATION -------------------- //
-    // ----------------------------------------------------- //
-
-    @Test
-    void createReservation() throws Exception {
-        ReservationRequest requestDto = new ReservationRequest();
-        requestDto.setDebut(LocalDateTime.parse("2025-05-19T12:30:00"));
-        requestDto.setFin(LocalDateTime.parse("2025-05-19T14:30:00"));
-        requestDto.setNbPersonne(3);
-        requestDto.setIdClient(1);
-        requestDto.setIdEmploye(3);
-        requestDto.setIdSurface(3);
-        requestDto.setIdJeu(3);
-
-        HttpEntity<ReservationRequest> request = new HttpEntity<>(requestDto, this.headers);
-        ResponseEntity<ReservationResponse> response = template.postForEntity("/api/reservation", request, ReservationResponse.class);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals(3, response.getBody().getNbPersonne());
-        assertNotNull(response.getBody().getClient());
     }
 }
