@@ -8,10 +8,10 @@ import { AuthService } from '../service/auth.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
-  role : string | null | undefined;
-  
-  constructor(public authService: AuthService,private router: Router, private route: ActivatedRoute) { }
+export class HomeComponent implements OnInit {
+  role: string | null | undefined;
+
+  constructor(public authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.role = this.authService.getRole();

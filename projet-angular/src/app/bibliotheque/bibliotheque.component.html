@@ -1,16 +1,11 @@
-<!--Todo : Ajouter une boucle pour automatiser-->
-
 <div *ngIf="products | async as dataProduct" class="container my-4">
   <div class="d-flex justify-content-center">
-    <div id="carouselJeu" class="carousel slide w-50 h-50 carousel-fade" data-bs-ride="carousel"
-      (slide.bs.carousel)="onSlideChange($event)">
+    <div id="carouselJeu" class="carousel slide w-50 h-50 carousel-fade" (slide.bs.carousel)="onSlideChange($event)">
       <div class="carousel-inner">
-        <div *ngFor="let jeu of dataProduct.jeux; let i = index" class="carousel-item active image-container"
-          [class.active]="i===0">
+        <div *ngFor="let jeu of dataProduct.jeux; let i = index" class="carousel-item" [class.active]="i === 0">
           <img [src]="jeu.urlImage" class="d-block w-100" alt="Logo du Catan">
         </div>
       </div>
-
 
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselJeu" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

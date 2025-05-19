@@ -10,7 +10,7 @@ import { AuthRequest } from '../auth-request';
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.css'
 })
-export class InscriptionComponent implements OnInit{
+export class InscriptionComponent implements OnInit {
   public authForm!: FormGroup;
 
   public loginCtrl!: FormControl;
@@ -22,13 +22,13 @@ export class InscriptionComponent implements OnInit{
 
   submitted = false;
 
-  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder) { 
+  constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.emailCtrl = this.formBuilder.control('', [Validators.required, Validators.email]);
     this.loginCtrl = this.formBuilder.control('', Validators.required);
-    this.passwordCtrl = this.formBuilder.control('', [ Validators.required, Validators.minLength(6) ]);
+    this.passwordCtrl = this.formBuilder.control('', [Validators.required, Validators.minLength(6)]);
     this.nomCtrl = this.formBuilder.control('', Validators.required);
     this.prenomCtrl = this.formBuilder.control('', Validators.required);
     this.telephoneCtrl = this.formBuilder.control('', [Validators.required, Validators.pattern('^(\\+?\\d{1,3})?[\\s.-]?(\\d{1,4}[\\s.-]?){1,4}\\d{1,4}$')]);
@@ -45,12 +45,11 @@ export class InscriptionComponent implements OnInit{
 
   public authenticate() {
     this.submitted = true;
-    if(this.authForm.invalid){
+    if (this.authForm.invalid) {
       return;
     }
     this.service.subscribe(new AuthRequest(this.authForm.value.login, this.authForm.value.password));
 
-    // FIXME : Si l'auth échoue, on est quand même redirigé
-    this.router.navigate([ '/home' ]);
+    this.router.navigate(['/home']);
   }
 }

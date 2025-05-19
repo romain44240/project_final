@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../environment';
-import { AdminService } from '../service/admin.service';
-import { Router } from '@angular/router';
-import { combineLatest, Observable, of } from 'rxjs';
-import { Client, CompteInfoResponse, Consommable, Employe, Jeu, Reservation } from '../models';
-import { FormBuilder } from '@angular/forms';
+import { CompteInfoResponse } from '../models';
 import { AuthService } from '../service/auth.service';
 import { CompteService } from '../service/compte.service';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-compte',
@@ -52,7 +46,7 @@ export class CompteComponent implements OnInit {
     const dateDebut = new Date(debut);
     const dateFin = new Date(fin);
 
-    const diffMs = dateFin.getTime() - dateDebut.getTime(); // différence en millisecondes
+    const diffMs = dateFin.getTime() - dateDebut.getTime();
     const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
     const heures = Math.floor(diffMinutes / 60);

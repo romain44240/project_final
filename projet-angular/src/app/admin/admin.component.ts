@@ -11,20 +11,20 @@ import { combineLatest, Observable, of } from 'rxjs';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent {
-  public selectedView = 'users'; 
+  public selectedView = 'users';
   public showClientForm = false;
   public showEmployeForm = false;
   public showJeuForm = false;
   public showConsoForm = false;
 
-  public clients : Observable<Client[]> | undefined;
-  public employes : Observable<Employe[]> | undefined;
-  public jeux : Observable<Jeu[]> | undefined;
-  public conso : Observable<Consommable[]> | undefined;
-  public reservations : Observable<Reservation[]> | undefined;
+  public clients: Observable<Client[]> | undefined;
+  public employes: Observable<Employe[]> | undefined;
+  public jeux: Observable<Jeu[]> | undefined;
+  public conso: Observable<Consommable[]> | undefined;
+  public reservations: Observable<Reservation[]> | undefined;
 
   public comptes: Observable<{ clients: Client[]; employes: Employe[]; }> = of({ clients: [], employes: [] });
-  public products : Observable<{ jeux: Jeu[]; consos: Consommable[]; }> = of({ jeux: [], consos: [] });
+  public products: Observable<{ jeux: Jeu[]; consos: Consommable[]; }> = of({ jeux: [], consos: [] });
 
 
   // formulaire
@@ -33,7 +33,7 @@ export class AdminComponent {
   public jeuForm!: FormGroup;
   public consoForm!: FormGroup;
 
-  constructor(private service: AdminService, private formBuilder: FormBuilder){}
+  constructor(private service: AdminService, private formBuilder: FormBuilder) { }
 
   // INIT
   ngOnInit(): void {
@@ -68,110 +68,110 @@ export class AdminComponent {
     });
 
     this.employeForm = this.formBuilder.group({
-      id:null,
+      id: null,
       login: '',
       password: '',
       nom: '',
       prenom: '',
       dateArrivee: new Date().toISOString().substring(0, 10),
       email: '',
-      salaire : 0.0,
+      salaire: 0.0,
       poste: ''
     });
 
     this.jeuForm = this.formBuilder.group({
-      id:null,
+      id: null,
       nom: '',
       prix: 0.0,
-      nbMin : 0,
-      nbMax : 0,
-      duree : 0,
-      urlRegle : '',
-      urlImage : '',
-      categories : [],
-      stock : 1,
+      nbMin: 0,
+      nbMax: 0,
+      duree: 0,
+      urlRegle: '',
+      urlImage: '',
+      categories: [],
+      stock: 1,
       editeur: '',
-      type: 'jeu' 
+      type: 'jeu'
     });
 
     this.consoForm = this.formBuilder.group({
-      id:null,
+      id: null,
       nom: '',
       prix: 0.0,
       stock: 0,
-      type:'consommable'
+      type: 'consommable'
     });
   }
 
   // Edition et suppression
   editClient(client: Client): void {
-    if(!this.showClientForm){
+    if (!this.showClientForm) {
       this.showClientForm = true;
     }
     this.clientForm.patchValue(client);
   }
 
   editEmploye(employe: Employe): void {
-    if(!this.showEmployeForm){
+    if (!this.showEmployeForm) {
       this.showEmployeForm = true;
     }
     this.employeForm.patchValue(employe);
   }
 
   editJeu(jeu: Jeu): void {
-    if(!this.showJeuForm){
+    if (!this.showJeuForm) {
       this.showJeuForm = true;
     }
     this.jeuForm.patchValue(jeu);
   }
 
-  editConso(conso : Consommable){
-    if(!this.showConsoForm){
+  editConso(conso: Consommable) {
+    if (!this.showConsoForm) {
       this.showConsoForm = true;
     }
     this.consoForm.patchValue(conso);
   }
 
   deleteClient(id: number): void {
-    if(id != 0){
-      if(confirm("Suppression d'un client ?")){
+    if (id != 0) {
+      if (confirm("Suppression d'un client ?")) {
         this.service.deleteClient(id).subscribe({
           next: () => {
-            this.clients = this.service.getAllClients(); 
+            this.clients = this.service.getAllClients();
             this.loadClients();
           }
         });
       }
-    }else{
+    } else {
       alert("id 0 n'est pas possible");
     }
   }
 
   deleteProduct(productId: number): void {
-    if(productId != 0){
-      if(confirm("Suppresion d'un produit ?")){
+    if (productId != 0) {
+      if (confirm("Suppresion d'un produit ?")) {
         this.service.deleteProduct(productId).subscribe({
           next: () => {
-            this.loadProduits(); 
+            this.loadProduits();
           }
         });
       }
-    }else{
+    } else {
       alert("id 0 n'est pas possible");
     }
-    
+
   }
-  
+
   deleteReservation(reservationId: number): void {
-    if(reservationId != 0){
-      if(confirm("Suppresion d'une reservation ?")){
+    if (reservationId != 0) {
+      if (confirm("Suppresion d'une reservation ?")) {
         this.service.deleteReservation(reservationId).subscribe({
           next: () => {
-            this.loadReservations(); 
+            this.loadReservations();
           }
         });
       }
-    }else{
+    } else {
       alert("id 0 n'est pas possible");
     }
   }

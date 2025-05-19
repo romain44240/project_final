@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { Employe, Jeu, Reservation, ReservationRequest, Surface } from '../models';
+import { Employe, Jeu, ReservationRequest } from '../models';
 import { ReservationService } from '../service/reservation.service';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,7 +27,7 @@ export class ReservationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private reservationService: ReservationService,
-   private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -69,18 +69,18 @@ export class ReservationComponent implements OnInit {
   }
 
   getFinHoraire(date: string, heure: string, duree: number): string {
-  const [h, m] = heure.split(':').map(Number);
-  const d = new Date(Date.UTC(
-    parseInt(date.substring(0, 4)),  
-    parseInt(date.substring(5, 7)) - 1,  
-    parseInt(date.substring(8, 10)),  
-    h,  
-    m   
-  ));
-  
-  d.setMinutes(d.getMinutes() + duree);
-  return d.toISOString().slice(0, 16);
-}
+    const [h, m] = heure.split(':').map(Number);
+    const d = new Date(Date.UTC(
+      parseInt(date.substring(0, 4)),
+      parseInt(date.substring(5, 7)) - 1,
+      parseInt(date.substring(8, 10)),
+      h,
+      m
+    ));
+
+    d.setMinutes(d.getMinutes() + duree);
+    return d.toISOString().slice(0, 16);
+  }
 
   loadAvailableEmployees(debut: string, fin: string): void {
     this.reservationService.getEmployesDisponibles(debut, fin).subscribe({
@@ -111,9 +111,9 @@ export class ReservationComponent implements OnInit {
         this.router.navigate(['/']);
 
         this.snackBar.open('Votre réservation a bien été prise en compte', 'Fermer', {
-          duration: 3000, 
-          verticalPosition: 'bottom', 
-          horizontalPosition: 'center'  
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center'
         });
       },
       error: (err) => {

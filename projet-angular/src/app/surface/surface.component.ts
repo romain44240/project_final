@@ -26,8 +26,8 @@ export class SurfaceComponent implements OnInit {
   ngOnInit(): void {
     const today = new Date();
     this.currentDate = today.toISOString().split('T')[0];
-    this.selectedDate= this.currentDate;
-    
+    this.selectedDate = this.currentDate;
+
     this.checkDisponibilites();
   }
 

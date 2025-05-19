@@ -5,7 +5,6 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../environment';
 import { AuthRequest } from '../auth-request';
 import { AuthResponse } from '../auth-response';
-import { Client } from '../models';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -20,7 +19,7 @@ export class AuthService {
 
   private API_URL: string = `${environment.API_URL}`;
 
-  constructor(private http: HttpClient, private router:Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.token = sessionStorage.getItem('token');
     this.timer = new Date().toLocaleString();
     if (this.token) {
@@ -40,7 +39,7 @@ export class AuthService {
         this.timer = new Date(resp.timer).toLocaleString();
 
         sessionStorage.setItem('token', this.token);
-        sessionStorage.setItem('id',this.id.toString());
+        sessionStorage.setItem('id', this.id.toString());
         sessionStorage.setItem('timer', this.timer.toLocaleString());
 
         const decoded = this.decodeToken(resp.token);
@@ -56,7 +55,7 @@ export class AuthService {
       login: authRequest.login,
       password: authRequest.password
     }).subscribe(() => {
-      this.authenticate(authRequest).subscribe(); 
+      this.authenticate(authRequest).subscribe();
     });
   }
 
@@ -68,7 +67,7 @@ export class AuthService {
     if (this.isTokenExpired()) {
       alert('Votre session a expiré, veuillez vous reconnecter.');
       this.logout();
-      this.router.navigate(['/connexion']); 
+      this.router.navigate(['/connexion']);
       return false;
     }
 
@@ -76,10 +75,10 @@ export class AuthService {
   }
 
   public isTokenExpired(): boolean {
-    const timerString = sessionStorage.getItem("timer"); 
-    if (!timerString){
+    const timerString = sessionStorage.getItem("timer");
+    if (!timerString) {
       return true;
-    }  
+    }
     return new Date() > new Date(timerString);
   }
 
