@@ -89,18 +89,109 @@ public class DBData {
         
         // Consommables
         ConsommableRequest consommableRequest1 = new ConsommableRequest();
-        consommableRequest1.setNom("Pepsi");
-        consommableRequest1.setPrix(3.50);
+        consommableRequest1.setNom("Café Expresso");
+        consommableRequest1.setPrix(2.00);
         consommableRequest1.setStock(100);
         
         ProduitResponse consommableResponse1 = produitService.createConsommable(consommableRequest1);
         
         ConsommableRequest consommableRequest2 = new ConsommableRequest();
-        consommableRequest2.setNom("Eau pétillante");
-        consommableRequest2.setPrix(2.0);
+        consommableRequest2.setNom("Café Long");
+        consommableRequest2.setPrix(2.50);
         consommableRequest2.setStock(100);
         
-        produitService.createConsommable(consommableRequest2);
+        ProduitResponse consommableResponse2 = produitService.createConsommable(consommableRequest2);
+
+        ConsommableRequest consommableRequest3 = new ConsommableRequest();
+        consommableRequest3.setNom("Cappuccino");
+        consommableRequest3.setPrix(3.00);
+        consommableRequest3.setStock(100);
+        
+        ProduitResponse consommableResponse3 = produitService.createConsommable(consommableRequest3);
+
+        ConsommableRequest consommableRequest4 = new ConsommableRequest();
+        consommableRequest4.setNom("Latte Macchiato");
+        consommableRequest4.setPrix(3.50);
+        consommableRequest4.setStock(100);
+        
+        ProduitResponse consommableResponse4 = produitService.createConsommable(consommableRequest4);
+
+        ConsommableRequest consommableRequest5 = new ConsommableRequest();
+        consommableRequest5.setNom("Thé Vert");
+        consommableRequest5.setPrix(2.80);
+        consommableRequest5.setStock(100);
+        
+        ProduitResponse consommableResponse5 = produitService.createConsommable(consommableRequest5);
+
+        ConsommableRequest consommableRequest6 = new ConsommableRequest();
+        consommableRequest6.setNom("Thé Noir");
+        consommableRequest6.setPrix(2.80);
+        consommableRequest6.setStock(100);
+        
+        ProduitResponse consommableResponse6 = produitService.createConsommable(consommableRequest6);
+
+        ConsommableRequest consommableRequest7 = new ConsommableRequest();
+        consommableRequest7.setNom("Chocolat Chaud");
+        consommableRequest7.setPrix(3.00);
+        consommableRequest7.setStock(100);
+        
+        ProduitResponse consommableResponse7 = produitService.createConsommable(consommableRequest7);
+
+        ConsommableRequest consommableRequest8 = new ConsommableRequest();
+        consommableRequest8.setNom("Jus d'Orange Pressé");
+        consommableRequest8.setPrix(3.20);
+        consommableRequest8.setStock(100);
+        
+        ProduitResponse consommableResponse8 = produitService.createConsommable(consommableRequest8);
+
+        ConsommableRequest consommableRequest9 = new ConsommableRequest();
+        consommableRequest9.setNom("Smoothie Fraise Banane");
+        consommableRequest9.setPrix(4.00);
+        consommableRequest9.setStock(100);
+        
+        ProduitResponse consommableResponse9 = produitService.createConsommable(consommableRequest9);
+
+        ConsommableRequest consommableRequest10 = new ConsommableRequest();
+        consommableRequest10.setNom("Limonade Maison");
+        consommableRequest10.setPrix(3.50);
+        consommableRequest10.setStock(100);
+        
+        ProduitResponse consommableResponse10 = produitService.createConsommable(consommableRequest10);
+
+        ConsommableRequest consommableRequest11 = new ConsommableRequest();
+        consommableRequest11.setNom("Coca Cola");
+        consommableRequest11.setPrix(2.50);
+        consommableRequest11.setStock(100);
+        
+        ProduitResponse consommableResponse11 = produitService.createConsommable(consommableRequest11);
+
+        ConsommableRequest consommableRequest12 = new ConsommableRequest();
+        consommableRequest12.setNom("Eau Minérale (petite bouteille 33cl)");
+        consommableRequest12.setPrix(1.50);
+        consommableRequest12.setStock(100);
+        
+        ProduitResponse consommableResponse12 = produitService.createConsommable(consommableRequest12);
+
+        ConsommableRequest consommableRequest13 = new ConsommableRequest();
+        consommableRequest13.setNom("Eau Pétillante (petite bouteille 33cl)");
+        consommableRequest13.setPrix(2.00);
+        consommableRequest13.setStock(100);
+        
+        ProduitResponse consommableResponse13 = produitService.createConsommable(consommableRequest13);
+
+        ConsommableRequest consommableRequest14 = new ConsommableRequest();
+        consommableRequest14.setNom("Bière Artisanale");
+        consommableRequest14.setPrix(4.50);
+        consommableRequest14.setStock(100);
+        
+        ProduitResponse consommableResponse14 = produitService.createConsommable(consommableRequest14);
+
+        ConsommableRequest consommableRequest15 = new ConsommableRequest();
+        consommableRequest15.setNom("Vin Blanc (verre 12cl)");
+        consommableRequest15.setPrix(4.00);
+        consommableRequest15.setStock(100);
+        
+        ProduitResponse consommableResponse15 = produitService.createConsommable(consommableRequest15);
         
         
         // --- CLIENT ---
@@ -135,9 +226,21 @@ public class DBData {
         employeRequest.setEmail("jl@gmail.com");
         employeRequest.setDateArrivee(LocalDate.now());
         employeRequest.setPoste("Responsable des stocks");
-        employeRequest.setSalaire(1500);
+        employeRequest.setSalaire(2000);
         EmployeResponse employeResponse = compteService.createEmploye(employeRequest);
         System.out.println("Employé créé : " + employeResponse.getPrenom() + " " + employeResponse.getNom());
+
+        EmployeRequest employeRequest2 = new EmployeRequest();
+        employeRequest2.setLogin("YannisV");
+        employeRequest2.setPassword("employe2");
+        employeRequest2.setNom("Voynnet");
+        employeRequest2.setPrenom("Yannis");
+        employeRequest2.setEmail("yv@gmail.com");
+        employeRequest2.setDateArrivee(LocalDate.of(2025,2,17));
+        employeRequest2.setPoste("GameMaster");
+        employeRequest2.setSalaire(1500);
+        EmployeResponse employeResponse2 = compteService.createEmploye(employeRequest2);
+        System.out.println("Employé créé : " + employeResponse2.getPrenom() + " " + employeResponse2.getNom());
 
         // --- SURFACE ---
         SurfaceRequest surfaceRequest1 = new SurfaceRequest();
