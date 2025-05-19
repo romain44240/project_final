@@ -7,7 +7,6 @@ import projet.model.Reservation;
 
 public class ReservationRequest {
 
-	private Integer id;
 	private LocalDateTime debut;
 	private LocalDateTime fin;
 	private int nbPersonne;
@@ -17,14 +16,6 @@ public class ReservationRequest {
 	private Integer idJeu;
 
 	public ReservationRequest() {}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public LocalDateTime getDebut() {
 		return debut;
