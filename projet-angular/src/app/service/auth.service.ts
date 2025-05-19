@@ -38,7 +38,6 @@ export class AuthService {
         this.token = resp.token;
         this.id = resp.id;
         this.timer = new Date(resp.timer).toLocaleString();
-        console.log(this.timer);
 
         sessionStorage.setItem('token', this.token);
         sessionStorage.setItem('id',this.id.toString());
