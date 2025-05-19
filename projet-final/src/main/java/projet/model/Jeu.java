@@ -2,8 +2,11 @@ package projet.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -25,8 +28,8 @@ public class Jeu extends Produit {
 	// @Convert
 	private List<Categorie> categories;
 	
-	@OneToOne(mappedBy = "jeu")
-	private Reservation reservation;
+	@OneToMany(mappedBy = "jeu", fetch = FetchType.LAZY)
+	private List<Reservation> reservations;
 	
 	public Jeu() {super();}
 	

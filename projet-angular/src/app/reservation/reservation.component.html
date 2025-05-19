@@ -6,31 +6,51 @@
         </div>
         <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
 
-            <div class="text-center mb-3">
-                <input class="rounded w-75" type="date" formControlName="date" placeholder="Date" />
-            </div>
+            <fieldset disabled>
+                <div class="text-center mb-3">
+                    <input class="rounded w-75" type="date" formControlName="date" placeholder="Date" />
+                </div>
+
+                <div class="text-center mb-3">
+                    <input class="rounded w-75" type="time" formControlName="heure" placeholder="Heure" />
+                </div>
+
+                <div class="text-center mb-3">
+                    <input class="rounded w-75" type="number" formControlName="duree" placeholder="Durée (en heures)" />
+                </div>
+
+                <div class="text-center mb-3">
+                    <input class="rounded w-75" type="number" formControlName="table" placeholder="Table / Surface" />
+                </div>
+            </fieldset>
 
             <div class="text-center mb-3">
-                <input class="rounded w-75" type="time" formControlName="heure" placeholder="Heure" />
-            </div>
-
-            <div class="text-center mb-3">
-                <input class="rounded w-75" type="number" formControlName="duree" placeholder="Durée (en heures)" />
-            </div>
-
-            <div class="text-center mb-3">
-                <input class="rounded w-75" type="number" formControlName="table" placeholder="Table / Surface" />
-            </div>
-
-            <div class="text-center mb-3">
+                <label for="capacite" class="form-label d-block mb-1">Nombre de personnes</label>
                 <input class="rounded w-75" type="number" min="1" [attr.max]="capaciteMax" formControlName="capacite"
                     placeholder="Nombre de personnes" />
             </div>
 
-            <div class="text-center mb-3">
-                <input type="checkbox" formControlName="gamemaster" id="gamemaster" />
-                <label for="gamemaster">Souhaitez-vous un GameMaster ?</label>
+            <div *ngIf="employesDisponibles.length > 0" class="text-center mb-3">
+                <label for="employeSelect" class="form-label d-block mb-1">Sélectionnez un employé disponible</label>
+                <select id="employeSelect" class="form-label" formControlName="employe">
+                    <option value="">-- Aucun employé sélectionné --</option>
+                    <option *ngFor="let emp of employesDisponibles" [value]="emp.id">
+                        {{ emp.prenom }} {{ emp.nom }} – {{ emp.poste }}
+                    </option>
+                </select>
             </div>
+
+            <div class="text-center mb-3">
+                <label for="jeuxSelect" class="form-label d-block mb-1">Sélectionnez un jeu disponible</label>
+                <select id="jeuxSelect" class="form-label" formControlName="jeux">
+                    <option value="">-- Aucun jeu sélectionné --</option>
+                    <option *ngFor="let jeu of jeux | async" [value]="jeu.id">
+                        {{ jeu.nom }}
+                    </option>
+                </select>
+            </div>
+
+
 
             <div class="text-center mb-3">
                 <input type="submit" class="btn btn-primary rounded w-75" value="Réserver" />

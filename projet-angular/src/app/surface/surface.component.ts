@@ -68,6 +68,8 @@ export class SurfaceComponent implements OnInit {
       const newMinutes = String(totalMinutes % 60).padStart(2, '0');
       this.selectedTime = `${newHours}:${newMinutes}`;
     }
+
+    this.checkDisponibilites();
   }
 
   onTimeInput(event: any): void {
@@ -131,8 +133,6 @@ export class SurfaceComponent implements OnInit {
       }
     })
   }
-
-
 
   checkDisponibilites(): void {
     if (!this.selectedDate || !this.selectedTime || !this.selectedDuree) {

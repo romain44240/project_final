@@ -15,6 +15,7 @@ import { SurfaceComponent } from './surface/surface.component';
 import { CarteComponent } from './carte/carte.component';
 import { AdminComponent } from './admin/admin.component';
 import { authInterceptor } from './auth.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [ // Déclaration dans notre module de tout ce qui est utilisé dans notre module principal
@@ -27,7 +28,8 @@ import { authInterceptor } from './auth.interceptor';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
 
   providers: [ // Tous les services injectables

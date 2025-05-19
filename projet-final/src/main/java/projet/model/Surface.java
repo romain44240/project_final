@@ -1,10 +1,14 @@
 package projet.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -21,8 +25,9 @@ public class Surface {
 
 	private String couleur;
 
-	@OneToOne(mappedBy = "surface")
-	private Reservation reservation;
+	@OneToMany(mappedBy = "surface", fetch = FetchType.LAZY)
+	private List<Reservation> reservations;
+	
 	
 	public Surface() {}
 
@@ -60,12 +65,12 @@ public class Surface {
 		this.couleur = couleur;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+	public List<Reservation> getReservation() {
+		return reservations;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+	public void setReservation(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	@Override

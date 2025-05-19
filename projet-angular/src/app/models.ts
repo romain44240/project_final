@@ -39,7 +39,7 @@ export interface Reservation {
   fin: string;
   nbPersonne: number;
   client: Client;
-  employe: Employe;
+  employe?: Employe;
   surface: Surface;
   jeu?: Jeu;
 }
@@ -68,3 +68,13 @@ export interface Employe extends Compte {
 export interface CompteInfoResponse {
   reservations: Reservation[];
 }
+export interface ReservationRequest {
+  debut: string;
+  fin: string;
+  nbPersonne: number;
+  idClient: number;
+  idEmploye?: number;
+  idSurface: number;
+  idJeu?: number;
+}
+

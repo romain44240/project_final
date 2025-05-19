@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,37 +16,40 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="reservation")
+@Table(name = "reservation")
 public class Reservation {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private LocalDateTime debut;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private LocalDateTime fin;
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private int nbPersonne;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "employe_id")
 	private Employe employe;
-	
-	@OneToOne
+
+	@ManyToOne
+	@JoinColumn(name= "surface_id")
 	private Surface surface;
-	
-	@OneToOne
+
+	@ManyToOne
+	@JoinColumn(name = "jeu_id")
 	private Jeu jeu;
 
-	@OneToMany(mappedBy = "reservation")
+	@OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
 	private List<Achat> achats;
-	
-	public Reservation() {}
+
+	public Reservation() {
+	}
 
 	public Reservation(Integer id, LocalDateTime debut, LocalDateTime fin, int nbPersonne, Client client,
 			Employe employe, Surface surface, Jeu jeu, List<Achat> achats) {
