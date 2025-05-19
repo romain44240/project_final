@@ -3,9 +3,9 @@ package projet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +18,21 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.BufferingClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import projet.request.ConsommableRequest;
+import projet.request.EmployeRequest;
 import projet.request.JeuRequest;
 import projet.request.SurfaceRequest;
 import projet.response.ConsommableResponse;
 import projet.response.JeuResponse;
 import projet.response.SurfaceResponse;
+import projet.service.CompteService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("test")
@@ -48,6 +47,20 @@ public class RestTests {
 
     private HttpHeaders headers;
 
+    @BeforeAll
+    static void setup(@Autowired CompteService compteService) {
+        EmployeRequest employeRequest = new EmployeRequest();
+        employeRequest.setLogin("JulienL");
+        employeRequest.setPassword("employe1");
+        employeRequest.setNom("Lin");
+        employeRequest.setPrenom("Julien");
+        employeRequest.setEmail("jl@gmail.com");
+        employeRequest.setDateArrivee(LocalDate.now());
+        employeRequest.setPoste("Responsable des stocks");
+        employeRequest.setSalaire(2000);
+        compteService.createEmploye(employeRequest);
+    }
+
     @BeforeEach
     public void init() {
         this.mockMvc = MockMvcBuilders
@@ -56,16 +69,14 @@ public class RestTests {
 
         this.template = this.template.withBasicAuth("JulienL", "employe1");
 
-        String basicAuth = "Basic " + Base64.getEncoder().encodeToString("JulienL:employe1".getBytes(StandardCharsets.UTF_8));
         this.headers = new HttpHeaders();
-        this.headers.set("Authorization", basicAuth);
         this.headers.setContentType(MediaType.APPLICATION_JSON);
+        this.headers.setBasicAuth("JulienL", "employe1");
     }
 
     // ------------------------------------------------- //
     // -------------------- SURFACE -------------------- //
     // ------------------------------------------------- //
-
     
     @Test
     void getAllSurfaces() throws Exception {
@@ -80,7 +91,6 @@ public class RestTests {
         surfaceRequest.setCapacite(4);
         surfaceRequest.setCouleur("rouge");
 
-        // HttpEntity<SurfaceRequest> request = new HttpEntity<>(surfaceRequest, this.headers);
         HttpEntity<SurfaceRequest> request = new HttpEntity<>(surfaceRequest, this.headers);
         ResponseEntity<SurfaceResponse> response = template.postForEntity("/api/surface", request, SurfaceResponse.class);
         
