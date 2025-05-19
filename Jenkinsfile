@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                 dir('projet-final') {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'mvn clean package'
                 }
             }
         }

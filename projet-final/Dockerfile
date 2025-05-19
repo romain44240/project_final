@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN mvn clean package -DskipTests
+RUN mvn clean package
 
 FROM openjdk:21-jdk-bullseye
 
