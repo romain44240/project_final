@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                 dir('projet-final') {
-                    sh 'mvn clean package'
+                    sh 'mvn clean package -Dspring.profiles.active=test'
                 }
             }
         }
