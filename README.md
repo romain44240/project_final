@@ -1,4 +1,7 @@
 # project_final
+
+* ne pas oublier de lancer DBData avant de tenter d'utiliser l'application, premier jet de donnée. 
+
 ## CMD à connaitre 
 * docker-compose up -d (lancement de l'application)
 * docker-compose up --build -d (build et lancement de l'application)

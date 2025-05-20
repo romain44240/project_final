@@ -6,7 +6,7 @@ COPY . .
 # si problème de cache
 # RUN rm -rf node_modules package-lock.json
 
-RUN npm install jwt-decode && npm install
+RUN npm install
 
 RUN npm run build --prod
 
