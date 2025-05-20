@@ -100,7 +100,7 @@ export class ReservationComponent implements OnInit {
       debut: formData.date + 'T' + formData.heure + ':00',
       fin: this.getFinHoraire(formData.date, formData.heure, formData.duree),
       nbPersonne: formData.capacite,
-      idClient: clientId, // à remplacer par le vrai ID du client (ex: récupéré via le service d'auth)
+      idClient: clientId,
       idEmploye: formData.employe || undefined,
       idSurface: formData.table,
       idJeu: formData.jeux || undefined
